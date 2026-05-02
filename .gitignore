@@ -1,4 +1,6 @@
-﻿# User specific
+﻿_site/
+
+# User specific
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
 **/.idea/shelf/*
