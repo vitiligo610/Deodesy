@@ -1,0 +1,50 @@
+# Simple workflow for deploying DocFX content to GitHub Pages
+name: Deploy DocFX to Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Fixed syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x # Use a modern SDK to run DocFX tool
+
+      - name: Install DocFX
+        run: dotnet tool update -g docfx
+
+      - name: Build DocFX
+        # Replace 'docfx.json' with the actual path to your config file if it's in a subfolder
+        run: docfx docfx.json
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site' # This folder is created by the 'docfx' command above
+
+      - name: Deploy to GitHub Pages
+        id: deployment # This ID must match the 'steps.deployment' call above
+        uses: actions/deploy-pages@v4
