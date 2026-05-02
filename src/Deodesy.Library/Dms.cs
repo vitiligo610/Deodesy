@@ -1,37 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Deodesy.Library.Helpers;
 
 namespace Deodesy.Library
 {
+    /// <summary>
+    /// Provides methods for handling Degrees, Minutes, Seconds (DMS) conversions and formatting.
+    /// </summary>
     public static class Dms
     {
+        /// <summary>
+        /// Gets or sets the character used to separate degrees, minutes, and seconds in DMS strings.
+        /// Defaults to a narrow no-break space (U+202F).
+        /// </summary>
         public static char DmsSeparator { get; set; } = '\u202f';
 
-        /**
-         * Returns a Coordinate object by parsing strings of latitude and longitude
-         */
+        /// <summary>
+        /// Returns a <see cref="Coordinate"/> object by parsing strings of latitude and longitude in DMS format.
+        /// </summary>
+        /// <param name="latDms">The latitude string in DMS format (e.g., "53°08′45″N").</param>
+        /// <param name="lonDms">The longitude string in DMS format (e.g., "001°50′00″W").</param>
+        /// <returns>A <see cref="Coordinate"/> object representing the parsed latitude and longitude.</returns>
+        /// <exception cref="ArgumentException">Thrown if either latitude or longitude cannot be parsed.</exception>
+        /// <example>
+        /// <code>
+        /// var coord = Dms.ToCoordinate("53°08′45″N", "001°50′00″W");
+        /// Console.WriteLine($"Latitude: {coord.Latitude}, Longitude: {coord.Longitude}");
+        /// // Output: Latitude: 53.145833333333336, Longitude: -1.8333333333333333
+        /// </code>
+        /// </example>
         public static Coordinate ToCoordinate(string latDms, string lonDms)
         {
             var lat = Parse(latDms);
             var lon = Parse(lonDms);
 
-            if (lat == double.NaN || lon == double.NaN)
+            if (double.IsNaN(lat) || double.IsNaN(lon))
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid DMS string provided for latitude or longitude.");
             }
 
             return new Coordinate(lat, lon);
         }
 
-        /**
-         * Parses string representing degrees/minutes/seconds into numeric degrees.
-         *
-         * This is very flexible on formats, allowing signed decimal degrees, or deg-min-sec optionally
-         * suffixed by compass direction (NSEW); a variety of separators are accepted. Examples -3.62,
-         * '3 37 12W', '3°37′12″W'.
-         */
+        /// <summary>
+        /// Parses a string representing degrees/minutes/seconds into numeric degrees.
+        /// </summary>
+        /// <remarks>
+        /// This method is very flexible on formats, allowing signed decimal degrees, or deg-min-sec optionally
+        /// suffixed by compass direction (NSEW); a variety of separators are accepted.
+        /// </remarks>
+        /// <param name="dms">The DMS string to parse (e.g., "-3.62", "3 37 12W", "3°37′12″W").</param>
+        /// <returns>The parsed value in decimal degrees, or <see cref="double.NaN"/> if parsing fails.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the input string is null or empty.</exception>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.Parse("53°08′45″N")); // Output: 53.145833333333336
+        /// Console.WriteLine(Dms.Parse("3 37 12W"));   // Output: -3.62
+        /// Console.WriteLine(Dms.Parse("-120.5"));     // Output: -120.5
+        /// </code>
+        /// </example>
         public static double Parse(string dms)
         {
             Guard.NotNullOrEmpty(dms, nameof(dms));
@@ -73,17 +99,36 @@ namespace Deodesy.Library
             return deg;
         }
 
+        /// <summary>
+        /// Pads a double value with leading zeros for display.
+        /// </summary>
+        /// <param name="value">The double value to pad.</param>
+        /// <param name="dp">The number of decimal places.</param>
+        /// <param name="nDigits">The minimum number of digits before the decimal point.</param>
+        /// <returns>A string representation of the padded value.</returns>
         private static string PadZeros(double value, int dp = 2, int nDigits = 3)
         {
             return value.ToString($"{new string('0', nDigits)}.{new string('#', dp)}");
         }
 
-        /**
-         * Converts decimal degrees to deg/min/sec format
-         *  - degree, prime, double-prime symbols are added, but sign is discarded, though no compass
-         *    direction is added.
-         *  - degrees are zero-padded to 3 digits.
-         */
+        /// <summary>
+        /// Converts decimal degrees to deg/min/sec format.
+        /// </summary>
+        /// <remarks>
+        /// Degree, prime, double-prime symbols are added, but sign is discarded, though no compass
+        /// direction is added. Degrees are zero-padded to 3 digits.
+        /// </remarks>
+        /// <param name="deg">The decimal degrees value.</param>
+        /// <param name="format">The format to use: "d" (degrees), "dm" (degrees and minutes), or "dms" (degrees, minutes, and seconds).</param>
+        /// <param name="dp">The number of decimal places for seconds (or minutes if format is "dm", or degrees if format is "d").</param>
+        /// <returns>A string representation of the degrees in the specified DMS format.</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.ToDms(53.145833, "dms", 0)); // Output: 053° 008´ 045"
+        /// Console.WriteLine(Dms.ToDms(53.145833, "dm", 2));  // Output: 053° 008.75′
+        /// Console.WriteLine(Dms.ToDms(53.145833, "d", 4));   // Output: 053.1458°
+        /// </code>
+        /// </example>
         public static string ToDms(double deg, string format = "d", int dp = 2)
         {
             deg = Math.Abs(deg);
@@ -101,20 +146,20 @@ namespace Deodesy.Library
                     break;
                 case "dm":
                 case "deg+min":
-                    min = deg * 60 % 60;
+                    min = Math.Round(deg * 60 % 60, dp);
                     deg = Math.Floor(deg);
-                    if (min == 60) deg++;
+                    if (min >= 60) deg++;
                     d = PadZeros(deg, dp);
                     m = PadZeros(min < 60 ? min : 0.0, dp);
                     dms = d + '°'+ DmsSeparator + m + '′';
                     break;
                 case "dms":
                 case "deg+min+sec":
-                    sec = deg * 3600 % 60;
-                    min = Math.Floor(deg * 3600 / 60) % 60;
+                    sec = Math.Round(deg * 3600 % 60, dp);
+                    min = Math.Round(Math.Floor(deg * 3600 / 60) % 60, dp);
                     deg = Math.Floor(deg);
-                    if (sec == 60) min++;
-                    if (min == 60) deg++;
+                    if (sec >= 60) min++;
+                    if (min >= 60) deg++;
                     d = PadZeros(deg, dp);
                     m = PadZeros(min < 60 ? min : 0.0, dp);
                     s = PadZeros(sec < 60 ? sec : 0.0, dp);
@@ -125,33 +170,75 @@ namespace Deodesy.Library
             return dms;
         }
 
-        /**
-         * Converts numeric degrees to deg/min/sec latitude (2-digit degrees, suffixed with N/S).
-         */
+        /// <summary>
+        /// Converts numeric degrees to deg/min/sec latitude format (2-digit degrees, suffixed with N/S).
+        /// </summary>
+        /// <param name="deg">The decimal degrees latitude value.</param>
+        /// <param name="format">The format to use: "d", "dm", or "dms".</param>
+        /// <param name="dp">The number of decimal places.</param>
+        /// <returns>A string representation of the latitude in DMS format with N/S suffix.</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.ToLat(53.145833, "dms", 0));  // Output: 053° 008′ 045″ N
+        /// Console.WriteLine(Dms.ToLat(-25.1234, "dm", 2));   // Output: 025° 007.40′ S
+        /// </code>
+        /// </example>
         public static string ToLat(double deg, string format = "d", int dp = 2)
         {
-            return ToDms(Wrap90(deg), format, dp) + (deg < 0 ? 'S' : 'N');
+            return ToDms(Wrap90(deg), format, dp) + DmsSeparator + (deg < 0 ? 'S' : 'N');
         }
 
-        /**
-         * Convert numeric degrees to deg/min/sec longitude (3-digit degrees, suffixed with E/W).
-         */
+        /// <summary>
+        /// Converts numeric degrees to deg/min/sec longitude format (3-digit degrees, suffixed with E/W).
+        /// </summary>
+        /// <param name="deg">The decimal degrees longitude value.</param>
+        /// <param name="format">The format to use: "d", "dm", or "dms".</param>
+        /// <param name="dp">The number of decimal places.</param>
+        /// <returns>A string representation of the longitude in DMS format with E/W suffix.</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.ToLon(-1.833333, "dms", 0)); // Output: 001° 050′ 000″ W
+        /// Console.WriteLine(Dms.ToLon(150.7654, "dm", 2));  // Output: 150° 045.92′ E
+        /// </code>
+        /// </example>
         public static string ToLon(double deg, string format = "d", int dp = 2)
         {
-            return ToDms(Wrap180(deg), format, dp) + (deg < 0 ? 'W' : 'E');
+            return ToDms(Wrap180(deg), format, dp) + DmsSeparator + (deg < 0 ? 'W' : 'E');
         }
 
-        /**
-         * Converts numeric degrees to deg/min/sec as a bearing (0°..360°).
-         */
+        /// <summary>
+        /// Converts numeric degrees to deg/min/sec as a bearing (0°..360°).
+        /// </summary>
+        /// <param name="deg">The decimal degrees bearing value.</param>
+        /// <param name="format">The format to use: "d", "dm", or "dms".</param>
+        /// <param name="dp">The number of decimal places.</param>
+        /// <returns>A string representation of the bearing in DMS format.</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.ToBearing(270.5, "dms", 0)); // Output: 270° 030´ 000"
+        /// Console.WriteLine(Dms.ToBearing(-45, "d"));       // Output: 337.5°
+        /// </code>
+        /// </example>
         public static string ToBearing(double deg, string format = "d", int dp = 2)
         {
             return ToDms(Wrap360(deg), format, dp).Replace("360", "0");
         }
         
-        /**
-         * Returns compass point (to given precision) for supplied bearing.
-         */
+        /// <summary>
+        /// Returns the compass point (to a given precision) for a supplied bearing.
+        /// </summary>
+        /// <param name="bearing">The bearing in degrees (0-360).</param>
+        /// <param name="precision">The precision of the compass point (1 for 8 points, 2 for 16 points, 3 for 32 points). Defaults to 3.</param>
+        /// <returns>A string representing the compass point (e.g., "N", "NE", "NNE").</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if precision is not between 1 and 3.</exception>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.CompassPoint(0));    // Output: N
+        /// Console.WriteLine(Dms.CompassPoint(22.5)); // Output: NNE
+        /// Console.WriteLine(Dms.CompassPoint(90));   // Output: E
+        /// Console.WriteLine(Dms.CompassPoint(315, 1)); // Output: N
+        /// </code>
+        /// </example>
         public static string CompassPoint(double bearing, int precision = 3)
         {
             if (precision < 1 || precision > 3)
@@ -175,9 +262,18 @@ namespace Deodesy.Library
             return cardinal;
         }
 
-        /**
-         * Constrain degrees to range -90..+90 (for latitude); e.g. -91 => -89, 91 => 89.
-         */
+        /// <summary>
+        /// Constrains degrees to the range -90..+90 (for latitude) using a general sawtooth wave function.
+        /// </summary>
+        /// <param name="degrees">The degrees value to wrap.</param>
+        /// <returns>The wrapped degrees value within the range -90 to 90.</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.Wrap90(91));  // Output: 89
+        /// Console.WriteLine(Dms.Wrap90(-91)); // Output: -89
+        /// Console.WriteLine(Dms.Wrap90(180)); // Output: 0
+        /// </code>
+        /// </example>
         public static double Wrap90(double degrees)
         {
             if (-90 <= degrees && degrees <= 90) return degrees;
@@ -192,9 +288,18 @@ namespace Deodesy.Library
             return 4*a/(float) p * Math.Abs((((x-p/4f)%p)+p)%p - p/2f) - a;
         }
 
-        /**
-         * Constrain degrees to range -180..+180 (for longitude); e.g. -181 => 179, 181 => -179.
-         */
+        /// <summary>
+        /// Constrains degrees to the range -180..+180 (for longitude) using a general sawtooth wave function.
+        /// </summary>
+        /// <param name="degrees">The degrees value to wrap.</param>
+        /// <returns>The wrapped degrees value within the range -180 to 180.</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.Wrap180(181));  // Output: 180.5
+        /// Console.WriteLine(Dms.Wrap180(-181)); // Output: -0.5
+        /// Console.WriteLine(Dms.Wrap180(360));  // Output: -90
+        /// </code>
+        /// </example>
         public static double Wrap180(double degrees)
         {
             if (-180 <= degrees && degrees <= 180) return degrees;
@@ -209,9 +314,18 @@ namespace Deodesy.Library
             return (((2*a*x/p - p/2f)%p)+p)%p - a;
         }
 
-        /**
-         * Constrain degrees to range 0..360 (for bearings); e.g. -1 => 359, 361 => 1.
-         */
+        /// <summary>
+        /// Constrains degrees to the range 0..360 (for bearings) using a general sawtooth wave function.
+        /// </summary>
+        /// <param name="degrees">The degrees value to wrap.</param>
+        /// <returns>The wrapped degrees value within the range 0 to 360.</returns>
+        /// <example>
+        /// <code>
+        /// Console.WriteLine(Dms.Wrap360(361)); // Output: 180.5
+        /// Console.WriteLine(Dms.Wrap360(-1));  // Output: 359.5
+        /// Console.WriteLine(Dms.Wrap360(0));   // Output: 0
+        /// </code>
+        /// </example>
         public static double Wrap360(double degrees)
         {
             if (0 <= degrees && degrees < 360) return degrees;

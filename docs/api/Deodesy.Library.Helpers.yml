@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+- uid: Deodesy.Library.Helpers
+  commentId: N:Deodesy.Library.Helpers
+  id: Deodesy.Library.Helpers
+  children:
+  - Deodesy.Library.Helpers.Extensions
+  langs:
+  - csharp
+  - vb
+  name: Deodesy.Library.Helpers
+  nameWithType: Deodesy.Library.Helpers
+  fullName: Deodesy.Library.Helpers
+  type: Namespace
+  assemblies:
+  - Deodesy.Library
+references:
+- uid: Deodesy.Library.Helpers.Extensions
+  commentId: T:Deodesy.Library.Helpers.Extensions
+  href: Deodesy.Library.Helpers.Extensions.html
+  name: Extensions
+  nameWithType: Extensions
+  fullName: Deodesy.Library.Helpers.Extensions

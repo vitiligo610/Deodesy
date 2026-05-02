@@ -1,0 +1,978 @@
+### YamlMime:ManagedReference
+items:
+- uid: Deodesy.Library.Dms
+  commentId: T:Deodesy.Library.Dms
+  id: Dms
+  parent: Deodesy.Library
+  children:
+  - Deodesy.Library.Dms.CompassPoint(System.Double,System.Int32)
+  - Deodesy.Library.Dms.DmsSeparator
+  - Deodesy.Library.Dms.Parse(System.String)
+  - Deodesy.Library.Dms.ToBearing(System.Double,System.String,System.Int32)
+  - Deodesy.Library.Dms.ToCoordinate(System.String,System.String)
+  - Deodesy.Library.Dms.ToDms(System.Double,System.String,System.Int32)
+  - Deodesy.Library.Dms.ToLat(System.Double,System.String,System.Int32)
+  - Deodesy.Library.Dms.ToLon(System.Double,System.String,System.Int32)
+  - Deodesy.Library.Dms.Wrap180(System.Double)
+  - Deodesy.Library.Dms.Wrap360(System.Double)
+  - Deodesy.Library.Dms.Wrap90(System.Double)
+  langs:
+  - csharp
+  - vb
+  name: Dms
+  nameWithType: Dms
+  fullName: Deodesy.Library.Dms
+  type: Class
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Dms
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 8
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Provides methods for handling Degrees, Minutes, Seconds (DMS) conversions and formatting.
+  example: []
+  syntax:
+    content: public static class Dms
+    content.vb: Public Module Dms
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Deodesy.Library.Dms.DmsSeparator
+  commentId: P:Deodesy.Library.Dms.DmsSeparator
+  id: DmsSeparator
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: DmsSeparator
+  nameWithType: Dms.DmsSeparator
+  fullName: Deodesy.Library.Dms.DmsSeparator
+  type: Property
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: DmsSeparator
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 14
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: >-
+    Gets or sets the character used to separate degrees, minutes, and seconds in DMS strings.
+
+    Defaults to a narrow no-break space (U+202F).
+  example: []
+  syntax:
+    content: public static char DmsSeparator { get; set; }
+    parameters: []
+    return:
+      type: System.Char
+    content.vb: Public Shared Property DmsSeparator As Char
+  overload: Deodesy.Library.Dms.DmsSeparator*
+- uid: Deodesy.Library.Dms.ToCoordinate(System.String,System.String)
+  commentId: M:Deodesy.Library.Dms.ToCoordinate(System.String,System.String)
+  id: ToCoordinate(System.String,System.String)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: ToCoordinate(string, string)
+  nameWithType: Dms.ToCoordinate(string, string)
+  fullName: Deodesy.Library.Dms.ToCoordinate(string, string)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: ToCoordinate
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 30
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Returns a <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object by parsing strings of latitude and longitude in DMS format.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var coord = Dms.ToCoordinate("53°08′45″N", "001°50′00″W");
+
+    Console.WriteLine($"Latitude: {coord.Latitude}, Longitude: {coord.Longitude}");
+
+    // Output: Latitude: 53.145833333333336, Longitude: -1.8333333333333333</code></pre>
+  syntax:
+    content: public static Coordinate ToCoordinate(string latDms, string lonDms)
+    parameters:
+    - id: latDms
+      type: System.String
+      description: The latitude string in DMS format (e.g., "53°08′45″N").
+    - id: lonDms
+      type: System.String
+      description: The longitude string in DMS format (e.g., "001°50′00″W").
+    return:
+      type: Deodesy.Library.Coordinate
+      description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the parsed latitude and longitude.
+    content.vb: Public Shared Function ToCoordinate(latDms As String, lonDms As String) As Coordinate
+  overload: Deodesy.Library.Dms.ToCoordinate*
+  exceptions:
+  - type: System.ArgumentException
+    commentId: T:System.ArgumentException
+    description: Thrown if either latitude or longitude cannot be parsed.
+  nameWithType.vb: Dms.ToCoordinate(String, String)
+  fullName.vb: Deodesy.Library.Dms.ToCoordinate(String, String)
+  name.vb: ToCoordinate(String, String)
+- uid: Deodesy.Library.Dms.Parse(System.String)
+  commentId: M:Deodesy.Library.Dms.Parse(System.String)
+  id: Parse(System.String)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: Parse(string)
+  nameWithType: Dms.Parse(string)
+  fullName: Deodesy.Library.Dms.Parse(string)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Parse
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 60
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Parses a string representing degrees/minutes/seconds into numeric degrees.
+  remarks: >-
+    This method is very flexible on formats, allowing signed decimal degrees, or deg-min-sec optionally
+
+    suffixed by compass direction (NSEW); a variety of separators are accepted.
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.Parse("53°08′45″N")); // Output: 53.145833333333336
+
+    Console.WriteLine(Dms.Parse("3 37 12W"));   // Output: -3.62
+
+    Console.WriteLine(Dms.Parse("-120.5"));     // Output: -120.5</code></pre>
+  syntax:
+    content: public static double Parse(string dms)
+    parameters:
+    - id: dms
+      type: System.String
+      description: The DMS string to parse (e.g., "-3.62", "3 37 12W", "3°37′12″W").
+    return:
+      type: System.Double
+      description: The parsed value in decimal degrees, or <xref href="System.Double.NaN" data-throw-if-not-resolved="false"></xref> if parsing fails.
+    content.vb: Public Shared Function Parse(dms As String) As Double
+  overload: Deodesy.Library.Dms.Parse*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if the input string is null or empty.
+  nameWithType.vb: Dms.Parse(String)
+  fullName.vb: Deodesy.Library.Dms.Parse(String)
+  name.vb: Parse(String)
+- uid: Deodesy.Library.Dms.ToDms(System.Double,System.String,System.Int32)
+  commentId: M:Deodesy.Library.Dms.ToDms(System.Double,System.String,System.Int32)
+  id: ToDms(System.Double,System.String,System.Int32)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: ToDms(double, string, int)
+  nameWithType: Dms.ToDms(double, string, int)
+  fullName: Deodesy.Library.Dms.ToDms(double, string, int)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: ToDms
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 131
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Converts decimal degrees to deg/min/sec format.
+  remarks: >-
+    Degree, prime, double-prime symbols are added, but sign is discarded, though no compass
+
+    direction is added. Degrees are zero-padded to 3 digits.
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToDms(53.145833, "dms", 0)); // Output: 053° 008´ 045"
+
+    Console.WriteLine(Dms.ToDms(53.145833, "dm", 2));  // Output: 053° 008.75′
+
+    Console.WriteLine(Dms.ToDms(53.145833, "d", 4));   // Output: 053.1458°</code></pre>
+  syntax:
+    content: public static string ToDms(double deg, string format = "d", int dp = 2)
+    parameters:
+    - id: deg
+      type: System.Double
+      description: The decimal degrees value.
+    - id: format
+      type: System.String
+      description: 'The format to use: "d" (degrees), "dm" (degrees and minutes), or "dms" (degrees, minutes, and seconds).'
+    - id: dp
+      type: System.Int32
+      description: The number of decimal places for seconds (or minutes if format is "dm", or degrees if format is "d").
+    return:
+      type: System.String
+      description: A string representation of the degrees in the specified DMS format.
+    content.vb: Public Shared Function ToDms(deg As Double, format As String = "d", dp As Integer = 2) As String
+  overload: Deodesy.Library.Dms.ToDms*
+  nameWithType.vb: Dms.ToDms(Double, String, Integer)
+  fullName.vb: Deodesy.Library.Dms.ToDms(Double, String, Integer)
+  name.vb: ToDms(Double, String, Integer)
+- uid: Deodesy.Library.Dms.ToLat(System.Double,System.String,System.Int32)
+  commentId: M:Deodesy.Library.Dms.ToLat(System.Double,System.String,System.Int32)
+  id: ToLat(System.Double,System.String,System.Int32)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: ToLat(double, string, int)
+  nameWithType: Dms.ToLat(double, string, int)
+  fullName: Deodesy.Library.Dms.ToLat(double, string, int)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: ToLat
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 185
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Converts numeric degrees to deg/min/sec latitude format (2-digit degrees, suffixed with N/S).
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToLat(53.145833, "dms", 0));  // Output: 053° 008′ 045″ N
+
+    Console.WriteLine(Dms.ToLat(-25.1234, "dm", 2));   // Output: 025° 007.40′ S</code></pre>
+  syntax:
+    content: public static string ToLat(double deg, string format = "d", int dp = 2)
+    parameters:
+    - id: deg
+      type: System.Double
+      description: The decimal degrees latitude value.
+    - id: format
+      type: System.String
+      description: 'The format to use: "d", "dm", or "dms".'
+    - id: dp
+      type: System.Int32
+      description: The number of decimal places.
+    return:
+      type: System.String
+      description: A string representation of the latitude in DMS format with N/S suffix.
+    content.vb: Public Shared Function ToLat(deg As Double, format As String = "d", dp As Integer = 2) As String
+  overload: Deodesy.Library.Dms.ToLat*
+  nameWithType.vb: Dms.ToLat(Double, String, Integer)
+  fullName.vb: Deodesy.Library.Dms.ToLat(Double, String, Integer)
+  name.vb: ToLat(Double, String, Integer)
+- uid: Deodesy.Library.Dms.ToLon(System.Double,System.String,System.Int32)
+  commentId: M:Deodesy.Library.Dms.ToLon(System.Double,System.String,System.Int32)
+  id: ToLon(System.Double,System.String,System.Int32)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: ToLon(double, string, int)
+  nameWithType: Dms.ToLon(double, string, int)
+  fullName: Deodesy.Library.Dms.ToLon(double, string, int)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: ToLon
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 203
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Converts numeric degrees to deg/min/sec longitude format (3-digit degrees, suffixed with E/W).
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToLon(-1.833333, "dms", 0)); // Output: 001° 050′ 000″ W
+
+    Console.WriteLine(Dms.ToLon(150.7654, "dm", 2));  // Output: 150° 045.92′ E</code></pre>
+  syntax:
+    content: public static string ToLon(double deg, string format = "d", int dp = 2)
+    parameters:
+    - id: deg
+      type: System.Double
+      description: The decimal degrees longitude value.
+    - id: format
+      type: System.String
+      description: 'The format to use: "d", "dm", or "dms".'
+    - id: dp
+      type: System.Int32
+      description: The number of decimal places.
+    return:
+      type: System.String
+      description: A string representation of the longitude in DMS format with E/W suffix.
+    content.vb: Public Shared Function ToLon(deg As Double, format As String = "d", dp As Integer = 2) As String
+  overload: Deodesy.Library.Dms.ToLon*
+  nameWithType.vb: Dms.ToLon(Double, String, Integer)
+  fullName.vb: Deodesy.Library.Dms.ToLon(Double, String, Integer)
+  name.vb: ToLon(Double, String, Integer)
+- uid: Deodesy.Library.Dms.ToBearing(System.Double,System.String,System.Int32)
+  commentId: M:Deodesy.Library.Dms.ToBearing(System.Double,System.String,System.Int32)
+  id: ToBearing(System.Double,System.String,System.Int32)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: ToBearing(double, string, int)
+  nameWithType: Dms.ToBearing(double, string, int)
+  fullName: Deodesy.Library.Dms.ToBearing(double, string, int)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: ToBearing
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 221
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Converts numeric degrees to deg/min/sec as a bearing (0°..360°).
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToBearing(270.5, "dms", 0)); // Output: 270° 030´ 000"
+
+    Console.WriteLine(Dms.ToBearing(-45, "d"));       // Output: 337.5°</code></pre>
+  syntax:
+    content: public static string ToBearing(double deg, string format = "d", int dp = 2)
+    parameters:
+    - id: deg
+      type: System.Double
+      description: The decimal degrees bearing value.
+    - id: format
+      type: System.String
+      description: 'The format to use: "d", "dm", or "dms".'
+    - id: dp
+      type: System.Int32
+      description: The number of decimal places.
+    return:
+      type: System.String
+      description: A string representation of the bearing in DMS format.
+    content.vb: Public Shared Function ToBearing(deg As Double, format As String = "d", dp As Integer = 2) As String
+  overload: Deodesy.Library.Dms.ToBearing*
+  nameWithType.vb: Dms.ToBearing(Double, String, Integer)
+  fullName.vb: Deodesy.Library.Dms.ToBearing(Double, String, Integer)
+  name.vb: ToBearing(Double, String, Integer)
+- uid: Deodesy.Library.Dms.CompassPoint(System.Double,System.Int32)
+  commentId: M:Deodesy.Library.Dms.CompassPoint(System.Double,System.Int32)
+  id: CompassPoint(System.Double,System.Int32)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: CompassPoint(double, int)
+  nameWithType: Dms.CompassPoint(double, int)
+  fullName: Deodesy.Library.Dms.CompassPoint(double, int)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: CompassPoint
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 241
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Returns the compass point (to a given precision) for a supplied bearing.
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.CompassPoint(0));    // Output: N
+
+    Console.WriteLine(Dms.CompassPoint(22.5)); // Output: NNE
+
+    Console.WriteLine(Dms.CompassPoint(90));   // Output: E
+
+    Console.WriteLine(Dms.CompassPoint(315, 1)); // Output: N</code></pre>
+  syntax:
+    content: public static string CompassPoint(double bearing, int precision = 3)
+    parameters:
+    - id: bearing
+      type: System.Double
+      description: The bearing in degrees (0-360).
+    - id: precision
+      type: System.Int32
+      description: The precision of the compass point (1 for 8 points, 2 for 16 points, 3 for 32 points). Defaults to 3.
+    return:
+      type: System.String
+      description: A string representing the compass point (e.g., "N", "NE", "NNE").
+    content.vb: Public Shared Function CompassPoint(bearing As Double, precision As Integer = 3) As String
+  overload: Deodesy.Library.Dms.CompassPoint*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: Thrown if precision is not between 1 and 3.
+  nameWithType.vb: Dms.CompassPoint(Double, Integer)
+  fullName.vb: Deodesy.Library.Dms.CompassPoint(Double, Integer)
+  name.vb: CompassPoint(Double, Integer)
+- uid: Deodesy.Library.Dms.Wrap90(System.Double)
+  commentId: M:Deodesy.Library.Dms.Wrap90(System.Double)
+  id: Wrap90(System.Double)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: Wrap90(double)
+  nameWithType: Dms.Wrap90(double)
+  fullName: Deodesy.Library.Dms.Wrap90(double)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Wrap90
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 276
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Constrains degrees to the range -90..+90 (for latitude) using a general sawtooth wave function.
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap90(91));  // Output: 89
+
+    Console.WriteLine(Dms.Wrap90(-91)); // Output: -89
+
+    Console.WriteLine(Dms.Wrap90(180)); // Output: 0</code></pre>
+  syntax:
+    content: public static double Wrap90(double degrees)
+    parameters:
+    - id: degrees
+      type: System.Double
+      description: The degrees value to wrap.
+    return:
+      type: System.Double
+      description: The wrapped degrees value within the range -90 to 90.
+    content.vb: Public Shared Function Wrap90(degrees As Double) As Double
+  overload: Deodesy.Library.Dms.Wrap90*
+  nameWithType.vb: Dms.Wrap90(Double)
+  fullName.vb: Deodesy.Library.Dms.Wrap90(Double)
+  name.vb: Wrap90(Double)
+- uid: Deodesy.Library.Dms.Wrap180(System.Double)
+  commentId: M:Deodesy.Library.Dms.Wrap180(System.Double)
+  id: Wrap180(System.Double)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: Wrap180(double)
+  nameWithType: Dms.Wrap180(double)
+  fullName: Deodesy.Library.Dms.Wrap180(double)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Wrap180
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 302
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Constrains degrees to the range -180..+180 (for longitude) using a general sawtooth wave function.
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap180(181));  // Output: 180.5
+
+    Console.WriteLine(Dms.Wrap180(-181)); // Output: -0.5
+
+    Console.WriteLine(Dms.Wrap180(360));  // Output: -90</code></pre>
+  syntax:
+    content: public static double Wrap180(double degrees)
+    parameters:
+    - id: degrees
+      type: System.Double
+      description: The degrees value to wrap.
+    return:
+      type: System.Double
+      description: The wrapped degrees value within the range -180 to 180.
+    content.vb: Public Shared Function Wrap180(degrees As Double) As Double
+  overload: Deodesy.Library.Dms.Wrap180*
+  nameWithType.vb: Dms.Wrap180(Double)
+  fullName.vb: Deodesy.Library.Dms.Wrap180(Double)
+  name.vb: Wrap180(Double)
+- uid: Deodesy.Library.Dms.Wrap360(System.Double)
+  commentId: M:Deodesy.Library.Dms.Wrap360(System.Double)
+  id: Wrap360(System.Double)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: Wrap360(double)
+  nameWithType: Dms.Wrap360(double)
+  fullName: Deodesy.Library.Dms.Wrap360(double)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Wrap360
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 328
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Constrains degrees to the range 0..360 (for bearings) using a general sawtooth wave function.
+  example:
+  - >-
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap360(361)); // Output: 180.5
+
+    Console.WriteLine(Dms.Wrap360(-1));  // Output: 359.5
+
+    Console.WriteLine(Dms.Wrap360(0));   // Output: 0</code></pre>
+  syntax:
+    content: public static double Wrap360(double degrees)
+    parameters:
+    - id: degrees
+      type: System.Double
+      description: The degrees value to wrap.
+    return:
+      type: System.Double
+      description: The wrapped degrees value within the range 0 to 360.
+    content.vb: Public Shared Function Wrap360(degrees As Double) As Double
+  overload: Deodesy.Library.Dms.Wrap360*
+  nameWithType.vb: Dms.Wrap360(Double)
+  fullName.vb: Deodesy.Library.Dms.Wrap360(Double)
+  name.vb: Wrap360(Double)
+references:
+- uid: Deodesy.Library
+  commentId: N:Deodesy.Library
+  href: Deodesy.html
+  name: Deodesy.Library
+  nameWithType: Deodesy.Library
+  fullName: Deodesy.Library
+  spec.csharp:
+  - uid: Deodesy
+    name: Deodesy
+    href: Deodesy.html
+  - name: .
+  - uid: Deodesy.Library
+    name: Library
+    href: Deodesy.Library.html
+  spec.vb:
+  - uid: Deodesy
+    name: Deodesy
+    href: Deodesy.html
+  - name: .
+  - uid: Deodesy.Library
+    name: Library
+    href: Deodesy.Library.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Deodesy.Library.Dms.DmsSeparator*
+  commentId: Overload:Deodesy.Library.Dms.DmsSeparator
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_DmsSeparator
+  name: DmsSeparator
+  nameWithType: Dms.DmsSeparator
+  fullName: Deodesy.Library.Dms.DmsSeparator
+- uid: System.Char
+  commentId: T:System.Char
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.char
+  name: char
+  nameWithType: char
+  fullName: char
+  nameWithType.vb: Char
+  fullName.vb: Char
+  name.vb: Char
+- uid: Deodesy.Library.Coordinate
+  commentId: T:Deodesy.Library.Coordinate
+  parent: Deodesy.Library
+  href: Deodesy.Library.Coordinate.html
+  name: Coordinate
+  nameWithType: Coordinate
+  fullName: Deodesy.Library.Coordinate
+- uid: System.ArgumentException
+  commentId: T:System.ArgumentException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentexception
+  name: ArgumentException
+  nameWithType: ArgumentException
+  fullName: System.ArgumentException
+- uid: Deodesy.Library.Dms.ToCoordinate*
+  commentId: Overload:Deodesy.Library.Dms.ToCoordinate
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToCoordinate_System_String_System_String_
+  name: ToCoordinate
+  nameWithType: Dms.ToCoordinate
+  fullName: Deodesy.Library.Dms.ToCoordinate
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Double.NaN
+  commentId: F:System.Double.NaN
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double.nan
+  name: NaN
+  nameWithType: double.NaN
+  fullName: double.NaN
+  nameWithType.vb: Double.NaN
+  fullName.vb: Double.NaN
+- uid: System.ArgumentNullException
+  commentId: T:System.ArgumentNullException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentnullexception
+  name: ArgumentNullException
+  nameWithType: ArgumentNullException
+  fullName: System.ArgumentNullException
+- uid: Deodesy.Library.Dms.Parse*
+  commentId: Overload:Deodesy.Library.Dms.Parse
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_Parse_System_String_
+  name: Parse
+  nameWithType: Dms.Parse
+  fullName: Deodesy.Library.Dms.Parse
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Deodesy.Library.Dms.ToDms*
+  commentId: Overload:Deodesy.Library.Dms.ToDms
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToDms_System_Double_System_String_System_Int32_
+  name: ToDms
+  nameWithType: Dms.ToDms
+  fullName: Deodesy.Library.Dms.ToDms
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: Deodesy.Library.Dms.ToLat*
+  commentId: Overload:Deodesy.Library.Dms.ToLat
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToLat_System_Double_System_String_System_Int32_
+  name: ToLat
+  nameWithType: Dms.ToLat
+  fullName: Deodesy.Library.Dms.ToLat
+- uid: Deodesy.Library.Dms.ToLon*
+  commentId: Overload:Deodesy.Library.Dms.ToLon
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToLon_System_Double_System_String_System_Int32_
+  name: ToLon
+  nameWithType: Dms.ToLon
+  fullName: Deodesy.Library.Dms.ToLon
+- uid: Deodesy.Library.Dms.ToBearing*
+  commentId: Overload:Deodesy.Library.Dms.ToBearing
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToBearing_System_Double_System_String_System_Int32_
+  name: ToBearing
+  nameWithType: Dms.ToBearing
+  fullName: Deodesy.Library.Dms.ToBearing
+- uid: System.ArgumentOutOfRangeException
+  commentId: T:System.ArgumentOutOfRangeException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception
+  name: ArgumentOutOfRangeException
+  nameWithType: ArgumentOutOfRangeException
+  fullName: System.ArgumentOutOfRangeException
+- uid: Deodesy.Library.Dms.CompassPoint*
+  commentId: Overload:Deodesy.Library.Dms.CompassPoint
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_CompassPoint_System_Double_System_Int32_
+  name: CompassPoint
+  nameWithType: Dms.CompassPoint
+  fullName: Deodesy.Library.Dms.CompassPoint
+- uid: Deodesy.Library.Dms.Wrap90*
+  commentId: Overload:Deodesy.Library.Dms.Wrap90
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_Wrap90_System_Double_
+  name: Wrap90
+  nameWithType: Dms.Wrap90
+  fullName: Deodesy.Library.Dms.Wrap90
+- uid: Deodesy.Library.Dms.Wrap180*
+  commentId: Overload:Deodesy.Library.Dms.Wrap180
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_Wrap180_System_Double_
+  name: Wrap180
+  nameWithType: Dms.Wrap180
+  fullName: Deodesy.Library.Dms.Wrap180
+- uid: Deodesy.Library.Dms.Wrap360*
+  commentId: Overload:Deodesy.Library.Dms.Wrap360
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_Wrap360_System_Double_
+  name: Wrap360
+  nameWithType: Dms.Wrap360
+  fullName: Deodesy.Library.Dms.Wrap360

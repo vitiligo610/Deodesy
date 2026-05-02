@@ -1,0 +1,23 @@
+### YamlMime:TableOfContent
+items:
+- uid: Deodesy.Library
+  name: Deodesy.Library
+  type: Namespace
+  items:
+  - uid: Deodesy.Library.Coordinate
+    name: Coordinate
+    type: Class
+  - uid: Deodesy.Library.Dms
+    name: Dms
+    type: Class
+  - uid: Deodesy.Library.LatLonSpherical
+    name: LatLonSpherical
+    type: Class
+- uid: Deodesy.Library.Helpers
+  name: Deodesy.Library.Helpers
+  type: Namespace
+  items:
+  - uid: Deodesy.Library.Helpers.Extensions
+    name: Extensions
+    type: Class
+memberLayout: SamePage

@@ -1,0 +1,763 @@
+### YamlMime:ManagedReference
+items:
+- uid: Deodesy.Library.Coordinate
+  commentId: T:Deodesy.Library.Coordinate
+  id: Coordinate
+  parent: Deodesy.Library
+  children:
+  - Deodesy.Library.Coordinate.#ctor(System.Double,System.Double)
+  - Deodesy.Library.Coordinate.Equals(System.Object)
+  - Deodesy.Library.Coordinate.GetHashCode
+  - Deodesy.Library.Coordinate.Latitude
+  - Deodesy.Library.Coordinate.LatitudeR
+  - Deodesy.Library.Coordinate.Longitude
+  - Deodesy.Library.Coordinate.LongitudeR
+  - Deodesy.Library.Coordinate.op_Equality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.Coordinate.op_Inequality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  langs:
+  - csharp
+  - vb
+  name: Coordinate
+  nameWithType: Coordinate
+  fullName: Deodesy.Library.Coordinate
+  type: Class
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Coordinate
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 8
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Represents a point on the Earth's surface using Latitude and Longitude.
+  example: []
+  syntax:
+    content: public class Coordinate
+    content.vb: Public Class Coordinate
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
+- uid: Deodesy.Library.Coordinate.Latitude
+  commentId: P:Deodesy.Library.Coordinate.Latitude
+  id: Latitude
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: Latitude
+  nameWithType: Coordinate.Latitude
+  fullName: Deodesy.Library.Coordinate.Latitude
+  type: Property
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Latitude
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 24
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: >-
+    Gets or sets the latitude in degrees.
+
+    The value is wrapped to the range -90 to 90.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var coord = new Coordinate(95, 0);
+
+    Console.WriteLine(coord.Latitude); // Output: 85</code></pre>
+  syntax:
+    content: public double Latitude { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Latitude As Double
+  overload: Deodesy.Library.Coordinate.Latitude*
+- uid: Deodesy.Library.Coordinate.Longitude
+  commentId: P:Deodesy.Library.Coordinate.Longitude
+  id: Longitude
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: Longitude
+  nameWithType: Coordinate.Longitude
+  fullName: Deodesy.Library.Coordinate.Longitude
+  type: Property
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Longitude
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 40
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: >-
+    Gets or sets the longitude in degrees.
+
+    The value is wrapped to the range -180 to 180.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var coord = new Coordinate(0, 185);
+
+    Console.WriteLine(coord.Longitude); // Output: 182.5</code></pre>
+  syntax:
+    content: public double Longitude { get; set; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public Property Longitude As Double
+  overload: Deodesy.Library.Coordinate.Longitude*
+- uid: Deodesy.Library.Coordinate.#ctor(System.Double,System.Double)
+  commentId: M:Deodesy.Library.Coordinate.#ctor(System.Double,System.Double)
+  id: '#ctor(System.Double,System.Double)'
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: Coordinate(double, double)
+  nameWithType: Coordinate.Coordinate(double, double)
+  fullName: Deodesy.Library.Coordinate.Coordinate(double, double)
+  type: Constructor
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: .ctor
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 57
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Initializes a new instance of the <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> class.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var coord1 = new Coordinate(); // Latitude: 0, Longitude: 0
+
+    var coord2 = new Coordinate(30, -120); // Latitude: 30, Longitude: -120</code></pre>
+  syntax:
+    content: public Coordinate(double latitude = 0, double longitude = 0)
+    parameters:
+    - id: latitude
+      type: System.Double
+      description: The latitude in degrees (-90 to 90). Defaults to 0.
+    - id: longitude
+      type: System.Double
+      description: The longitude in degrees (-180 to 180). Defaults to 0.
+    content.vb: Public Sub New(latitude As Double = 0, longitude As Double = 0)
+  overload: Deodesy.Library.Coordinate.#ctor*
+  nameWithType.vb: Coordinate.New(Double, Double)
+  fullName.vb: Deodesy.Library.Coordinate.New(Double, Double)
+  name.vb: New(Double, Double)
+- uid: Deodesy.Library.Coordinate.LatitudeR
+  commentId: P:Deodesy.Library.Coordinate.LatitudeR
+  id: LatitudeR
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: LatitudeR
+  nameWithType: Coordinate.LatitudeR
+  fullName: Deodesy.Library.Coordinate.LatitudeR
+  type: Property
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: LatitudeR
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 72
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Returns Latitude in Radians.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var coord = new Coordinate(90, 0);
+
+    Console.WriteLine(coord.LatitudeR); // Output: 1.5707963267948966 (PI/2)</code></pre>
+  syntax:
+    content: public double LatitudeR { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public ReadOnly Property LatitudeR As Double
+  overload: Deodesy.Library.Coordinate.LatitudeR*
+- uid: Deodesy.Library.Coordinate.LongitudeR
+  commentId: P:Deodesy.Library.Coordinate.LongitudeR
+  id: LongitudeR
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: LongitudeR
+  nameWithType: Coordinate.LongitudeR
+  fullName: Deodesy.Library.Coordinate.LongitudeR
+  type: Property
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: LongitudeR
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 83
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Returns Longitude in Radians.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var coord = new Coordinate(0, 180);
+
+    Console.WriteLine(coord.LongitudeR); // Output: 3.141592653589793 (PI)</code></pre>
+  syntax:
+    content: public double LongitudeR { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public ReadOnly Property LongitudeR As Double
+  overload: Deodesy.Library.Coordinate.LongitudeR*
+- uid: Deodesy.Library.Coordinate.op_Equality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.Coordinate.op_Equality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: op_Equality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: operator ==(Coordinate?, Coordinate?)
+  nameWithType: Coordinate.operator ==(Coordinate?, Coordinate?)
+  fullName: Deodesy.Library.Coordinate.operator ==(Deodesy.Library.Coordinate?, Deodesy.Library.Coordinate?)
+  type: Operator
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: op_Equality
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 91
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Compares two <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> objects for equality.
+  example: []
+  syntax:
+    content: public static bool operator ==(Coordinate? left, Coordinate? right)
+    parameters:
+    - id: left
+      type: Deodesy.Library.Coordinate
+      description: The first <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> to compare.
+    - id: right
+      type: Deodesy.Library.Coordinate
+      description: The second <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> to compare.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if the coordinates are equal; otherwise, <code>false</code>.
+    content.vb: Public Shared Operator =(left As Coordinate, right As Coordinate) As Boolean
+  overload: Deodesy.Library.Coordinate.op_Equality*
+  nameWithType.vb: Coordinate.=(Coordinate, Coordinate)
+  fullName.vb: Deodesy.Library.Coordinate.=(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  name.vb: =(Coordinate, Coordinate)
+- uid: Deodesy.Library.Coordinate.op_Inequality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.Coordinate.op_Inequality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: op_Inequality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: operator !=(Coordinate, Coordinate)
+  nameWithType: Coordinate.operator !=(Coordinate, Coordinate)
+  fullName: Deodesy.Library.Coordinate.operator !=(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  type: Operator
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: op_Inequality
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 100
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Compares two <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> objects for inequality.
+  example: []
+  syntax:
+    content: public static bool operator !=(Coordinate left, Coordinate right)
+    parameters:
+    - id: left
+      type: Deodesy.Library.Coordinate
+      description: The first <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> to compare.
+    - id: right
+      type: Deodesy.Library.Coordinate
+      description: The second <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> to compare.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if the coordinates are not equal; otherwise, <code>false</code>.
+    content.vb: Public Shared Operator <>(left As Coordinate, right As Coordinate) As Boolean
+  overload: Deodesy.Library.Coordinate.op_Inequality*
+  nameWithType.vb: Coordinate.<>(Coordinate, Coordinate)
+  fullName.vb: Deodesy.Library.Coordinate.<>(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  name.vb: <>(Coordinate, Coordinate)
+- uid: Deodesy.Library.Coordinate.Equals(System.Object)
+  commentId: M:Deodesy.Library.Coordinate.Equals(System.Object)
+  id: Equals(System.Object)
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: Equals(object?)
+  nameWithType: Coordinate.Equals(object?)
+  fullName: Deodesy.Library.Coordinate.Equals(object?)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Equals
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 119
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Determines whether the specified <xref href="System.Object" data-throw-if-not-resolved="false"></xref> is equal to the current <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object.
+  example: []
+  syntax:
+    content: public override bool Equals(object? obj)
+    parameters:
+    - id: obj
+      type: System.Object
+      description: The <xref href="System.Object" data-throw-if-not-resolved="false"></xref> to compare with the current object.
+    return:
+      type: System.Boolean
+      description: <code>true</code> if the specified <xref href="System.Object" data-throw-if-not-resolved="false"></xref> is equal to the current object; otherwise, <code>false</code>.
+    content.vb: Public Overrides Function Equals(obj As Object) As Boolean
+  overridden: System.Object.Equals(System.Object)
+  overload: Deodesy.Library.Coordinate.Equals*
+  nameWithType.vb: Coordinate.Equals(Object)
+  fullName.vb: Deodesy.Library.Coordinate.Equals(Object)
+  name.vb: Equals(Object)
+- uid: Deodesy.Library.Coordinate.GetHashCode
+  commentId: M:Deodesy.Library.Coordinate.GetHashCode
+  id: GetHashCode
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: GetHashCode()
+  nameWithType: Coordinate.GetHashCode()
+  fullName: Deodesy.Library.Coordinate.GetHashCode()
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: GetHashCode
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 131
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Serves as the default hash function.
+  example: []
+  syntax:
+    content: public override int GetHashCode()
+    return:
+      type: System.Int32
+      description: A hash code for the current object.
+    content.vb: Public Overrides Function GetHashCode() As Integer
+  overridden: System.Object.GetHashCode
+  overload: Deodesy.Library.Coordinate.GetHashCode*
+references:
+- uid: Deodesy.Library
+  commentId: N:Deodesy.Library
+  href: Deodesy.html
+  name: Deodesy.Library
+  nameWithType: Deodesy.Library
+  fullName: Deodesy.Library
+  spec.csharp:
+  - uid: Deodesy
+    name: Deodesy
+    href: Deodesy.html
+  - name: .
+  - uid: Deodesy.Library
+    name: Library
+    href: Deodesy.Library.html
+  spec.vb:
+  - uid: Deodesy
+    name: Deodesy
+    href: Deodesy.html
+  - name: .
+  - uid: Deodesy.Library
+    name: Library
+    href: Deodesy.Library.html
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  name: Equals(object, object)
+  nameWithType: object.Equals(object, object)
+  fullName: object.Equals(object, object)
+  nameWithType.vb: Object.Equals(Object, Object)
+  fullName.vb: Object.Equals(Object, Object)
+  name.vb: Equals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object-system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  name: GetType()
+  nameWithType: object.GetType()
+  fullName: object.GetType()
+  nameWithType.vb: Object.GetType()
+  fullName.vb: Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gettype
+  - name: (
+  - name: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  name: MemberwiseClone()
+  nameWithType: object.MemberwiseClone()
+  fullName: object.MemberwiseClone()
+  nameWithType.vb: Object.MemberwiseClone()
+  fullName.vb: Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.memberwiseclone
+  - name: (
+  - name: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  name: ReferenceEquals(object, object)
+  nameWithType: object.ReferenceEquals(object, object)
+  fullName: object.ReferenceEquals(object, object)
+  nameWithType.vb: Object.ReferenceEquals(Object, Object)
+  fullName.vb: Object.ReferenceEquals(Object, Object)
+  name.vb: ReferenceEquals(Object, Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.referenceequals
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: ','
+  - name: " "
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  name: ToString()
+  nameWithType: object.ToString()
+  fullName: object.ToString()
+  nameWithType.vb: Object.ToString()
+  fullName.vb: Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.tostring
+  - name: (
+  - name: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: Deodesy.Library.Coordinate.Latitude*
+  commentId: Overload:Deodesy.Library.Coordinate.Latitude
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_Latitude
+  name: Latitude
+  nameWithType: Coordinate.Latitude
+  fullName: Deodesy.Library.Coordinate.Latitude
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double
+  nameWithType: double
+  fullName: double
+  nameWithType.vb: Double
+  fullName.vb: Double
+  name.vb: Double
+- uid: Deodesy.Library.Coordinate.Longitude*
+  commentId: Overload:Deodesy.Library.Coordinate.Longitude
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_Longitude
+  name: Longitude
+  nameWithType: Coordinate.Longitude
+  fullName: Deodesy.Library.Coordinate.Longitude
+- uid: Deodesy.Library.Coordinate
+  commentId: T:Deodesy.Library.Coordinate
+  parent: Deodesy.Library
+  href: Deodesy.Library.Coordinate.html
+  name: Coordinate
+  nameWithType: Coordinate
+  fullName: Deodesy.Library.Coordinate
+- uid: Deodesy.Library.Coordinate.#ctor*
+  commentId: Overload:Deodesy.Library.Coordinate.#ctor
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate__ctor_System_Double_System_Double_
+  name: Coordinate
+  nameWithType: Coordinate.Coordinate
+  fullName: Deodesy.Library.Coordinate.Coordinate
+  nameWithType.vb: Coordinate.New
+  fullName.vb: Deodesy.Library.Coordinate.New
+  name.vb: New
+- uid: Deodesy.Library.Coordinate.LatitudeR*
+  commentId: Overload:Deodesy.Library.Coordinate.LatitudeR
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_LatitudeR
+  name: LatitudeR
+  nameWithType: Coordinate.LatitudeR
+  fullName: Deodesy.Library.Coordinate.LatitudeR
+- uid: Deodesy.Library.Coordinate.LongitudeR*
+  commentId: Overload:Deodesy.Library.Coordinate.LongitudeR
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_LongitudeR
+  name: LongitudeR
+  nameWithType: Coordinate.LongitudeR
+  fullName: Deodesy.Library.Coordinate.LongitudeR
+- uid: Deodesy.Library.Coordinate.op_Equality*
+  commentId: Overload:Deodesy.Library.Coordinate.op_Equality
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_op_Equality_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: operator ==
+  nameWithType: Coordinate.operator ==
+  fullName: Deodesy.Library.Coordinate.operator ==
+  nameWithType.vb: Coordinate.=
+  fullName.vb: Deodesy.Library.Coordinate.=
+  name.vb: =
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: Deodesy.Library.Coordinate.op_Equality*
+    name: ==
+    href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_op_Equality_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: Deodesy.Library.Coordinate.op_Inequality*
+  commentId: Overload:Deodesy.Library.Coordinate.op_Inequality
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_op_Inequality_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: operator !=
+  nameWithType: Coordinate.operator !=
+  fullName: Deodesy.Library.Coordinate.operator !=
+  nameWithType.vb: Coordinate.<>
+  fullName.vb: Deodesy.Library.Coordinate.<>
+  name.vb: <>
+  spec.csharp:
+  - name: operator
+  - name: " "
+  - uid: Deodesy.Library.Coordinate.op_Inequality*
+    name: '!='
+    href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_op_Inequality_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  name: Equals(object)
+  nameWithType: object.Equals(object)
+  fullName: object.Equals(object)
+  nameWithType.vb: Object.Equals(Object)
+  fullName.vb: Object.Equals(Object)
+  name.vb: Equals(Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.equals#system-object-equals(system-object)
+  - name: (
+  - uid: System.Object
+    name: Object
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object
+  - name: )
+- uid: Deodesy.Library.Coordinate.Equals*
+  commentId: Overload:Deodesy.Library.Coordinate.Equals
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_Equals_System_Object_
+  name: Equals
+  nameWithType: Coordinate.Equals
+  fullName: Deodesy.Library.Coordinate.Equals
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  name: GetHashCode()
+  nameWithType: object.GetHashCode()
+  fullName: object.GetHashCode()
+  nameWithType.vb: Object.GetHashCode()
+  fullName.vb: Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.object.gethashcode
+  - name: (
+  - name: )
+- uid: Deodesy.Library.Coordinate.GetHashCode*
+  commentId: Overload:Deodesy.Library.Coordinate.GetHashCode
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_GetHashCode
+  name: GetHashCode
+  nameWithType: Coordinate.GetHashCode
+  fullName: Deodesy.Library.Coordinate.GetHashCode
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer

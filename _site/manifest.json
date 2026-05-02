@@ -1,0 +1,182 @@
+{
+  "source_base_path": "D:/dev/csharp/Deodesy",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Deodesy.Library.Coordinate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Deodesy.Library.Coordinate.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deodesy.Library.Coordinate",
+      "Summary": "<p sourcefile=\"docs/api/Deodesy.Library.Coordinate.yml\" sourcestartlinenumber=\"1\">Represents a point on the Earth's surface using Latitude and Longitude.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Deodesy.Library.Dms.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Deodesy.Library.Dms.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deodesy.Library.Dms",
+      "Summary": "<p sourcefile=\"docs/api/Deodesy.Library.Dms.yml\" sourcestartlinenumber=\"1\">Provides methods for handling Degrees, Minutes, Seconds (DMS) conversions and formatting.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Deodesy.Library.Helpers.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Deodesy.Library.Helpers.Extensions.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deodesy.Library.Helpers.Extensions",
+      "Summary": "<p sourcefile=\"docs/api/Deodesy.Library.Helpers.Extensions.yml\" sourcestartlinenumber=\"1\">Provides extension methods for various numeric operations, particularly for geographical calculations.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Deodesy.Library.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Deodesy.Library.Helpers.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deodesy.Library.Helpers",
+      "Summary": null
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Deodesy.Library.LatLonSpherical.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Deodesy.Library.LatLonSpherical.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deodesy.Library.LatLonSpherical",
+      "Summary": "<p sourcefile=\"docs/api/Deodesy.Library.LatLonSpherical.yml\" sourcestartlinenumber=\"1\">Provides functions for spherical geodesy, based on the Haversine formula and other spherical geometry calculations.\nThese functions are adapted from Chris Veness's original JavaScript geodesy library.</p>\n"
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "docs/api/Deodesy.Library.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/Deodesy.Library.html"
+        }
+      },
+      "version": "",
+      "Uid": null,
+      "IsMRef": true,
+      "Title": "Deodesy.Library",
+      "Summary": null
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/api/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/md/getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/md/getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/md/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/md/introduction.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "docs/md/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "docs/md/toc.html"
+        },
+        ".json": {
+          "relative_path": "docs/md/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

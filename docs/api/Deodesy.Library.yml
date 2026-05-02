@@ -1,0 +1,60 @@
+### YamlMime:ManagedReference
+items:
+- uid: Deodesy.Library
+  commentId: N:Deodesy.Library
+  id: Deodesy.Library
+  children:
+  - Deodesy.Library.Coordinate
+  - Deodesy.Library.Dms
+  - Deodesy.Library.LatLonSpherical
+  langs:
+  - csharp
+  - vb
+  name: Deodesy.Library
+  nameWithType: Deodesy.Library
+  fullName: Deodesy.Library
+  type: Namespace
+  assemblies:
+  - Deodesy.Library
+references:
+- uid: Deodesy.Library.Coordinate
+  commentId: T:Deodesy.Library.Coordinate
+  parent: Deodesy.Library
+  href: Deodesy.Library.Coordinate.html
+  name: Coordinate
+  nameWithType: Coordinate
+  fullName: Deodesy.Library.Coordinate
+- uid: Deodesy.Library.Dms
+  commentId: T:Deodesy.Library.Dms
+  href: Deodesy.Library.Dms.html
+  name: Dms
+  nameWithType: Dms
+  fullName: Deodesy.Library.Dms
+- uid: Deodesy.Library.LatLonSpherical
+  commentId: T:Deodesy.Library.LatLonSpherical
+  href: Deodesy.Library.LatLonSpherical.html
+  name: LatLonSpherical
+  nameWithType: LatLonSpherical
+  fullName: Deodesy.Library.LatLonSpherical
+- uid: Deodesy.Library
+  commentId: N:Deodesy.Library
+  href: Deodesy.html
+  name: Deodesy.Library
+  nameWithType: Deodesy.Library
+  fullName: Deodesy.Library
+  spec.csharp:
+  - uid: Deodesy
+    name: Deodesy
+    href: Deodesy.html
+  - name: .
+  - uid: Deodesy.Library
+    name: Library
+    href: Deodesy.Library.html
+  spec.vb:
+  - uid: Deodesy
+    name: Deodesy
+    href: Deodesy.html
+  - name: .
+  - uid: Deodesy.Library
+    name: Library
+    href: Deodesy.Library.html
