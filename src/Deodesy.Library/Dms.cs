@@ -106,9 +106,9 @@ namespace Deodesy.Library
         /// <param name="dp">The number of decimal places.</param>
         /// <param name="nDigits">The minimum number of digits before the decimal point.</param>
         /// <returns>A string representation of the padded value.</returns>
-        private static string PadZeros(double value, int dp = 2, int nDigits = 3)
+        public static string PadZeros(double value, int dp = 2, int nDigits = 3)
         {
-            return value.ToString($"{new string('0', nDigits)}.{new string('#', dp)}");
+            return value.ToString($"{new string('0', nDigits)}.{new string('0', dp)}");
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Deodesy.Library
 
             string dms, d, m, s;
             double min, sec;
-            
+
             switch (format)
             {
                 default:
@@ -148,21 +148,36 @@ namespace Deodesy.Library
                 case "deg+min":
                     min = Math.Round(deg * 60 % 60, dp);
                     deg = Math.Floor(deg);
-                    if (min >= 60) deg++;
-                    d = PadZeros(deg, dp);
-                    m = PadZeros(min < 60 ? min : 0.0, dp);
-                    dms = d + '°'+ DmsSeparator + m + '′';
+                    if (min >= 60)
+                    {
+                        min = 0;
+                        deg++;
+                    }
+
+                    d = PadZeros(deg, 0);
+                    m = PadZeros(min, dp);
+                    dms = d + '°' + DmsSeparator + m + '′';
                     break;
                 case "dms":
                 case "deg+min+sec":
                     sec = Math.Round(deg * 3600 % 60, dp);
                     min = Math.Round(Math.Floor(deg * 3600 / 60) % 60, dp);
                     deg = Math.Floor(deg);
-                    if (sec >= 60) min++;
-                    if (min >= 60) deg++;
-                    d = PadZeros(deg, dp);
-                    m = PadZeros(min < 60 ? min : 0.0, dp);
-                    s = PadZeros(sec < 60 ? sec : 0.0, dp);
+                    if (sec >= 60)
+                    {
+                        sec = 0;
+                        min++;
+                    }
+
+                    if (min >= 60)
+                    {
+                        min = 0;
+                        deg++;
+                    }
+
+                    d = PadZeros(deg, 0);
+                    m = PadZeros(min, 0);
+                    s = PadZeros(sec, dp);
                     dms = d + '°' + DmsSeparator + m + '′' + DmsSeparator + s + '″';
                     break;
             }
@@ -216,7 +231,7 @@ namespace Deodesy.Library
         /// <example>
         /// <code>
         /// Console.WriteLine(Dms.ToBearing(270.5, "dms", 0)); // Output: 270° 030´ 000"
-        /// Console.WriteLine(Dms.ToBearing(-45, "d"));       // Output: 337.5°
+        /// Console.WriteLine(Dms.ToBearing(-45, "d", 2));       // Output: 315.00°
         /// </code>
         /// </example>
         public static string ToBearing(double deg, string format = "d", int dp = 2)
@@ -276,7 +291,7 @@ namespace Deodesy.Library
         /// </example>
         public static double Wrap90(double degrees)
         {
-            if (-90 <= degrees && degrees <= 90) return degrees;
+            if (degrees is >= -90 and <= 90) return degrees;
             
             // latitude wrapping requires a triangle wave function; a general triangle wave is
             //     f(x) = 4a/p ⋅ | (x-p/4)%p - p/2 | - a
@@ -295,21 +310,21 @@ namespace Deodesy.Library
         /// <returns>The wrapped degrees value within the range -180 to 180.</returns>
         /// <example>
         /// <code>
-        /// Console.WriteLine(Dms.Wrap180(181));  // Output: 180.5
-        /// Console.WriteLine(Dms.Wrap180(-181)); // Output: -0.5
-        /// Console.WriteLine(Dms.Wrap180(360));  // Output: -90
+        /// Console.WriteLine(Dms.Wrap180(181));  // Output: -179
+        /// Console.WriteLine(Dms.Wrap180(-181)); // Output: 179
+        /// Console.WriteLine(Dms.Wrap180(360));  // Output: 0
         /// </code>
         /// </example>
         public static double Wrap180(double degrees)
         {
-            if (-180 <= degrees && degrees <= 180) return degrees;
+            if (degrees is >= -180 and <= 180) return degrees;
             
             // longitude wrapping requires a sawtooth wave function; a general sawtooth wave is
             //     f(x) = (2ax/p - p/2) % p - a
             // where a = amplitude, p = period, % = modulo; however, C# '%' is a remainder operator
             // not a modulo operator - for modulo, replace 'x%n' with '((x%n)+n)%n'
             
-            double x = degrees; int a = 90, p = 360;
+            double x = degrees; int a = 180, p = 360;
             
             return (((2*a*x/p - p/2f)%p)+p)%p - a;
         }
@@ -321,14 +336,14 @@ namespace Deodesy.Library
         /// <returns>The wrapped degrees value within the range 0 to 360.</returns>
         /// <example>
         /// <code>
-        /// Console.WriteLine(Dms.Wrap360(361)); // Output: 180.5
-        /// Console.WriteLine(Dms.Wrap360(-1));  // Output: 359.5
+        /// Console.WriteLine(Dms.Wrap360(361)); // Output: 1
+        /// Console.WriteLine(Dms.Wrap360(-1));  // Output: 359
         /// Console.WriteLine(Dms.Wrap360(0));   // Output: 0
         /// </code>
         /// </example>
         public static double Wrap360(double degrees)
         {
-            if (0 <= degrees && degrees < 360) return degrees;
+            if (degrees is >= 0 and < 360) return degrees;
             
             // bearing wrapping requires a sawtooth wave function with a vertical offset equal to the
             // amplitude and a corresponding phase shift; this changes the general sawtooth wave function from
@@ -338,7 +353,7 @@ namespace Deodesy.Library
             // where a = amplitude, p = period, % = modulo; however, C# '%' is a remainder operator
             // not a modulo operator - for modulo, replace 'x%n' with '((x%n)+n)%n'
             
-            double x = degrees; int a = 90, p = 360;
+            double x = degrees; int a = 180, p = 360;
             
             return (((2*a*x/p)%p)+p)%p;
         }
