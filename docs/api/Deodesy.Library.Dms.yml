@@ -7,6 +7,7 @@ items:
   children:
   - Deodesy.Library.Dms.CompassPoint(System.Double,System.Int32)
   - Deodesy.Library.Dms.DmsSeparator
+  - Deodesy.Library.Dms.PadZeros(System.Double,System.Int32,System.Int32)
   - Deodesy.Library.Dms.Parse(System.String)
   - Deodesy.Library.Dms.ToBearing(System.Double,System.String,System.Int32)
   - Deodesy.Library.Dms.ToCoordinate(System.String,System.String)
@@ -26,7 +27,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Dms
     path: src/Deodesy.Library/Dms.cs
@@ -63,7 +64,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: DmsSeparator
     path: src/Deodesy.Library/Dms.cs
@@ -97,7 +98,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToCoordinate
     path: src/Deodesy.Library/Dms.cs
@@ -148,7 +149,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Parse
     path: src/Deodesy.Library/Dms.cs
@@ -186,6 +187,50 @@ items:
   nameWithType.vb: Dms.Parse(String)
   fullName.vb: Deodesy.Library.Dms.Parse(String)
   name.vb: Parse(String)
+- uid: Deodesy.Library.Dms.PadZeros(System.Double,System.Int32,System.Int32)
+  commentId: M:Deodesy.Library.Dms.PadZeros(System.Double,System.Int32,System.Int32)
+  id: PadZeros(System.Double,System.Int32,System.Int32)
+  parent: Deodesy.Library.Dms
+  langs:
+  - csharp
+  - vb
+  name: PadZeros(double, int, int)
+  nameWithType: Dms.PadZeros(double, int, int)
+  fullName: Deodesy.Library.Dms.PadZeros(double, int, int)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Dms.cs
+      branch: extend-latlon-spherical
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: PadZeros
+    path: src/Deodesy.Library/Dms.cs
+    startLine: 108
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Pads a double value with leading zeros for display.
+  example: []
+  syntax:
+    content: public static string PadZeros(double value, int dp = 2, int nDigits = 3)
+    parameters:
+    - id: value
+      type: System.Double
+      description: The double value to pad.
+    - id: dp
+      type: System.Int32
+      description: The number of decimal places.
+    - id: nDigits
+      type: System.Int32
+      description: The minimum number of digits before the decimal point.
+    return:
+      type: System.String
+      description: A string representation of the padded value.
+    content.vb: Public Shared Function PadZeros(value As Double, dp As Integer = 2, nDigits As Integer = 3) As String
+  overload: Deodesy.Library.Dms.PadZeros*
+  nameWithType.vb: Dms.PadZeros(Double, Integer, Integer)
+  fullName.vb: Deodesy.Library.Dms.PadZeros(Double, Integer, Integer)
+  name.vb: PadZeros(Double, Integer, Integer)
 - uid: Deodesy.Library.Dms.ToDms(System.Double,System.String,System.Int32)
   commentId: M:Deodesy.Library.Dms.ToDms(System.Double,System.String,System.Int32)
   id: ToDms(System.Double,System.String,System.Int32)
@@ -200,7 +245,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToDms
     path: src/Deodesy.Library/Dms.cs
@@ -254,11 +299,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToLat
     path: src/Deodesy.Library/Dms.cs
-    startLine: 185
+    startLine: 200
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -302,11 +347,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToLon
     path: src/Deodesy.Library/Dms.cs
-    startLine: 203
+    startLine: 218
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -350,11 +395,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToBearing
     path: src/Deodesy.Library/Dms.cs
-    startLine: 221
+    startLine: 236
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -363,7 +408,7 @@ items:
   - >-
     <pre><code class="lang-csharp">Console.WriteLine(Dms.ToBearing(270.5, "dms", 0)); // Output: 270° 030´ 000"
 
-    Console.WriteLine(Dms.ToBearing(-45, "d"));       // Output: 337.5°</code></pre>
+    Console.WriteLine(Dms.ToBearing(-45, "d", 2));       // Output: 315.00°</code></pre>
   syntax:
     content: public static string ToBearing(double deg, string format = "d", int dp = 2)
     parameters:
@@ -398,11 +443,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: CompassPoint
     path: src/Deodesy.Library/Dms.cs
-    startLine: 241
+    startLine: 256
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -451,11 +496,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap90
     path: src/Deodesy.Library/Dms.cs
-    startLine: 276
+    startLine: 291
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -495,22 +540,22 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap180
     path: src/Deodesy.Library/Dms.cs
-    startLine: 302
+    startLine: 317
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Constrains degrees to the range -180..+180 (for longitude) using a general sawtooth wave function.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap180(181));  // Output: 180.5
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap180(181));  // Output: -179
 
-    Console.WriteLine(Dms.Wrap180(-181)); // Output: -0.5
+    Console.WriteLine(Dms.Wrap180(-181)); // Output: 179
 
-    Console.WriteLine(Dms.Wrap180(360));  // Output: -90</code></pre>
+    Console.WriteLine(Dms.Wrap180(360));  // Output: 0</code></pre>
   syntax:
     content: public static double Wrap180(double degrees)
     parameters:
@@ -539,20 +584,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap360
     path: src/Deodesy.Library/Dms.cs
-    startLine: 328
+    startLine: 343
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Constrains degrees to the range 0..360 (for bearings) using a general sawtooth wave function.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap360(361)); // Output: 180.5
+    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap360(361)); // Output: 1
 
-    Console.WriteLine(Dms.Wrap360(-1));  // Output: 359.5
+    Console.WriteLine(Dms.Wrap360(-1));  // Output: 359
 
     Console.WriteLine(Dms.Wrap360(0));   // Output: 0</code></pre>
   syntax:
@@ -910,12 +955,12 @@ references:
   nameWithType.vb: Double
   fullName.vb: Double
   name.vb: Double
-- uid: Deodesy.Library.Dms.ToDms*
-  commentId: Overload:Deodesy.Library.Dms.ToDms
-  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToDms_System_Double_System_String_System_Int32_
-  name: ToDms
-  nameWithType: Dms.ToDms
-  fullName: Deodesy.Library.Dms.ToDms
+- uid: Deodesy.Library.Dms.PadZeros*
+  commentId: Overload:Deodesy.Library.Dms.PadZeros
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_PadZeros_System_Double_System_Int32_System_Int32_
+  name: PadZeros
+  nameWithType: Dms.PadZeros
+  fullName: Deodesy.Library.Dms.PadZeros
 - uid: System.Int32
   commentId: T:System.Int32
   parent: System
@@ -927,6 +972,12 @@ references:
   nameWithType.vb: Integer
   fullName.vb: Integer
   name.vb: Integer
+- uid: Deodesy.Library.Dms.ToDms*
+  commentId: Overload:Deodesy.Library.Dms.ToDms
+  href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToDms_System_Double_System_String_System_Int32_
+  name: ToDms
+  nameWithType: Dms.ToDms
+  fullName: Deodesy.Library.Dms.ToDms
 - uid: Deodesy.Library.Dms.ToLat*
   commentId: Overload:Deodesy.Library.Dms.ToLat
   href: Deodesy.Library.Dms.html#Deodesy_Library_Dms_ToLat_System_Double_System_String_System_Int32_

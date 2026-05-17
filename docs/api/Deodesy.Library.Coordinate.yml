@@ -24,11 +24,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Coordinate
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 8
+    startLine: 7
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -59,11 +59,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Latitude
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 24
+    startLine: 23
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -97,11 +97,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Longitude
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 40
+    startLine: 39
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -135,11 +135,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: .ctor
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 57
+    startLine: 56
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -177,11 +177,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LatitudeR
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 72
+    startLine: 71
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -212,11 +212,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LongitudeR
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 83
+    startLine: 82
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -247,11 +247,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: op_Equality
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 91
+    startLine: 90
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -288,11 +288,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: op_Inequality
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 100
+    startLine: 99
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -329,11 +329,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Equals
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 119
+    startLine: 118
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -368,11 +368,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: GetHashCode
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 131
+    startLine: 130
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library

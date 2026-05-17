@@ -21,11 +21,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Extensions
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 7
+    startLine: 5
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -59,11 +59,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToFixed
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 21
+    startLine: 19
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -105,11 +105,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToRadians
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 34
+    startLine: 32
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -148,11 +148,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToDegrees
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 47
+    startLine: 45
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -191,11 +191,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap90
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 60
+    startLine: 58
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -234,11 +234,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap180
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 73
+    startLine: 71
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -277,11 +277,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap360
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 86
+    startLine: 84
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers

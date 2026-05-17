@@ -4,27 +4,25 @@ namespace Deodesy.Library;
 
 /// <summary>
 /// Provides functions for spherical geodesy, based on the Haversine formula and other spherical geometry calculations.
-/// These functions are adapted from Chris Veness's original JavaScript geodesy library.
 /// </summary>
 public class LatLonSpherical
 {
-    private const double EarthRadiusKm = 6372.8; // Mean radius of earth (km)
+    private const double EarthRadiusMeters = 6371e3; // Mean radius of earth (m)
 
     /// <summary>
-    /// Calculates the distance (in kilometers) between two points on the Earth's surface
+    /// Calculates the distance (in meters) between two points on the Earth's surface
     /// using the Haversine formula.
     /// </summary>
     /// <param name="startPoint">The starting coordinate.</param>
     /// <param name="endPoint">The ending coordinate.</param>
-    /// <returns>The distance in kilometers.</returns>
+    /// <returns>The distance in meters.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
-    /// var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    /// var p1 = new Coordinate(52.205, 0.119);
+    /// var p2 = new Coordinate(48.857, 2.351);
     /// var geo = new LatLonSpherical();
-    /// double distance = geo.Distance(p1, p2);
-    /// Console.WriteLine($"Distance: {distance:F2} km"); // Output: Distance: 5908.38 km (approx)
+    /// double distance = geo.Distance(p1, p2); // 404,279.16 m
     /// </code>
     /// </example>
     public double Distance(Coordinate startPoint, Coordinate endPoint)
@@ -39,7 +37,7 @@ public class LatLonSpherical
         
         var a = Math.Pow(Math.Sin(deltaLat / 2), 2) + Math.Pow(Math.Sin(deltaLon / 2), 2) * Math.Cos(originLat) * Math.Cos(destinationLat);
         var c = 2 * Math.Asin(Math.Sqrt(a));
-        return EarthRadiusKm * c;
+        return EarthRadiusMeters * c;
     }
 
     /// <summary>
@@ -52,20 +50,19 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
-    /// var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    /// var p1 = new Coordinate(52.205, 0.119);
+    /// var p2 = new Coordinate(48.857, 2.351);
     /// var geo = new LatLonSpherical();
-    /// double distanceNm = geo.DistanceInNm(p1, p2);
-    /// Console.WriteLine($"Distance: {distanceNm:F2} nm"); // Output: Distance: 3190.27 nm
+    /// double distanceNm = geo.DistanceNm(p1, p2); // 218.29 nm 
     /// </code>
     /// </example>
-    public double DistanceInNm(Coordinate startPoint, Coordinate endPoint)
+    public double DistanceNm(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
         
-        var distanceInKm = Distance(startPoint, endPoint);
-        return distanceInKm * 0.539956803; // 1 km = 0.539956803 nautical miles
+        var distanceKm = Distance(startPoint, endPoint) / 1000;
+        return distanceKm * 0.539956803; // 1 km = 0.539956803 nautical miles
     }
 
     /// <summary>
@@ -77,14 +74,13 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
-    /// var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    /// var p1 = new Coordinate(52.205, 0.119);
+    /// var p2 = new Coordinate(48.857, 2.351);
     /// var geo = new LatLonSpherical();
-    /// double bearing = geo.Bearing(p1, p2);
-    /// Console.WriteLine($"Initial Bearing: {bearing:F2}°"); // Output: Initial Bearing: 324.26°
+    /// double bearing = geo.Bearing(p1, p2); // 156.2°
     /// </code>
     /// </example>
-    public double Bearing(Coordinate startPoint, Coordinate endPoint)
+    public double InitialBearing(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -112,11 +108,10 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
-    /// var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    /// var p1 = new Coordinate(52.205, 0.119);
+    /// var p2 = new Coordinate(48.857, 2.351);
     /// var geo = new LatLonSpherical();
-    /// double finalBearing = geo.FinalBearing(p1, p2);
-    /// Console.WriteLine($"Final Bearing: {finalBearing:F2}°"); // Output: Final Bearing: 229.31°
+    /// double finalBearing = geo.FinalBearing(p1, p2); // 157.9°
     /// </code>
     /// </example>
     public double FinalBearing(Coordinate startPoint, Coordinate endPoint)
@@ -125,7 +120,7 @@ public class LatLonSpherical
         Guard.NotNull(endPoint, nameof(endPoint));
         
         // The final bearing is the initial bearing from the end point to the start point, plus 180 degrees.
-        var bearing = Bearing(endPoint, startPoint) + 180;
+        var bearing = InitialBearing(endPoint, startPoint) + 180;
         return bearing.Wrap360();
     }
     
@@ -138,12 +133,10 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
-    /// var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    /// var p1 = new Coordinate(52.205, 0.119);
+    /// var p2 = new Coordinate(48.857, 2.351);
     /// var geo = new LatLonSpherical();
-    /// var midpoint = geo.MidPoint(p1, p2);
-    /// Console.WriteLine($"Midpoint: Lat {midpoint.Latitude:F2}, Lon {midpoint.Longitude:F2}");
-    /// // Output: Midpoint: Lat 52.04, Lon -43.58
+    /// var midpoint = geo.MidPoint(p1, p2); // 50.5363°N, 1.2746°E
     /// </code>
     /// </example>
     public Coordinate MidPoint(Coordinate startPoint, Coordinate endPoint)
@@ -173,15 +166,13 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
-    /// var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    /// var p1 = new Coordinate(52.205, 0.119);
+    /// var p2 = new Coordinate(48.857, 2.351);
     /// var geo = new LatLonSpherical();
-    /// var intermediatePoint = geo.Intermediate(p1, p2, 0.25); // 25% of the way
-    /// Console.WriteLine($"Intermediate Point (25%): Lat {intermediatePoint.Latitude:F2}, Lon {intermediatePoint.Longitude:F2}");
-    /// // Output: Intermediate Point (25%): Lat 53.82, Lon -21.65
+    /// var intermediatePoint = geo.IntermediatePoint(p1, p2, 0.25); // 51.3721°N, 0.7073°E
     /// </code>
     /// </example>
-    public Coordinate Intermediate(Coordinate startPoint, Coordinate endPoint, double fraction)
+    public Coordinate IntermediatePoint(Coordinate startPoint, Coordinate endPoint, double fraction)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -209,9 +200,42 @@ public class LatLonSpherical
 
         return new Coordinate(lat.ToDegrees(), lon.ToDegrees());
     }
+    
+    /// <summary>
+    /// Calculates the destination point and final bearing when traveling along a great circle arc
+    /// for a given start point, initial bearing, and distance.
+    /// </summary>
+    /// <param name="startPoint">The starting coordinate.</param>
+    /// <param name="distance">The distance to travel in same units as earth radius (meters).</param>
+    /// <param name="bearing">The initial bearing in degrees from north.</param>
+    /// <returns>A <see cref="Coordinate"/> object representing the destination point.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> is null.</exception>
+    /// <example>
+    /// <code>
+    /// var p1 = new Coordinate(51.47788, -0.00147);
+    /// var geo = new LatLonSpherical();
+    /// var destPoint = geo.DestinationPoint(p1, 7794, 300.7); // 51.5136°N, 000.0983°W
+    /// </code>
+    /// </example>
+    public Coordinate DestinationPoint(Coordinate startPoint, double distance, double bearing)
+    {
+        Guard.NotNull(startPoint, nameof(startPoint));
+
+        var angularDistance = distance / EarthRadiusMeters;
+
+        var sinLat = Math.Sin(startPoint.LatitudeR) * Math.Cos(angularDistance) +
+                     Math.Cos(startPoint.LatitudeR) * Math.Sin(angularDistance) *
+                     Math.Cos(bearing.ToRadians());
+        var lat = Math.Asin(sinLat);
+        var y = Math.Sin(bearing.ToRadians()) * Math.Sin(angularDistance) * Math.Cos(startPoint.LatitudeR);
+        var x = Math.Cos(angularDistance) - Math.Sin(startPoint.LatitudeR) * sinLat; // Corrected x calculation
+        var lon = startPoint.LongitudeR + Math.Atan2(y, x);
+
+        return new Coordinate(lat.ToDegrees(), lon.ToDegrees());
+    }
 
     /// <summary>
-    /// Calculates the point of intersection of two great-circle paths.
+    /// Calculates the point of intersection of two great-circle paths defined by points and bearings.
     /// </summary>
     /// <param name="firstPoint">The starting point of the first path.</param>
     /// <param name="firstBearing">The initial bearing of the first path in degrees.</param>
@@ -221,24 +245,13 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="firstPoint"/> or <paramref name="secondPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.8853, 0.235); // Cambridge
-    /// var brng1 = 108.549; // Bearing from Cambridge
-    /// var p2 = new Coordinate(49.0034, 2.5735); // Paris
-    /// var brng2 = 32.435; // Bearing from Paris
+    /// var p1 = new Coordinate(51.8853, 0.2545), brng1 = 108.547;
+    /// var p2 = new Coordinate(49.0034, 2.5735), brng2 =  32.435;
     /// var geo = new LatLonSpherical();
-    /// var intersection = geo.Intersection(p1, brng1, p2, brng2);
-    /// if (intersection != null)
-    /// {
-    ///     Console.WriteLine($"Intersection: Lat {intersection.Latitude:F2}, Lon {intersection.Longitude:F2}");
-    ///     // Output: Intersection: Lat 50.99, Lon 4.50 (near Brussels)
-    /// }
-    /// else
-    /// {
-    ///     Console.WriteLine("No intersection found.");
-    /// }
+    /// var intersection = geo.IntersectionPoint(p1, brng1, p2, brng2); // 50.9078°N, 4.5084°E
     /// </code>
     /// </example>
-    public Coordinate? Intersection(Coordinate firstPoint, double firstBearing, Coordinate secondPoint,
+    public Coordinate? IntersectionPoint(Coordinate firstPoint, double firstBearing, Coordinate secondPoint,
         double secondBearing)
     {
         Guard.NotNull(firstPoint, nameof(firstPoint));
@@ -297,39 +310,6 @@ public class LatLonSpherical
     }
 
     /// <summary>
-    /// Calculates the destination point and final bearing when traveling along a great circle arc
-    /// for a given start point, initial bearing, and distance.
-    /// </summary>
-    /// <param name="startPoint">The starting coordinate.</param>
-    /// <param name="distance">The distance to travel in kilometers.</param>
-    /// <param name="bearing">The initial bearing in degrees.</param>
-    /// <returns>A <see cref="Coordinate"/> object representing the destination point.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> is null.</exception>
-    /// <example>
-    /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
-    /// var geo = new LatLonSpherical();
-    /// var destPoint = geo.destination(p1, 7794.0, 300.0); // Travel 7794 km on bearing 300°
-    /// Console.WriteLine($"Destination: Lat {destPoint.Latitude:F2}, Lon {destPoint.Longitude:F2}");
-    /// // Output: Destination: Lat 34.01, Lon -100.83
-    /// </code>
-    /// </example>
-    public Coordinate Destination(Coordinate startPoint, double distance, double bearing)
-    {
-        Guard.NotNull(startPoint, nameof(startPoint));
-
-        var sinLat = Math.Sin(startPoint.LatitudeR) * Math.Cos(distance / EarthRadiusKm) +
-                     Math.Cos(startPoint.LatitudeR) * Math.Sin(distance / EarthRadiusKm) *
-                     Math.Cos(bearing.ToRadians());
-        var lat = Math.Asin(sinLat);
-        var y = Math.Sin(bearing.ToRadians()) * Math.Sin(distance / EarthRadiusKm) * Math.Cos(startPoint.LatitudeR);
-        var x = Math.Cos(distance / EarthRadiusKm) - Math.Sin(startPoint.LatitudeR) * sinLat; // Corrected x calculation
-        var lon = startPoint.LongitudeR + Math.Atan2(y, x);
-
-        return new Coordinate(lat.ToDegrees(), lon.ToDegrees());
-    }
-
-    /// <summary>
     /// Calculates the cross-track distance from a current point to a great-circle path defined by two other points.
     /// </summary>
     /// <remarks>
@@ -338,16 +318,15 @@ public class LatLonSpherical
     /// <param name="currentPoint">The current coordinate.</param>
     /// <param name="startPoint">The starting coordinate of the great-circle path.</param>
     /// <param name="endPoint">The ending coordinate of the great-circle path.</param>
-    /// <returns>The cross-track distance in kilometers.</returns>
+    /// <returns>The cross-track distance in meters (-ve if to left, +ve if to right of path).</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="currentPoint"/>, <paramref name="startPoint"/>, or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var start = new Coordinate(53.2611, -0.7972); // N of Lincoln
-    /// var end = new Coordinate(48.5734, 7.7161); // Strasbourg
-    /// var current = new Coordinate(53.1887, 0.1334); // E of Lincoln
+    /// var start = new Coordinate(53.3206, -1.7297);
+    /// var end = new Coordinate(53.1887, 0.1334);
+    /// var current = new Coordinate(53.2611, -0.7972);
     /// var geo = new LatLonSpherical();
-    /// double crossTrackDist = geo.CrossTrackDistance(current, start, end);
-    /// Console.WriteLine($"Cross-track distance: {crossTrackDist:F2} km"); // Output: Cross-track distance: -31.93 km
+    /// double crossTrackDist = geo.CrossTrackDistance(current, start, end); // -307.5 m
     /// </code>
     /// </example>
     public double CrossTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
@@ -358,13 +337,13 @@ public class LatLonSpherical
 
         if (currentPoint == startPoint) return 0.0; // same point
 
-        var delta13 = Distance(startPoint, currentPoint) / EarthRadiusKm; // angular distance from start to current
-        var theta13 = Bearing(startPoint, currentPoint).ToRadians(); // bearing from start to current
-        var theta12 = Bearing(startPoint, endPoint).ToRadians(); // bearing from start to end
+        var delta13 = Distance(startPoint, currentPoint) / EarthRadiusMeters; // angular distance from start to current
+        var theta13 = InitialBearing(startPoint, currentPoint).ToRadians(); // bearing from start to current
+        var theta12 = InitialBearing(startPoint, endPoint).ToRadians(); // bearing from start to end
 
         var deltaCrossTrack = Math.Asin(Math.Sin(delta13) * Math.Sin(theta13 - theta12));
 
-        return deltaCrossTrack * EarthRadiusKm;
+        return deltaCrossTrack * EarthRadiusMeters;
     }
 
     /// <summary>
@@ -378,19 +357,18 @@ public class LatLonSpherical
     /// <param name="currentPoint">The current coordinate.</param>
     /// <param name="startPoint">The starting coordinate of the great-circle path.</param>
     /// <param name="endPoint">The ending coordinate of the great-circle path.</param>
-    /// <returns>The along-track distance in kilometers.</returns>
+    /// <returns>The distance along great circle to point nearest to current point in meters.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="currentPoint"/>, <paramref name="startPoint"/>, or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var start = new Coordinate(53.2611, -0.7972); // N of Lincoln
-    /// var end = new Coordinate(48.5734, 7.7161); // Strasbourg
-    /// var current = new Coordinate(53.1887, 0.1334); // E of Lincoln
+    /// var start = new Coordinate(53.3206, -1.7297);
+    /// var end = new Coordinate(53.1887, 0.1334);
+    /// var current = new Coordinate(53.2611, -0.7972);
     /// var geo = new LatLonSpherical();
-    /// double alongTrackDist = geo.AlongTrackDistanceTo(current, start, end);
-    /// Console.WriteLine($"Along-track distance: {alongTrackDist:F2} km"); // Output: Along-track distance: 53.7 km
+    /// double alongTrackDist = geo.AlongTrackDistance(current, start, end); // 62,331.49 m
     /// </code>
     /// </example>
-    public double AlongTrackDistanceTo(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
+    public double AlongTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(currentPoint, nameof(currentPoint));
         Guard.NotNull(startPoint, nameof(startPoint));
@@ -398,14 +376,14 @@ public class LatLonSpherical
         
         if (currentPoint == startPoint) return 0.0; // same point
         
-        var delta13 = Distance(startPoint, currentPoint) / EarthRadiusKm; // angular distance from start to current
-        var theta13 = Bearing(startPoint, currentPoint).ToRadians(); // bearing from start to current
-        var theta12 = Bearing(startPoint, endPoint).ToRadians(); // bearing from start to end
+        var delta13 = Distance(startPoint, currentPoint) / EarthRadiusMeters; // angular distance from start to current
+        var theta13 = InitialBearing(startPoint, currentPoint).ToRadians(); // bearing from start to current
+        var theta12 = InitialBearing(startPoint, endPoint).ToRadians(); // bearing from start to end
 
         var deltaCrossTrack = Math.Asin(Math.Sin(delta13) * Math.Sin(theta13 - theta12));
         var deltaAlongTrack = Math.Acos(Math.Cos(delta13) / Math.Abs(Math.Cos(deltaCrossTrack)));
 
-        return deltaAlongTrack * Math.Sign(Math.Cos(theta12 - theta13)) * EarthRadiusKm;
+        return deltaAlongTrack * Math.Sign(Math.Cos(theta12 - theta13)) * EarthRadiusMeters;
     }
 
     /// <summary>
@@ -422,10 +400,9 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(51.51, 0.0); // London
+    /// var p1 = new Coordinate(51.51, 0.0);
     /// var geo = new LatLonSpherical();
-    /// double maxLat = geo.MaxLatitude(p1, 90.0); // Bearing East
-    /// Console.WriteLine($"Max Latitude: {maxLat:F2}°"); // Output: Max Latitude: 51.51°
+    /// double maxLat = geo.MaxLatitude(p1, 90.0); // 51.51°
     /// </code>
     /// </example>
     public double MaxLatitude(Coordinate startPoint, double bearing)
@@ -450,19 +427,10 @@ public class LatLonSpherical
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
-    /// var p1 = new Coordinate(0, 0); // Equator, Prime Meridian
-    /// var p2 = new Coordinate(30, 90); // 30°N, 90°E
+    /// var p1 = new Coordinate(53.3206, -1.7297);
+    /// var p2 = new Coordinate(53.1887, 0.1334);
     /// var geo = new LatLonSpherical();
-    /// double[]? crossingLons = geo.CrossingParallels(p1, p2, 15); // Find where it crosses 15°N
-    /// if (crossingLons != null)
-    /// {
-    ///     Console.WriteLine($"Crossing Longitudes at 15°N: {crossingLons[0]:F2}°, {crossingLons[1]:F2}°");
-    ///     // Output: Crossing Longitudes at 15°N: 27.65°, 152.35°
-    /// }
-    /// else
-    /// {
-    ///     Console.WriteLine("Great circle does not cross 15°N.");
-    /// }
+    /// double[]? crossingLons = geo.CrossingParallels(p1, p2, 45.5); // 50.4775°S, 32.0812°N
     /// </code>
     /// </example>
     public double[]? CrossingParallels(Coordinate startPoint, Coordinate endPoint, double latitude)
