@@ -18,7 +18,7 @@ public class Coordinate
     /// <example>
     /// <code>
     /// var coord = new Coordinate(95, 0);
-    /// Console.WriteLine(coord.Latitude); // Output: 85
+    /// Console.WriteLine(coord.Latitude); // 85° N
     /// </code>
     /// </example>
     public double Latitude
@@ -34,7 +34,7 @@ public class Coordinate
     /// <example>
     /// <code>
     /// var coord = new Coordinate(0, 185);
-    /// Console.WriteLine(coord.Longitude); // Output: 182.5
+    /// Console.WriteLine(coord.Longitude); // 182.5° E
     /// </code>
     /// </example>
     public double Longitude
@@ -50,8 +50,8 @@ public class Coordinate
     /// <param name="longitude">The longitude in degrees (-180 to 180). Defaults to 0.</param>
     /// <example>
     /// <code>
-    /// var coord1 = new Coordinate(); // Latitude: 0, Longitude: 0
-    /// var coord2 = new Coordinate(30, -120); // Latitude: 30, Longitude: -120
+    /// var coord1 = new Coordinate(); // 0° N, 0° E
+    /// var coord2 = new Coordinate(30, -120); // 30° N, 120° W
     /// </code>
     /// </example>
     public Coordinate(double latitude = 0, double longitude = 0)
@@ -66,7 +66,7 @@ public class Coordinate
     /// <example>
     /// <code>
     /// var coord = new Coordinate(90, 0);
-    /// Console.WriteLine(coord.LatitudeR); // Output: 1.5707963267948966 (PI/2)
+    /// Console.WriteLine(coord.LatitudeR); // 1.5707963267948966 (PI/2)
     /// </code>
     /// </example>
     public double LatitudeR => Latitude.ToRadians();
@@ -77,7 +77,7 @@ public class Coordinate
     /// <example>
     /// <code>
     /// var coord = new Coordinate(0, 180);
-    /// Console.WriteLine(coord.LongitudeR); // Output: 3.141592653589793 (PI)
+    /// Console.WriteLine(coord.LongitudeR); // 3.141592653589793 (PI)
     /// </code>
     /// </example>
     public double LongitudeR => Longitude.ToRadians();

@@ -14,7 +14,7 @@ public static class Extensions
     /// <example>
     /// <code>
     /// double num = 123.45678;
-    /// Console.WriteLine(num.ToFixed(2)); // Output: 123.46
+    /// Console.WriteLine(num.ToFixed(2)); // 123.46
     /// </code>
     /// </example>
     public static double ToFixed(this double value, int dp = 2) => Math.Round(value, dp);
@@ -27,7 +27,7 @@ public static class Extensions
     /// <example>
     /// <code>
     /// double degrees = 90;
-    /// Console.WriteLine(degrees.ToRadians()); // Output: 1.5707963267948966 (PI/2)
+    /// Console.WriteLine(degrees.ToRadians()); // 1.5707963267948966 (PI/2)
     /// </code>
     /// </example>
     public static double ToRadians(this double value) => value * Math.PI / 180;
@@ -40,7 +40,7 @@ public static class Extensions
     /// <example>
     /// <code>
     /// double radians = Math.PI / 2;
-    /// Console.WriteLine(radians.ToDegrees()); // Output: 90
+    /// Console.WriteLine(radians.ToDegrees()); // 90
     /// </code>
     /// </example>
     public static double ToDegrees(this double value) => value * 180 / Math.PI;
@@ -52,8 +52,8 @@ public static class Extensions
     /// <returns>The wrapped degree value.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(91.0.Wrap90());  // Output: 89
-    /// Console.WriteLine((-91.0).Wrap90()); // Output: -89
+    /// Console.WriteLine(91.0.Wrap90());  // 89
+    /// Console.WriteLine((-91.0).Wrap90()); // -89
     /// </code>
     /// </example>
     public static double Wrap90(this double value) => Dms.Wrap90(value);
@@ -65,8 +65,8 @@ public static class Extensions
     /// <returns>The wrapped degree value.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(181.0.Wrap180());  // Output: -179
-    /// Console.WriteLine((-181.0).Wrap180()); // Output: 179
+    /// Console.WriteLine(181.0.Wrap180());  // -179
+    /// Console.WriteLine((-181.0).Wrap180()); // 179
     /// </code>
     /// </example>
     public static double Wrap180(this double value) => Dms.Wrap180(value);
@@ -78,8 +78,8 @@ public static class Extensions
     /// <returns>The wrapped degree value.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(361.0.Wrap360()); // Output: 1
-    /// Console.WriteLine((-1.0).Wrap360());  // Output: 359
+    /// Console.WriteLine(361.0.Wrap360()); // 1
+    /// Console.WriteLine((-1.0).Wrap360());  // 359
     /// </code>
     /// </example>
     public static double Wrap360(this double value) => Dms.Wrap360(value);

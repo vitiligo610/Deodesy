@@ -13,7 +13,6 @@
   "Deodesy.Library.Dms": "Deodesy.Library.Dms.yml",
   "Deodesy.Library.Dms.CompassPoint(System.Double,System.Int32)": "Deodesy.Library.Dms.yml",
   "Deodesy.Library.Dms.DmsSeparator": "Deodesy.Library.Dms.yml",
-  "Deodesy.Library.Dms.PadZeros(System.Double,System.Int32,System.Int32)": "Deodesy.Library.Dms.yml",
   "Deodesy.Library.Dms.Parse(System.String)": "Deodesy.Library.Dms.yml",
   "Deodesy.Library.Dms.ToBearing(System.Double,System.String,System.Int32)": "Deodesy.Library.Dms.yml",
   "Deodesy.Library.Dms.ToCoordinate(System.String,System.String)": "Deodesy.Library.Dms.yml",

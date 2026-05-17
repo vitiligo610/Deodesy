@@ -23,9 +23,7 @@ public static class Dms
     /// <exception cref="ArgumentException">Thrown if either latitude or longitude cannot be parsed.</exception>
     /// <example>
     /// <code>
-    /// var coord = Dms.ToCoordinate("53°08′45″N", "001°50′00″W");
-    /// Console.WriteLine($"Latitude: {coord.Latitude}, Longitude: {coord.Longitude}");
-    /// // Output: Latitude: 53.145833333333336, Longitude: -1.8333333333333333
+    /// var coord = Dms.ToCoordinate("51°28′40.37″ N", "000°00′05.29″ W"); // 51.4779°N, 0.0015°W
     /// </code>
     /// </example>
     public static Coordinate ToCoordinate(string latDms, string lonDms)
@@ -53,9 +51,9 @@ public static class Dms
     /// <exception cref="ArgumentNullException">Thrown if the input string is null or empty.</exception>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.Parse("53°08′45″N")); // Output: 53.145833333333336
-    /// Console.WriteLine(Dms.Parse("3 37 12W"));   // Output: -3.62
-    /// Console.WriteLine(Dms.Parse("-120.5"));     // Output: -120.5
+    /// var lat = Dms.Parse("51° 28′ 40.37″ N");
+    /// var lon = Dms.Parse("000° 00′ 05.29″ W");
+    /// var p1 = new Coordinate(lat, lon); // 51.4779°N, 0.0015°W
     /// </code>
     /// </example>
     public static double Parse(string dms)
@@ -106,7 +104,7 @@ public static class Dms
     /// <param name="dp">The number of decimal places.</param>
     /// <param name="nDigits">The minimum number of digits before the decimal point.</param>
     /// <returns>A string representation of the padded value.</returns>
-    public static string PadZeros(double value, int dp = 2, int nDigits = 3)
+    private static string PadZeros(double value, int dp = 2, int nDigits = 3)
     {
         return value.ToString($"{new string('0', nDigits)}.{new string('0', dp)}");
     }
@@ -124,9 +122,9 @@ public static class Dms
     /// <returns>A string representation of the degrees in the specified DMS format.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.ToDms(53.145833, "dms", 0)); // Output: 053° 008´ 045"
-    /// Console.WriteLine(Dms.ToDms(53.145833, "dm", 2));  // Output: 053° 008.75′
-    /// Console.WriteLine(Dms.ToDms(53.145833, "d", 4));   // Output: 053.1458°
+    /// var s1 = Dms.ToDms(53.145833, "dms", 0); // 053° 008´ 045"
+    /// var s2 = Dms.ToDms(53.145833, "dm", 2);  // 053° 008.75′
+    /// var s3 = Dms.ToDms(53.145833, "d", 4);   // 053.1458°
     /// </code>
     /// </example>
     public static string ToDms(double deg, string format = "d", int dp = 2)
@@ -194,8 +192,8 @@ public static class Dms
     /// <returns>A string representation of the latitude in DMS format with N/S suffix.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.ToLat(53.145833, "dms", 0));  // Output: 053° 008′ 045″ N
-    /// Console.WriteLine(Dms.ToLat(-25.1234, "dm", 2));   // Output: 025° 007.40′ S
+    /// var lat1 = Dms.ToLat(53.145833, "dms", 0); // 053° 008′ 045″ N
+    /// var lat2 = Dms.ToLat(-25.1234, "dm", 2);   // 025° 007.40′ S
     /// </code>
     /// </example>
     public static string ToLat(double deg, string format = "d", int dp = 2)
@@ -212,8 +210,8 @@ public static class Dms
     /// <returns>A string representation of the longitude in DMS format with E/W suffix.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.ToLon(-1.833333, "dms", 0)); // Output: 001° 050′ 000″ W
-    /// Console.WriteLine(Dms.ToLon(150.7654, "dm", 2));  // Output: 150° 045.92′ E
+    /// var lon1 = Dms.ToLon(-1.833333, "dms", 0); // 001° 050′ 000″ W
+    /// var lon2 = Dms.ToLon(150.7654, "dm", 2);   // 150° 045.92′ E
     /// </code>
     /// </example>
     public static string ToLon(double deg, string format = "d", int dp = 2)
@@ -230,8 +228,8 @@ public static class Dms
     /// <returns>A string representation of the bearing in DMS format.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.ToBearing(270.5, "dms", 0)); // Output: 270° 030´ 000"
-    /// Console.WriteLine(Dms.ToBearing(-45, "d", 2));       // Output: 315.00°
+    /// var brng1 = Dms.ToBearing(270.5, "dms", 0); // 270° 030´ 000"
+    /// var brng2 = Dms.ToBearing(-45, "d", 2);     // 315.00°
     /// </code>
     /// </example>
     public static string ToBearing(double deg, string format = "d", int dp = 2)
@@ -248,10 +246,10 @@ public static class Dms
     /// <exception cref="ArgumentOutOfRangeException">Thrown if precision is not between 1 and 3.</exception>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.CompassPoint(0));    // Output: N
-    /// Console.WriteLine(Dms.CompassPoint(22.5)); // Output: NNE
-    /// Console.WriteLine(Dms.CompassPoint(90));   // Output: E
-    /// Console.WriteLine(Dms.CompassPoint(315, 1)); // Output: N
+    /// var cp1 = Dms.CompassPoint(0);      // N
+    /// var cp2 = Dms.CompassPoint(22.5);   // NNE
+    /// var cp3 = Dms.CompassPoint(90);     // E
+    /// var cp4 = Dms.CompassPoint(315, 1); // N
     /// </code>
     /// </example>
     public static string CompassPoint(double bearing, int precision = 3)
@@ -284,9 +282,9 @@ public static class Dms
     /// <returns>The wrapped degrees value within the range -90 to 90.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.Wrap90(91));  // Output: 89
-    /// Console.WriteLine(Dms.Wrap90(-91)); // Output: -89
-    /// Console.WriteLine(Dms.Wrap90(180)); // Output: 0
+    /// var d1 = Dms.Wrap90(91);  // 89
+    /// var d2 = Dms.Wrap90(-91); // -89
+    /// var d3 = Dms.Wrap90(180); // 0
     /// </code>
     /// </example>
     public static double Wrap90(double degrees)
@@ -310,9 +308,9 @@ public static class Dms
     /// <returns>The wrapped degrees value within the range -180 to 180.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.Wrap180(181));  // Output: -179
-    /// Console.WriteLine(Dms.Wrap180(-181)); // Output: 179
-    /// Console.WriteLine(Dms.Wrap180(360));  // Output: 0
+    /// var d1 = Dms.Wrap180(181);  // -179
+    /// var d2 = Dms.Wrap180(-181); // 179
+    /// var d3 = Dms.Wrap180(360);  // 0
     /// </code>
     /// </example>
     public static double Wrap180(double degrees)
@@ -336,9 +334,9 @@ public static class Dms
     /// <returns>The wrapped degrees value within the range 0 to 360.</returns>
     /// <example>
     /// <code>
-    /// Console.WriteLine(Dms.Wrap360(361)); // Output: 1
-    /// Console.WriteLine(Dms.Wrap360(-1));  // Output: 359
-    /// Console.WriteLine(Dms.Wrap360(0));   // Output: 0
+    /// var d1 = Dms.Wrap360(361); // 1
+    /// var d2 = Dms.Wrap360(-1);  // 359
+    /// var d3 = Dms.Wrap360(0);   // 0
     /// </code>
     /// </example>
     public static double Wrap360(double degrees)
