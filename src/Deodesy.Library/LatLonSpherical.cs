@@ -637,7 +637,7 @@ public class LatLonSpherical
     /// arcs joining the vertices.
     /// </summary>
     /// <remarks>
-    /// Uses method due to Karney: https://osgeo-org.1560.x6.nabble.com/Area-of-a-spherical-polygon-td3841625.html
+    /// Uses method due to Karney: https://geographiclib.sourceforge.io/html/js/geographiclib-geodesic_src_PolygonArea.js.html
     /// (Karney's method is probably more efficient than the more widely known L’Huilier’s Theorem) 
     /// </remarks>
     /// <param name="polygon">Array of coordinates defining vertices of the polygon.</param>
