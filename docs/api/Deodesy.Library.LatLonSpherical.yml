@@ -32,7 +32,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LatLonSpherical
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -69,7 +69,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Distance
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -121,7 +121,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: DistanceNm
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -172,7 +172,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: InitialBearing
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -221,7 +221,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: FinalBearing
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -270,7 +270,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: MidPoint
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -318,7 +318,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: IntermediatePoint
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -372,7 +372,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: DestinationPoint
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -428,7 +428,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: IntersectionPoint
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -486,7 +486,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: CrossTrackDistance
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -540,7 +540,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: AlongTrackDistance
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -600,7 +600,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: MaxLatitude
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -656,7 +656,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: CrossingParallels
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -713,7 +713,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: RhumbDistance
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -762,7 +762,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: RhumbBearing
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -810,7 +810,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: RhumbDestinationPoint
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -865,7 +865,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: RhumbMidPoint
     path: src/Deodesy.Library/LatLonSpherical.cs
@@ -913,7 +913,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Area
     path: src/Deodesy.Library/LatLonSpherical.cs

@@ -8,6 +8,7 @@
   "Deodesy.Library.Coordinate.LatitudeR": "Deodesy.Library.Coordinate.yml",
   "Deodesy.Library.Coordinate.Longitude": "Deodesy.Library.Coordinate.yml",
   "Deodesy.Library.Coordinate.LongitudeR": "Deodesy.Library.Coordinate.yml",
+  "Deodesy.Library.Coordinate.ToString(System.String,System.Int32)": "Deodesy.Library.Coordinate.yml",
   "Deodesy.Library.Coordinate.op_Equality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.Coordinate.yml",
   "Deodesy.Library.Coordinate.op_Inequality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.Coordinate.yml",
   "Deodesy.Library.Dms": "Deodesy.Library.Dms.yml",

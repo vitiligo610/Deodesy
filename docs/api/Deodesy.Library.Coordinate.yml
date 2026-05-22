@@ -12,6 +12,7 @@ items:
   - Deodesy.Library.Coordinate.LatitudeR
   - Deodesy.Library.Coordinate.Longitude
   - Deodesy.Library.Coordinate.LongitudeR
+  - Deodesy.Library.Coordinate.ToString(System.String,System.Int32)
   - Deodesy.Library.Coordinate.op_Equality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   - Deodesy.Library.Coordinate.op_Inequality(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   langs:
@@ -24,7 +25,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Coordinate
     path: src/Deodesy.Library/Coordinate.cs
@@ -59,7 +60,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Latitude
     path: src/Deodesy.Library/Coordinate.cs
@@ -97,7 +98,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Longitude
     path: src/Deodesy.Library/Coordinate.cs
@@ -135,7 +136,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: .ctor
     path: src/Deodesy.Library/Coordinate.cs
@@ -177,7 +178,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LatitudeR
     path: src/Deodesy.Library/Coordinate.cs
@@ -212,7 +213,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LongitudeR
     path: src/Deodesy.Library/Coordinate.cs
@@ -247,7 +248,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: op_Equality
     path: src/Deodesy.Library/Coordinate.cs
@@ -288,7 +289,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: op_Inequality
     path: src/Deodesy.Library/Coordinate.cs
@@ -329,7 +330,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Equals
     path: src/Deodesy.Library/Coordinate.cs
@@ -354,6 +355,56 @@ items:
   nameWithType.vb: Coordinate.Equals(Object)
   fullName.vb: Deodesy.Library.Coordinate.Equals(Object)
   name.vb: Equals(Object)
+- uid: Deodesy.Library.Coordinate.ToString(System.String,System.Int32)
+  commentId: M:Deodesy.Library.Coordinate.ToString(System.String,System.Int32)
+  id: ToString(System.String,System.Int32)
+  parent: Deodesy.Library.Coordinate
+  langs:
+  - csharp
+  - vb
+  name: ToString(string, int)
+  nameWithType: Coordinate.ToString(string, int)
+  fullName: Deodesy.Library.Coordinate.ToString(string, int)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/Coordinate.cs
+      branch: main
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: ToString
+    path: src/Deodesy.Library/Coordinate.cs
+    startLine: 139
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Returns the string representation of the current <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var greenwich = new Coordinate(51.47788, -0.00147);
+
+    var d = greenwich.ToString('d', 2);       // 51.4779°N, 000.0015°W
+
+    var dms = greenwich.ToString('dms', 2);   // 51°28′40.37″N, 000°00′05.29″W</code></pre>
+  syntax:
+    content: public string ToString(string format = "d", int dp = 4)
+    parameters:
+    - id: format
+      type: System.String
+      description: 'TheThe format to use: "n", "d", "dm", or "dms".'
+    - id: dp
+      type: System.Int32
+    return:
+      type: System.String
+      description: Comma-separated formatted latitude/longitude.
+    content.vb: Public Function ToString(format As String = "d", dp As Integer = 4) As String
+  overload: Deodesy.Library.Coordinate.ToString*
+  exceptions:
+  - type: System.ArgumentOutOfRangeException
+    commentId: T:System.ArgumentOutOfRangeException
+    description: Thrown if <code class="paramref">format</code> is of invalid format.
+  nameWithType.vb: Coordinate.ToString(String, Integer)
+  fullName.vb: Deodesy.Library.Coordinate.ToString(String, Integer)
+  name.vb: ToString(String, Integer)
 - uid: Deodesy.Library.Coordinate.GetHashCode
   commentId: M:Deodesy.Library.Coordinate.GetHashCode
   id: GetHashCode
@@ -368,11 +419,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: GetHashCode
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 130
+    startLine: 162
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -720,6 +771,41 @@ references:
   name: Equals
   nameWithType: Coordinate.Equals
   fullName: Deodesy.Library.Coordinate.Equals
+- uid: System.ArgumentOutOfRangeException
+  commentId: T:System.ArgumentOutOfRangeException
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception
+  name: ArgumentOutOfRangeException
+  nameWithType: ArgumentOutOfRangeException
+  fullName: System.ArgumentOutOfRangeException
+- uid: Deodesy.Library.Coordinate.ToString*
+  commentId: Overload:Deodesy.Library.Coordinate.ToString
+  href: Deodesy.Library.Coordinate.html#Deodesy_Library_Coordinate_ToString_System_String_System_Int32_
+  name: ToString
+  nameWithType: Coordinate.ToString
+  fullName: Deodesy.Library.Coordinate.ToString
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
 - uid: System.Object.GetHashCode
   commentId: M:System.Object.GetHashCode
   parent: System.Object
@@ -750,14 +836,3 @@ references:
   name: GetHashCode
   nameWithType: Coordinate.GetHashCode
   fullName: Deodesy.Library.Coordinate.GetHashCode
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.int32
-  name: int
-  nameWithType: int
-  fullName: int
-  nameWithType.vb: Integer
-  fullName.vb: Integer
-  name.vb: Integer

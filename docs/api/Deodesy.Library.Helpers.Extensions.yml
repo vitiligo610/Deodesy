@@ -21,7 +21,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Extensions
     path: src/Deodesy.Library/Helpers/Extensions.cs
@@ -59,7 +59,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToFixed
     path: src/Deodesy.Library/Helpers/Extensions.cs
@@ -105,7 +105,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToRadians
     path: src/Deodesy.Library/Helpers/Extensions.cs
@@ -148,7 +148,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToDegrees
     path: src/Deodesy.Library/Helpers/Extensions.cs
@@ -191,7 +191,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap90
     path: src/Deodesy.Library/Helpers/Extensions.cs
@@ -234,7 +234,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap180
     path: src/Deodesy.Library/Helpers/Extensions.cs
@@ -277,7 +277,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: extend-latlon-spherical
+      branch: main
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap360
     path: src/Deodesy.Library/Helpers/Extensions.cs
