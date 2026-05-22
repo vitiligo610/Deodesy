@@ -15,12 +15,17 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 8.x
-
+          
+      - name: Write Release Version
+        run: |
+          TAG=${{ github.event.release.tag_name }}
+          echo "VERSION=${TAG#v}" >> $GITHUB_ENV      
+      
       - name: Generate NuGet Package
         run: |
           dotnet pack src/Deodesy.Library/Deodesy.Library.csproj \
           -c Release \
-          -p:PackageVersion=${{ replace(github.event.release.tag_name, 'v', '') }} \
+          -p:PackageVersion=${{ env.VERSION }} \
           -p:RepositoryUrl=https://github.com/vitiligo610/Deodesy \
           -o packages
 
