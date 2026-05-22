@@ -24,11 +24,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(52.205, 0.119);
     /// var p2 = new Coordinate(48.857, 2.351);
-    /// var geo = new LatLonSpherical();
-    /// double distance = geo.Distance(p1, p2); // 404,279.16 m
+    /// double distance = LatLonSpherical.Distance(p1, p2); // 404,279.16 m
     /// </code>
     /// </example>
-    public double Distance(Coordinate startPoint, Coordinate endPoint)
+    public static double Distance(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -59,11 +58,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(52.205, 0.119);
     /// var p2 = new Coordinate(48.857, 2.351);
-    /// var geo = new LatLonSpherical();
-    /// double distanceNm = geo.DistanceNm(p1, p2); // 218.29 nm 
+    /// double distanceNm = LatLonSpherical.DistanceNm(p1, p2); // 218.29 nm 
     /// </code>
     /// </example>
-    public double DistanceNm(Coordinate startPoint, Coordinate endPoint)
+    public static double DistanceNm(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -86,11 +84,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(52.205, 0.119);
     /// var p2 = new Coordinate(48.857, 2.351);
-    /// var geo = new LatLonSpherical();
-    /// double bearing = geo.InitialBearing(p1, p2); // 156.2°
+    /// double bearing = LatLonSpherical.InitialBearing(p1, p2); // 156.2°
     /// </code>
     /// </example>
-    public double? InitialBearing(Coordinate startPoint, Coordinate endPoint)
+    public static double? InitialBearing(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -123,11 +120,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(52.205, 0.119);
     /// var p2 = new Coordinate(48.857, 2.351);
-    /// var geo = new LatLonSpherical();
-    /// double finalBearing = geo.FinalBearing(p1, p2); // 157.9°
+    /// double finalBearing = LatLonSpherical.FinalBearing(p1, p2); // 157.9°
     /// </code>
     /// </example>
-    public double? FinalBearing(Coordinate startPoint, Coordinate endPoint)
+    public static double? FinalBearing(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -149,11 +145,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(52.205, 0.119);
     /// var p2 = new Coordinate(48.857, 2.351);
-    /// var geo = new LatLonSpherical();
-    /// var midpoint = geo.MidPoint(p1, p2); // 50.5363°N, 1.2746°E
+    /// var midpoint = LatLonSpherical.MidPoint(p1, p2); // 50.5363°N, 1.2746°E
     /// </code>
     /// </example>
-    public Coordinate MidPoint(Coordinate startPoint, Coordinate endPoint)
+    public static Coordinate MidPoint(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -186,11 +181,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(52.205, 0.119);
     /// var p2 = new Coordinate(48.857, 2.351);
-    /// var geo = new LatLonSpherical();
-    /// var intermediatePoint = geo.IntermediatePoint(p1, p2, 0.25); // 51.3721°N, 0.7073°E
+    /// var intermediatePoint = LatLonSpherical.IntermediatePoint(p1, p2, 0.25); // 51.3721°N, 0.7073°E
     /// </code>
     /// </example>
-    public Coordinate IntermediatePoint(Coordinate startPoint, Coordinate endPoint, double fraction)
+    public static Coordinate IntermediatePoint(Coordinate startPoint, Coordinate endPoint, double fraction)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -234,11 +228,10 @@ public class LatLonSpherical
     /// <example>
     /// <code>
     /// var p1 = new Coordinate(51.47788, -0.00147);
-    /// var geo = new LatLonSpherical();
-    /// var destPoint = geo.DestinationPoint(p1, 7794, 300.7); // 51.5136°N, 000.0983°W
+    /// var destPoint = LatLonSpherical.DestinationPoint(p1, 7794, 300.7); // 51.5136°N, 000.0983°W
     /// </code>
     /// </example>
-    public Coordinate DestinationPoint(Coordinate startPoint, double distance, double bearing)
+    public static Coordinate DestinationPoint(Coordinate startPoint, double distance, double bearing)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         
@@ -275,11 +268,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(51.8853, 0.2545), brng1 = 108.547;
     /// var p2 = new Coordinate(49.0034, 2.5735), brng2 =  32.435;
-    /// var geo = new LatLonSpherical();
-    /// var intersection = geo.IntersectionPoint(p1, brng1, p2, brng2); // 50.9078°N, 4.5084°E
+    /// var intersection = LatLonSpherical.IntersectionPoint(p1, brng1, p2, brng2); // 50.9078°N, 4.5084°E
     /// </code>
     /// </example>
-    public Coordinate? IntersectionPoint(Coordinate firstPoint, double firstBearing, Coordinate secondPoint,
+    public static Coordinate? IntersectionPoint(Coordinate firstPoint, double firstBearing, Coordinate secondPoint,
         double secondBearing)
     {
         Guard.NotNull(firstPoint, nameof(firstPoint));
@@ -355,11 +347,10 @@ public class LatLonSpherical
     /// var start = new Coordinate(53.3206, -1.7297);
     /// var end = new Coordinate(53.1887, 0.1334);
     /// var current = new Coordinate(53.2611, -0.7972);
-    /// var geo = new LatLonSpherical();
-    /// double crossTrackDist = geo.CrossTrackDistance(current, start, end); // -307.5 m
+    /// double crossTrackDist = LatLonSpherical.CrossTrackDistance(current, start, end); // -307.5 m
     /// </code>
     /// </example>
-    public double CrossTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
+    public static double CrossTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(currentPoint, nameof(currentPoint));
         Guard.NotNull(startPoint, nameof(startPoint));
@@ -394,11 +385,10 @@ public class LatLonSpherical
     /// var start = new Coordinate(53.3206, -1.7297);
     /// var end = new Coordinate(53.1887, 0.1334);
     /// var current = new Coordinate(53.2611, -0.7972);
-    /// var geo = new LatLonSpherical();
-    /// double alongTrackDist = geo.AlongTrackDistance(current, start, end); // 62,331.49 m
+    /// double alongTrackDist = LatLonSpherical.AlongTrackDistance(current, start, end); // 62,331.49 m
     /// </code>
     /// </example>
-    public double AlongTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
+    public static double AlongTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(currentPoint, nameof(currentPoint));
         Guard.NotNull(startPoint, nameof(startPoint));
@@ -431,11 +421,10 @@ public class LatLonSpherical
     /// <example>
     /// <code>
     /// var p1 = new Coordinate(51.51, 0.0);
-    /// var geo = new LatLonSpherical();
-    /// double maxLat = geo.MaxLatitude(p1, 90.0); // 51.51°
+    /// double maxLat = LatLonSpherical.MaxLatitude(p1, 90.0); // 51.51°
     /// </code>
     /// </example>
-    public double MaxLatitude(Coordinate startPoint, double bearing)
+    public static double MaxLatitude(Coordinate startPoint, double bearing)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         
@@ -459,11 +448,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(53.3206, -1.7297);
     /// var p2 = new Coordinate(53.1887, 0.1334);
-    /// var geo = new LatLonSpherical();
-    /// double[]? crossingLons = geo.CrossingParallels(p1, p2, 45.5); // 50.4775°S, 32.0812°N
+    /// double[]? crossingLons = LatLonSpherical.CrossingParallels(p1, p2, 45.5); // 50.4775°S, 32.0812°N
     /// </code>
     /// </example>
-    public double[]? CrossingParallels(Coordinate startPoint, Coordinate endPoint, double latitude)
+    public static double[]? CrossingParallels(Coordinate startPoint, Coordinate endPoint, double latitude)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -507,11 +495,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(51.127, 1.338);
     /// var p2 = new Coordinate(50.964, 1.853);
-    /// var geo = new LatLonSpherical();
-    /// double distance = geo.RhumbDistance(p1, p2); // 40,307.75 m
+    /// double distance = LatLonSpherical.RhumbDistance(p1, p2); // 40,307.75 m
     /// </code>
     /// </example>
-    public double RhumbDistance(Coordinate startPoint, Coordinate endPoint)
+    public static double RhumbDistance(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -549,11 +536,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(51.127, 1.338);
     /// var p2 = new Coordinate(50.964, 1.853);
-    /// var geo = new LatLonSpherical();
-    /// double bearing = geo.RhumbBearing(p1, p2); // 116.7°
+    /// double bearing = LatLonSpherical.RhumbBearing(p1, p2); // 116.7°
     /// </code>
     /// </example>
-    public double? RhumbBearing(Coordinate startPoint, Coordinate endPoint)
+    public static double? RhumbBearing(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
@@ -585,11 +571,10 @@ public class LatLonSpherical
     /// <example>
     /// <code>
     /// var p1 = new Coordinate(51.127, 1.338);
-    /// var geo = new LatLonSpherical();
-    /// var destPoint = geo.RhumbDestinationPoint(p1, 40300, 116.7); // 50.9642°N, 1.8530°E
+    /// var destPoint = LatLonSpherical.RhumbDestinationPoint(p1, 40300, 116.7); // 50.9642°N, 1.8530°E
     /// </code>
     /// </example>
-    public Coordinate RhumbDestinationPoint(Coordinate startPoint, double distance, double bearing)
+    public static Coordinate RhumbDestinationPoint(Coordinate startPoint, double distance, double bearing)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
 
@@ -623,11 +608,10 @@ public class LatLonSpherical
     /// <code>
     /// var p1 = new Coordinate(51.127, 1.338);
     /// var p2 = new Coordinate(50.964, 1.853);
-    /// var geo = new LatLonSpherical();
-    /// var midpoint = geo.MidPoint(p1, p2); // 51.0455°N, 1.5957°E
+    /// var midpoint = LatLonSpherical.MidPoint(p1, p2); // 51.0455°N, 1.5957°E
     /// </code>
     /// </example>
-    public Coordinate RhumbMidPoint(Coordinate startPoint, Coordinate endPoint)
+    public static Coordinate RhumbMidPoint(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
