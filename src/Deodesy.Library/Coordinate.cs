@@ -123,6 +123,38 @@ public class Coordinate
         if (obj.GetType() != this.GetType()) return false;
         return Equals((Coordinate)obj);
     }
+    
+    /// <summary>
+    /// Returns the string representation of the current <see cref="Coordinate"/> object.
+    /// </summary>
+    /// <param name="format">TheThe format to use: "n", "d", "dm", or "dms".</param>
+    /// <returns>Comma-separated formatted latitude/longitude.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="format"/> is of invalid format.</exception>
+    /// <example>
+    /// <code>
+    /// var greenwich = new Coordinate(51.47788, -0.00147);
+    /// var d = greenwich.ToString('d', 2);       // 51.4779°N, 000.0015°W
+    /// var dms = greenwich.ToString('dms', 2);   // 51°28′40.37″N, 000°00′05.29″W
+    /// </code>
+    /// </example>
+    public string ToString(string format = "d", int dp = 4)
+    {
+        var formats = new[] { "d", "dm", "dms", "n" };
+        if (!formats.Contains(format))
+        {
+            throw new ArgumentOutOfRangeException(nameof(format), $"Invalid format: {format}");
+        }
+
+        if (format == "n") // signed numeric degrees
+        {
+            return $"{Latitude.ToFixed(dp)}, {Longitude.ToFixed(dp)}";
+        }
+
+        var lat = Dms.ToLat(Latitude, format, dp);
+        var lon = Dms.ToLon(Longitude, format, dp);
+
+        return $"{lat}, {lon}";
+    }
 
     /// <summary>
     /// Serves as the default hash function.
