@@ -13,6 +13,9 @@ public class LatLonSpherical
     /// Calculates the distance (in meters) between two points on the Earth's surface
     /// using the Haversine formula.
     /// </summary>
+    /// <remarks>
+    /// See https://mathforum.org/library/drmath/view/51879.html for derivation
+    /// </remarks>
     /// <param name="startPoint">The starting coordinate.</param>
     /// <param name="endPoint">The ending coordinate.</param>
     /// <returns>The distance in meters.</returns>
@@ -29,6 +32,10 @@ public class LatLonSpherical
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
+        
+        // a = sin²(Δφ/2) + cos(φ1)⋅cos(φ2)⋅sin²(Δλ/2)
+        // δ = 2·atan2(√(a), √(1−a))
+        // see mathforum.org/library/drmath/view/51879.html for derivation
         
         var deltaLat = endPoint.LatitudeR - startPoint.LatitudeR;
         var deltaLon = endPoint.LongitudeR - startPoint.LongitudeR;
@@ -68,24 +75,30 @@ public class LatLonSpherical
     /// <summary>
     /// Calculates the initial bearing (direction) from a start point to an end point.
     /// </summary>
+    /// <remarks>
+    /// See https://mathforum.org/library/drmath/view/55417.html for derivation
+    /// </remarks>
     /// <param name="startPoint">The starting coordinate.</param>
     /// <param name="endPoint">The ending coordinate.</param>
-    /// <returns>The initial bearing in degrees, in the range 0 to 360.</returns>
+    /// <returns>The initial bearing in degrees, in the range 0 to 360. If both points are same, returns null</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
     /// <example>
     /// <code>
     /// var p1 = new Coordinate(52.205, 0.119);
     /// var p2 = new Coordinate(48.857, 2.351);
     /// var geo = new LatLonSpherical();
-    /// double bearing = geo.Bearing(p1, p2); // 156.2°
+    /// double bearing = geo.InitialBearing(p1, p2); // 156.2°
     /// </code>
     /// </example>
-    public double InitialBearing(Coordinate startPoint, Coordinate endPoint)
+    public double? InitialBearing(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
         
-        if (startPoint == endPoint) return 0.0;
+        if (startPoint == endPoint) return null;
+        
+        // tanθ = sinΔλ⋅cosφ2 / cosφ1⋅sinφ2 − sinφ1⋅cosφ2⋅cosΔλ
+        // see mathforum.org/library/drmath/view/55417.html for derivation
         
         var deltaLon = endPoint.LongitudeR - startPoint.LongitudeR;
         var y = Math.Sin(deltaLon) * Math.Cos(endPoint.LatitudeR);
@@ -114,14 +127,15 @@ public class LatLonSpherical
     /// double finalBearing = geo.FinalBearing(p1, p2); // 157.9°
     /// </code>
     /// </example>
-    public double FinalBearing(Coordinate startPoint, Coordinate endPoint)
+    public double? FinalBearing(Coordinate startPoint, Coordinate endPoint)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
         
         // The final bearing is the initial bearing from the end point to the start point, plus 180 degrees.
         var bearing = InitialBearing(endPoint, startPoint) + 180;
-        return bearing.Wrap360();
+        
+        return bearing?.Wrap360();
     }
     
     /// <summary>
@@ -143,6 +157,10 @@ public class LatLonSpherical
     {
         Guard.NotNull(startPoint, nameof(startPoint));
         Guard.NotNull(endPoint, nameof(endPoint));
+        
+        // φm = atan2( sinφ1 + sinφ2, √( (cosφ1 + cosφ2⋅cosΔλ)² + cos²φ2⋅sin²Δλ ) )
+        // λm = λ1 + atan2(cosφ2⋅sinΔλ, cosφ1 + cosφ2⋅cosΔλ)
+        // midpoint is sum of vectors to two points: mathforum.org/library/drmath/view/51822.html
 
         var deltaLon = endPoint.LongitudeR - startPoint.LongitudeR;
         var bx = Math.Cos(endPoint.LatitudeR) * Math.Cos(deltaLon);
@@ -205,6 +223,9 @@ public class LatLonSpherical
     /// Calculates the destination point and final bearing when traveling along a great circle arc
     /// for a given start point, initial bearing, and distance.
     /// </summary>
+    /// <remarks>
+    /// See https://mathforum.org/library/drmath/view/52049.html for derivation
+    /// </remarks>
     /// <param name="startPoint">The starting coordinate.</param>
     /// <param name="distance">The distance to travel in same units as earth radius (meters).</param>
     /// <param name="bearing">The initial bearing in degrees from north.</param>
@@ -220,6 +241,10 @@ public class LatLonSpherical
     public Coordinate DestinationPoint(Coordinate startPoint, double distance, double bearing)
     {
         Guard.NotNull(startPoint, nameof(startPoint));
+        
+        // sinφ2 = sinφ1⋅cosδ + cosφ1⋅sinδ⋅cosθ
+        // tanΔλ = sinθ⋅sinδ⋅cosφ1 / cosδ−sinφ1⋅sinφ2
+        // see mathforum.org/library/drmath/view/52049.html for derivation
 
         var angularDistance = distance / EarthRadiusMeters;
 
@@ -237,6 +262,9 @@ public class LatLonSpherical
     /// <summary>
     /// Calculates the point of intersection of two great-circle paths defined by points and bearings.
     /// </summary>
+    /// <remarks>
+    /// See https://www.edwilliams.org/avform.htm#Intersection
+    /// </remarks>
     /// <param name="firstPoint">The starting point of the first path.</param>
     /// <param name="firstBearing">The initial bearing of the first path in degrees.</param>
     /// <param name="secondPoint">The starting point of the second path.</param>
@@ -256,6 +284,8 @@ public class LatLonSpherical
     {
         Guard.NotNull(firstPoint, nameof(firstPoint));
         Guard.NotNull(secondPoint, nameof(secondPoint));
+        
+        // see www.edwilliams.org/avform.htm#Intersection
 
         var deltaLat = secondPoint.LatitudeR - firstPoint.LatitudeR;
         var deltaLon = secondPoint.LongitudeR - firstPoint.LongitudeR;
@@ -286,8 +316,8 @@ public class LatLonSpherical
         var alpha1 = firstBearing.ToRadians() - theta12;
         var alpha2 = theta21 - secondBearing.ToRadians();
 
-        if (Math.Sin(alpha1) == 0.0 && Math.Sin(alpha2) == 0.0) return null; // parallel lines
-        if (Math.Sin(alpha1) * Math.Sin(alpha2) < 0) return null; // antipodal intersection
+        if (Math.Sin(alpha1) == 0.0 && Math.Sin(alpha2) == 0.0) return null; // infinite intersections
+        if (Math.Sin(alpha1) * Math.Sin(alpha2) < 0) return null; // antipodal intersection (ambiguous)
 
         var cosAlpha3 = -Math.Cos(alpha1) * Math.Cos(alpha2) +
                         Math.Sin(alpha1) * Math.Sin(alpha2) * Math.Cos(delta12);
@@ -336,10 +366,10 @@ public class LatLonSpherical
         Guard.NotNull(endPoint, nameof(endPoint));
 
         if (currentPoint == startPoint) return 0.0; // same point
-
+        
         var delta13 = Distance(startPoint, currentPoint) / EarthRadiusMeters; // angular distance from start to current
-        var theta13 = InitialBearing(startPoint, currentPoint).ToRadians(); // bearing from start to current
-        var theta12 = InitialBearing(startPoint, endPoint).ToRadians(); // bearing from start to end
+        var theta13 = InitialBearing(startPoint, currentPoint)!.Value.ToRadians(); // bearing from start to current
+        var theta12 = InitialBearing(startPoint, endPoint)?.ToRadians() ?? 0.0; // bearing from start to end
 
         var deltaCrossTrack = Math.Asin(Math.Sin(delta13) * Math.Sin(theta13 - theta12));
 
@@ -377,8 +407,8 @@ public class LatLonSpherical
         if (currentPoint == startPoint) return 0.0; // same point
         
         var delta13 = Distance(startPoint, currentPoint) / EarthRadiusMeters; // angular distance from start to current
-        var theta13 = InitialBearing(startPoint, currentPoint).ToRadians(); // bearing from start to current
-        var theta12 = InitialBearing(startPoint, endPoint).ToRadians(); // bearing from start to end
+        var theta13 = InitialBearing(startPoint, currentPoint)!.Value.ToRadians(); // bearing from start to current
+        var theta12 = InitialBearing(startPoint, endPoint)?.ToRadians() ?? 0.0; // bearing from start to end
 
         var deltaCrossTrack = Math.Asin(Math.Sin(delta13) * Math.Sin(theta13 - theta12));
         var deltaAlongTrack = Math.Acos(Math.Cos(delta13) / Math.Abs(Math.Cos(deltaCrossTrack)));
@@ -459,5 +489,162 @@ public class LatLonSpherical
         var lon2 = deltaI2.ToDegrees();
 
         return new [] { lon1.Wrap180(), lon2.Wrap180() };
+    }
+    
+    /* Rhumb - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+    
+    /// <summary>
+    /// Calculates the distance (in meters) between two points along a rhumb line.
+    /// </summary>
+    /// <remarks>
+    /// See https://www.edwilliams.org/avform.htm#Rhumb
+    /// </remarks>
+    /// <param name="startPoint">The starting coordinate.</param>
+    /// <param name="endPoint">The ending coordinate.</param>
+    /// <returns>The distance in meters.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
+    /// <example>
+    /// <code>
+    /// var p1 = new Coordinate(51.127, 1.338);
+    /// var p2 = new Coordinate(50.964, 1.853);
+    /// var geo = new LatLonSpherical();
+    /// double distance = geo.RhumbDistance(p1, p2); // 40,307.75 m
+    /// </code>
+    /// </example>
+    public double RhumbDistance(Coordinate startPoint, Coordinate endPoint)
+    {
+        Guard.NotNull(startPoint, nameof(startPoint));
+        Guard.NotNull(endPoint, nameof(endPoint));
+        
+        // see www.edwilliams.org/avform.htm#Rhumb
+        
+        var deltaLat = endPoint.LatitudeR - startPoint.LatitudeR;
+        var deltaLon = Math.Abs(endPoint.LongitudeR - startPoint.LongitudeR);
+
+        // if deltaLon over 180° take shorter rhumb line across the anti-meridian
+        if (Math.Abs(deltaLon) > Math.PI)
+        {
+            deltaLon = deltaLon > 0 ? -(2 * Math.PI - deltaLon) : (2 * Math.PI + deltaLon);
+        }
+        
+        // on Mercator projection, longitude distances shrink by latitude; q is the 'stretch factor'
+        // q becomes ill-conditioned along E-W line (0/0); use empirical tolerance to avoid it (note ε is too small)
+        var deltaIsometricLat = Math.Log(Math.Tan(Math.PI / 4 + endPoint.LatitudeR / 2) / Math.Tan(Math.PI / 4 + startPoint.LatitudeR / 2));
+        var q = Math.Abs(deltaIsometricLat) > 10e-12 ? deltaLat / deltaIsometricLat : Math.Cos(startPoint.LatitudeR);
+        
+        // distance is pythagoras on 'stretched' Mercator projection, √(Δφ² + q²·Δλ²)
+        var angularDistance = Math.Sqrt(deltaLat * deltaLat + q * q * deltaLon * deltaLon);
+        
+        return angularDistance * EarthRadiusMeters;
+    }
+    
+    /// <summary>
+    /// Calculates the bearing (direction) from a start point to an end point along a rhumb line.
+    /// </summary>
+    /// <param name="startPoint">The starting coordinate.</param>
+    /// <param name="endPoint">The ending coordinate.</param>
+    /// <returns>The bearing in degrees, in the range 0 to 360. If two points are same, returns null</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
+    /// <example>
+    /// <code>
+    /// var p1 = new Coordinate(51.127, 1.338);
+    /// var p2 = new Coordinate(50.964, 1.853);
+    /// var geo = new LatLonSpherical();
+    /// double bearing = geo.RhumbBearing(p1, p2); // 116.7°
+    /// </code>
+    /// </example>
+    public double? RhumbBearing(Coordinate startPoint, Coordinate endPoint)
+    {
+        Guard.NotNull(startPoint, nameof(startPoint));
+        Guard.NotNull(endPoint, nameof(endPoint));
+        
+        if (startPoint == endPoint) return null;
+        
+        var deltaLon = endPoint.LongitudeR - startPoint.LongitudeR;
+
+        if (Math.Abs(deltaLon) > Math.PI)
+        {
+            deltaLon = deltaLon > 0 ? -(2 * Math.PI - deltaLon) : (2 * Math.PI + deltaLon);
+        }
+        
+        var deltaIsometricLat = Math.Log(Math.Tan(Math.PI / 4 + endPoint.LatitudeR / 2) / Math.Tan(Math.PI / 4 + startPoint.LatitudeR / 2));
+        var bearing = Math.Atan2(deltaLon, deltaIsometricLat);
+
+        return bearing.ToDegrees().Wrap360();
+    }
+    
+    /// <summary>
+    /// Calculates the destination point and final bearing when traveling along a rhumb line
+    /// for a given start point, initial bearing, and distance.
+    /// </summary>
+    /// <param name="startPoint">The starting coordinate.</param>
+    /// <param name="distance">The distance to travel in same units as earth radius (meters).</param>
+    /// <param name="bearing">The initial bearing in degrees from north.</param>
+    /// <returns>A <see cref="Coordinate"/> object representing the destination point.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> is null.</exception>
+    /// <example>
+    /// <code>
+    /// var p1 = new Coordinate(51.127, 1.338);
+    /// var geo = new LatLonSpherical();
+    /// var destPoint = geo.RhumbDestinationPoint(p1, 40300, 116.7); // 50.9642°N, 1.8530°E
+    /// </code>
+    /// </example>
+    public Coordinate RhumbDestinationPoint(Coordinate startPoint, double distance, double bearing)
+    {
+        Guard.NotNull(startPoint, nameof(startPoint));
+
+        var angularDistance = distance / EarthRadiusMeters;
+
+        var deltaLat = angularDistance / bearing.ToRadians();
+        var endPointLatR = startPoint.LatitudeR + deltaLat;
+
+        if (Math.Abs(endPointLatR) > Math.PI / 2)
+        {
+            endPointLatR = endPointLatR > 0 ? Math.PI - endPointLatR : - Math.PI - endPointLatR;
+        }
+        
+        var deltaIsometricLat = Math.Log(Math.Tan(Math.PI / 4 + endPointLatR / 2) / Math.Tan(Math.PI / 4 + startPoint.LatitudeR / 2));
+        var q = Math.Abs(deltaIsometricLat) > 10e-12 ? deltaLat / deltaIsometricLat : Math.Cos(startPoint.LatitudeR); // E-W course becomes ill-conditioned with 0/0
+        
+        var deltaLon = angularDistance * Math.Sin(bearing.ToDegrees()) / q;
+        var endPointLonR = startPoint.LongitudeR + deltaLon;
+
+        return new Coordinate(endPointLatR.ToDegrees(), endPointLonR.ToDegrees());
+    }
+    
+    /// <summary>
+    /// Calculates the midpoint between two points on the Earth's surface.
+    /// </summary>
+    /// <param name="startPoint">The starting coordinate.</param>
+    /// <param name="endPoint">The ending coordinate.</param>
+    /// <returns>A <see cref="Coordinate"/> object representing the midpoint.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="startPoint"/> or <paramref name="endPoint"/> is null.</exception>
+    /// <example>
+    /// <code>
+    /// var p1 = new Coordinate(51.127, 1.338);
+    /// var p2 = new Coordinate(50.964, 1.853);
+    /// var geo = new LatLonSpherical();
+    /// var midpoint = geo.MidPoint(p1, p2); // 51.0455°N, 1.5957°E
+    /// </code>
+    /// </example>
+    public Coordinate RhumbMidPoint(Coordinate startPoint, Coordinate endPoint)
+    {
+        Guard.NotNull(startPoint, nameof(startPoint));
+        Guard.NotNull(endPoint, nameof(endPoint));
+        
+        // φm = atan2( sinφ1 + sinφ2, √( (cosφ1 + cosφ2⋅cosΔλ)² + cos²φ2⋅sin²Δλ ) )
+        // λm = λ1 + atan2(cosφ2⋅sinΔλ, cosφ1 + cosφ2⋅cosΔλ)
+        // midpoint is sum of vectors to two points: mathforum.org/library/drmath/view/51822.html
+
+        var deltaLon = endPoint.LongitudeR - startPoint.LongitudeR;
+        var bx = Math.Cos(endPoint.LatitudeR) * Math.Cos(deltaLon);
+        var by = Math.Cos(endPoint.LatitudeR) * Math.Sin(deltaLon);
+
+        var lat = Math.Atan2(Math.Sin(startPoint.LatitudeR) + Math.Sin(endPoint.LatitudeR),
+            Math.Sqrt((Math.Cos(startPoint.LatitudeR) + bx) * (Math.Cos(startPoint.LatitudeR) + bx) + by * by));
+
+        var lon = startPoint.LongitudeR + Math.Atan2(by, Math.Cos(startPoint.LatitudeR) + bx);
+
+        return new Coordinate(lat.ToDegrees(), lon.ToDegrees());
     }
 }
