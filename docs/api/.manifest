@@ -32,6 +32,7 @@
   "Deodesy.Library.Helpers.Extensions.Wrap90(System.Double)": "Deodesy.Library.Helpers.Extensions.yml",
   "Deodesy.Library.LatLonSpherical": "Deodesy.Library.LatLonSpherical.yml",
   "Deodesy.Library.LatLonSpherical.AlongTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.LatLonSpherical.yml",
+  "Deodesy.Library.LatLonSpherical.Area(Deodesy.Library.Coordinate[])": "Deodesy.Library.LatLonSpherical.yml",
   "Deodesy.Library.LatLonSpherical.CrossTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.LatLonSpherical.yml",
   "Deodesy.Library.LatLonSpherical.CrossingParallels(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)": "Deodesy.Library.LatLonSpherical.yml",
   "Deodesy.Library.LatLonSpherical.DestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)": "Deodesy.Library.LatLonSpherical.yml",
@@ -42,5 +43,9 @@
   "Deodesy.Library.LatLonSpherical.IntermediatePoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)": "Deodesy.Library.LatLonSpherical.yml",
   "Deodesy.Library.LatLonSpherical.IntersectionPoint(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)": "Deodesy.Library.LatLonSpherical.yml",
   "Deodesy.Library.LatLonSpherical.MaxLatitude(Deodesy.Library.Coordinate,System.Double)": "Deodesy.Library.LatLonSpherical.yml",
-  "Deodesy.Library.LatLonSpherical.MidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.LatLonSpherical.yml"
+  "Deodesy.Library.LatLonSpherical.MidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.LatLonSpherical.yml",
+  "Deodesy.Library.LatLonSpherical.RhumbBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.LatLonSpherical.yml",
+  "Deodesy.Library.LatLonSpherical.RhumbDestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)": "Deodesy.Library.LatLonSpherical.yml",
+  "Deodesy.Library.LatLonSpherical.RhumbDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.LatLonSpherical.yml",
+  "Deodesy.Library.LatLonSpherical.RhumbMidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)": "Deodesy.Library.LatLonSpherical.yml"
 }
