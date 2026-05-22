@@ -5,18 +5,23 @@ items:
   id: LatLonSpherical
   parent: Deodesy.Library
   children:
-  - Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  - Deodesy.Library.LatLonSpherical.Bearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.LatLonSpherical.AlongTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.LatLonSpherical.Area(Deodesy.Library.Coordinate[])
   - Deodesy.Library.LatLonSpherical.CrossTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   - Deodesy.Library.LatLonSpherical.CrossingParallels(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
-  - Deodesy.Library.LatLonSpherical.Destination(Deodesy.Library.Coordinate,System.Double,System.Double)
+  - Deodesy.Library.LatLonSpherical.DestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
   - Deodesy.Library.LatLonSpherical.Distance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  - Deodesy.Library.LatLonSpherical.DistanceInNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.LatLonSpherical.DistanceNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   - Deodesy.Library.LatLonSpherical.FinalBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  - Deodesy.Library.LatLonSpherical.Intermediate(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
-  - Deodesy.Library.LatLonSpherical.Intersection(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
+  - Deodesy.Library.LatLonSpherical.InitialBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.LatLonSpherical.IntermediatePoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
+  - Deodesy.Library.LatLonSpherical.IntersectionPoint(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
   - Deodesy.Library.LatLonSpherical.MaxLatitude(Deodesy.Library.Coordinate,System.Double)
   - Deodesy.Library.LatLonSpherical.MidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.LatLonSpherical.RhumbBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.LatLonSpherical.RhumbDestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
+  - Deodesy.Library.LatLonSpherical.RhumbDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  - Deodesy.Library.LatLonSpherical.RhumbMidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   langs:
   - csharp
   - vb
@@ -27,18 +32,15 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LatLonSpherical
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 9
+    startLine: 7
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
-  summary: >-
-    Provides functions for spherical geodesy, based on the Haversine formula and other spherical geometry calculations.
-
-    These functions are adapted from Chris Veness's original JavaScript geodesy library.
+  summary: Provides functions for spherical geodesy, based on the Haversine formula and other spherical geometry calculations.
   example: []
   syntax:
     content: public class LatLonSpherical
@@ -67,31 +69,28 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Distance
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 30
+    startLine: 29
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: >-
-    Calculates the distance (in kilometers) between two points on the Earth's surface
+    Calculates the distance (in meters) between two points on the Earth's surface
 
     using the Haversine formula.
+  remarks: See https://mathforum.org/library/drmath/view/51879.html for derivation
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
+    <pre><code class="lang-csharp">var p1 = new Coordinate(52.205, 0.119);
 
-    var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    var p2 = new Coordinate(48.857, 2.351);
 
-    var geo = new LatLonSpherical();
-
-    double distance = geo.Distance(p1, p2);
-
-    Console.WriteLine($"Distance: {distance:F2} km"); // Output: Distance: 5908.38 km (approx)</code></pre>
+    double distance = LatLonSpherical.Distance(p1, p2); // 404,279.16 m</code></pre>
   syntax:
-    content: public double Distance(Coordinate startPoint, Coordinate endPoint)
+    content: public static double Distance(Coordinate startPoint, Coordinate endPoint)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -101,32 +100,32 @@ items:
       description: The ending coordinate.
     return:
       type: System.Double
-      description: The distance in kilometers.
-    content.vb: Public Function Distance(startPoint As Coordinate, endPoint As Coordinate) As Double
+      description: The distance in meters.
+    content.vb: Public Shared Function Distance(startPoint As Coordinate, endPoint As Coordinate) As Double
   overload: Deodesy.Library.LatLonSpherical.Distance*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: Thrown if <code class="paramref">startPoint</code> or <code class="paramref">endPoint</code> is null.
-- uid: Deodesy.Library.LatLonSpherical.DistanceInNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  commentId: M:Deodesy.Library.LatLonSpherical.DistanceInNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  id: DistanceInNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+- uid: Deodesy.Library.LatLonSpherical.DistanceNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.LatLonSpherical.DistanceNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: DistanceNm(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   parent: Deodesy.Library.LatLonSpherical
   langs:
   - csharp
   - vb
-  name: DistanceInNm(Coordinate, Coordinate)
-  nameWithType: LatLonSpherical.DistanceInNm(Coordinate, Coordinate)
-  fullName: Deodesy.Library.LatLonSpherical.DistanceInNm(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  name: DistanceNm(Coordinate, Coordinate)
+  nameWithType: LatLonSpherical.DistanceNm(Coordinate, Coordinate)
+  fullName: Deodesy.Library.LatLonSpherical.DistanceNm(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
   type: Method
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
-    id: DistanceInNm
+    id: DistanceNm
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 62
+    startLine: 63
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -136,17 +135,13 @@ items:
     using the Haversine formula.
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
+    <pre><code class="lang-csharp">var p1 = new Coordinate(52.205, 0.119);
 
-    var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    var p2 = new Coordinate(48.857, 2.351);
 
-    var geo = new LatLonSpherical();
-
-    double distanceNm = geo.DistanceInNm(p1, p2);
-
-    Console.WriteLine($"Distance: {distanceNm:F2} nm"); // Output: Distance: 3190.27 nm</code></pre>
+    double distanceNm = LatLonSpherical.DistanceNm(p1, p2); // 218.29 nm</code></pre>
   syntax:
-    content: public double DistanceInNm(Coordinate startPoint, Coordinate endPoint)
+    content: public static double DistanceNm(Coordinate startPoint, Coordinate endPoint)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -157,48 +152,45 @@ items:
     return:
       type: System.Double
       description: The distance in nautical miles.
-    content.vb: Public Function DistanceInNm(startPoint As Coordinate, endPoint As Coordinate) As Double
-  overload: Deodesy.Library.LatLonSpherical.DistanceInNm*
+    content.vb: Public Shared Function DistanceNm(startPoint As Coordinate, endPoint As Coordinate) As Double
+  overload: Deodesy.Library.LatLonSpherical.DistanceNm*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: Thrown if <code class="paramref">startPoint</code> or <code class="paramref">endPoint</code> is null.
-- uid: Deodesy.Library.LatLonSpherical.Bearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  commentId: M:Deodesy.Library.LatLonSpherical.Bearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  id: Bearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+- uid: Deodesy.Library.LatLonSpherical.InitialBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.LatLonSpherical.InitialBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: InitialBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   parent: Deodesy.Library.LatLonSpherical
   langs:
   - csharp
   - vb
-  name: Bearing(Coordinate, Coordinate)
-  nameWithType: LatLonSpherical.Bearing(Coordinate, Coordinate)
-  fullName: Deodesy.Library.LatLonSpherical.Bearing(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  name: InitialBearing(Coordinate, Coordinate)
+  nameWithType: LatLonSpherical.InitialBearing(Coordinate, Coordinate)
+  fullName: Deodesy.Library.LatLonSpherical.InitialBearing(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
   type: Method
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
-    id: Bearing
+    id: InitialBearing
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 87
+    startLine: 89
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Calculates the initial bearing (direction) from a start point to an end point.
+  remarks: See https://mathforum.org/library/drmath/view/55417.html for derivation
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
+    <pre><code class="lang-csharp">var p1 = new Coordinate(52.205, 0.119);
 
-    var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    var p2 = new Coordinate(48.857, 2.351);
 
-    var geo = new LatLonSpherical();
-
-    double bearing = geo.Bearing(p1, p2);
-
-    Console.WriteLine($"Initial Bearing: {bearing:F2}°"); // Output: Initial Bearing: 324.26°</code></pre>
+    double bearing = LatLonSpherical.InitialBearing(p1, p2); // 156.2°</code></pre>
   syntax:
-    content: public double Bearing(Coordinate startPoint, Coordinate endPoint)
+    content: public static double? InitialBearing(Coordinate startPoint, Coordinate endPoint)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -207,10 +199,10 @@ items:
       type: Deodesy.Library.Coordinate
       description: The ending coordinate.
     return:
-      type: System.Double
-      description: The initial bearing in degrees, in the range 0 to 360.
-    content.vb: Public Function Bearing(startPoint As Coordinate, endPoint As Coordinate) As Double
-  overload: Deodesy.Library.LatLonSpherical.Bearing*
+      type: System.Nullable{System.Double}
+      description: The initial bearing in degrees, in the range 0 to 360. If both points are same, returns null
+    content.vb: Public Shared Function InitialBearing(startPoint As Coordinate, endPoint As Coordinate) As Double?
+  overload: Deodesy.Library.LatLonSpherical.InitialBearing*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
@@ -229,11 +221,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: FinalBearing
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 122
+    startLine: 125
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -241,17 +233,13 @@ items:
   remarks: The final bearing will differ from the initial bearing by varying degrees according to distance and latitude.
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
+    <pre><code class="lang-csharp">var p1 = new Coordinate(52.205, 0.119);
 
-    var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    var p2 = new Coordinate(48.857, 2.351);
 
-    var geo = new LatLonSpherical();
-
-    double finalBearing = geo.FinalBearing(p1, p2);
-
-    Console.WriteLine($"Final Bearing: {finalBearing:F2}°"); // Output: Final Bearing: 229.31°</code></pre>
+    double finalBearing = LatLonSpherical.FinalBearing(p1, p2); // 157.9°</code></pre>
   syntax:
-    content: public double FinalBearing(Coordinate startPoint, Coordinate endPoint)
+    content: public static double? FinalBearing(Coordinate startPoint, Coordinate endPoint)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -260,9 +248,9 @@ items:
       type: Deodesy.Library.Coordinate
       description: The ending coordinate.
     return:
-      type: System.Double
+      type: System.Nullable{System.Double}
       description: The final bearing in degrees, in the range 0 to 360.
-    content.vb: Public Function FinalBearing(startPoint As Coordinate, endPoint As Coordinate) As Double
+    content.vb: Public Shared Function FinalBearing(startPoint As Coordinate, endPoint As Coordinate) As Double?
   overload: Deodesy.Library.LatLonSpherical.FinalBearing*
   exceptions:
   - type: System.ArgumentNullException
@@ -282,30 +270,24 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: MidPoint
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 149
+    startLine: 150
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Calculates the midpoint between two points on the Earth's surface.
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
+    <pre><code class="lang-csharp">var p1 = new Coordinate(52.205, 0.119);
 
-    var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    var p2 = new Coordinate(48.857, 2.351);
 
-    var geo = new LatLonSpherical();
-
-    var midpoint = geo.MidPoint(p1, p2);
-
-    Console.WriteLine($"Midpoint: Lat {midpoint.Latitude:F2}, Lon {midpoint.Longitude:F2}");
-
-    // Output: Midpoint: Lat 52.04, Lon -43.58</code></pre>
+    var midpoint = LatLonSpherical.MidPoint(p1, p2); // 50.5363°N, 1.2746°E</code></pre>
   syntax:
-    content: public Coordinate MidPoint(Coordinate startPoint, Coordinate endPoint)
+    content: public static Coordinate MidPoint(Coordinate startPoint, Coordinate endPoint)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -316,50 +298,44 @@ items:
     return:
       type: Deodesy.Library.Coordinate
       description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the midpoint.
-    content.vb: Public Function MidPoint(startPoint As Coordinate, endPoint As Coordinate) As Coordinate
+    content.vb: Public Shared Function MidPoint(startPoint As Coordinate, endPoint As Coordinate) As Coordinate
   overload: Deodesy.Library.LatLonSpherical.MidPoint*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: Thrown if <code class="paramref">startPoint</code> or <code class="paramref">endPoint</code> is null.
-- uid: Deodesy.Library.LatLonSpherical.Intermediate(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
-  commentId: M:Deodesy.Library.LatLonSpherical.Intermediate(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
-  id: Intermediate(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
+- uid: Deodesy.Library.LatLonSpherical.IntermediatePoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
+  commentId: M:Deodesy.Library.LatLonSpherical.IntermediatePoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
+  id: IntermediatePoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,System.Double)
   parent: Deodesy.Library.LatLonSpherical
   langs:
   - csharp
   - vb
-  name: Intermediate(Coordinate, Coordinate, double)
-  nameWithType: LatLonSpherical.Intermediate(Coordinate, Coordinate, double)
-  fullName: Deodesy.Library.LatLonSpherical.Intermediate(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate, double)
+  name: IntermediatePoint(Coordinate, Coordinate, double)
+  nameWithType: LatLonSpherical.IntermediatePoint(Coordinate, Coordinate, double)
+  fullName: Deodesy.Library.LatLonSpherical.IntermediatePoint(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate, double)
   type: Method
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
-    id: Intermediate
+    id: IntermediatePoint
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 184
+    startLine: 186
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Calculates the point at a given fraction along the great-circle path between two points.
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
+    <pre><code class="lang-csharp">var p1 = new Coordinate(52.205, 0.119);
 
-    var p2 = new Coordinate(38.89, -77.03); // Washington D.C.
+    var p2 = new Coordinate(48.857, 2.351);
 
-    var geo = new LatLonSpherical();
-
-    var intermediatePoint = geo.Intermediate(p1, p2, 0.25); // 25% of the way
-
-    Console.WriteLine($"Intermediate Point (25%): Lat {intermediatePoint.Latitude:F2}, Lon {intermediatePoint.Longitude:F2}");
-
-    // Output: Intermediate Point (25%): Lat 53.82, Lon -21.65</code></pre>
+    var intermediatePoint = LatLonSpherical.IntermediatePoint(p1, p2, 0.25); // 51.3721°N, 0.7073°E</code></pre>
   syntax:
-    content: public Coordinate Intermediate(Coordinate startPoint, Coordinate endPoint, double fraction)
+    content: public static Coordinate IntermediatePoint(Coordinate startPoint, Coordinate endPoint, double fraction)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -373,66 +349,104 @@ items:
     return:
       type: Deodesy.Library.Coordinate
       description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the intermediate point.
-    content.vb: Public Function Intermediate(startPoint As Coordinate, endPoint As Coordinate, fraction As Double) As Coordinate
-  overload: Deodesy.Library.LatLonSpherical.Intermediate*
+    content.vb: Public Shared Function IntermediatePoint(startPoint As Coordinate, endPoint As Coordinate, fraction As Double) As Coordinate
+  overload: Deodesy.Library.LatLonSpherical.IntermediatePoint*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: Thrown if <code class="paramref">startPoint</code> or <code class="paramref">endPoint</code> is null.
-  nameWithType.vb: LatLonSpherical.Intermediate(Coordinate, Coordinate, Double)
-  fullName.vb: Deodesy.Library.LatLonSpherical.Intermediate(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate, Double)
-  name.vb: Intermediate(Coordinate, Coordinate, Double)
-- uid: Deodesy.Library.LatLonSpherical.Intersection(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
-  commentId: M:Deodesy.Library.LatLonSpherical.Intersection(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
-  id: Intersection(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
+  nameWithType.vb: LatLonSpherical.IntermediatePoint(Coordinate, Coordinate, Double)
+  fullName.vb: Deodesy.Library.LatLonSpherical.IntermediatePoint(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate, Double)
+  name.vb: IntermediatePoint(Coordinate, Coordinate, Double)
+- uid: Deodesy.Library.LatLonSpherical.DestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
+  commentId: M:Deodesy.Library.LatLonSpherical.DestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
+  id: DestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
   parent: Deodesy.Library.LatLonSpherical
   langs:
   - csharp
   - vb
-  name: Intersection(Coordinate, double, Coordinate, double)
-  nameWithType: LatLonSpherical.Intersection(Coordinate, double, Coordinate, double)
-  fullName: Deodesy.Library.LatLonSpherical.Intersection(Deodesy.Library.Coordinate, double, Deodesy.Library.Coordinate, double)
+  name: DestinationPoint(Coordinate, double, double)
+  nameWithType: LatLonSpherical.DestinationPoint(Coordinate, double, double)
+  fullName: Deodesy.Library.LatLonSpherical.DestinationPoint(Deodesy.Library.Coordinate, double, double)
   type: Method
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
-    id: Intersection
+    id: DestinationPoint
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 241
+    startLine: 233
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
-  summary: Calculates the point of intersection of two great-circle paths.
+  summary: >-
+    Calculates the destination point and final bearing when traveling along a great circle arc
+
+    for a given start point, initial bearing, and distance.
+  remarks: See https://mathforum.org/library/drmath/view/52049.html for derivation
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.8853, 0.235); // Cambridge
+    <pre><code class="lang-csharp">var p1 = new Coordinate(51.47788, -0.00147);
 
-    var brng1 = 108.549; // Bearing from Cambridge
-
-    var p2 = new Coordinate(49.0034, 2.5735); // Paris
-
-    var brng2 = 32.435; // Bearing from Paris
-
-    var geo = new LatLonSpherical();
-
-    var intersection = geo.Intersection(p1, brng1, p2, brng2);
-
-    if (intersection != null)
-
-    {
-        Console.WriteLine($"Intersection: Lat {intersection.Latitude:F2}, Lon {intersection.Longitude:F2}");
-        // Output: Intersection: Lat 50.99, Lon 4.50 (near Brussels)
-    }
-
-    else
-
-    {
-        Console.WriteLine("No intersection found.");
-    }</code></pre>
+    var destPoint = LatLonSpherical.DestinationPoint(p1, 7794, 300.7); // 51.5136°N, 000.0983°W</code></pre>
   syntax:
-    content: public Coordinate? Intersection(Coordinate firstPoint, double firstBearing, Coordinate secondPoint, double secondBearing)
+    content: public static Coordinate DestinationPoint(Coordinate startPoint, double distance, double bearing)
+    parameters:
+    - id: startPoint
+      type: Deodesy.Library.Coordinate
+      description: The starting coordinate.
+    - id: distance
+      type: System.Double
+      description: The distance to travel in same units as earth radius (meters).
+    - id: bearing
+      type: System.Double
+      description: The initial bearing in degrees from north.
+    return:
+      type: Deodesy.Library.Coordinate
+      description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the destination point.
+    content.vb: Public Shared Function DestinationPoint(startPoint As Coordinate, distance As Double, bearing As Double) As Coordinate
+  overload: Deodesy.Library.LatLonSpherical.DestinationPoint*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">startPoint</code> is null.
+  nameWithType.vb: LatLonSpherical.DestinationPoint(Coordinate, Double, Double)
+  fullName.vb: Deodesy.Library.LatLonSpherical.DestinationPoint(Deodesy.Library.Coordinate, Double, Double)
+  name.vb: DestinationPoint(Coordinate, Double, Double)
+- uid: Deodesy.Library.LatLonSpherical.IntersectionPoint(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
+  commentId: M:Deodesy.Library.LatLonSpherical.IntersectionPoint(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
+  id: IntersectionPoint(Deodesy.Library.Coordinate,System.Double,Deodesy.Library.Coordinate,System.Double)
+  parent: Deodesy.Library.LatLonSpherical
+  langs:
+  - csharp
+  - vb
+  name: IntersectionPoint(Coordinate, double, Coordinate, double)
+  nameWithType: LatLonSpherical.IntersectionPoint(Coordinate, double, Coordinate, double)
+  fullName: Deodesy.Library.LatLonSpherical.IntersectionPoint(Deodesy.Library.Coordinate, double, Deodesy.Library.Coordinate, double)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/LatLonSpherical.cs
+      branch: extend-latlon-spherical
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: IntersectionPoint
+    path: src/Deodesy.Library/LatLonSpherical.cs
+    startLine: 273
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Calculates the point of intersection of two great-circle paths defined by points and bearings.
+  remarks: See https://www.edwilliams.org/avform.htm#Intersection
+  example:
+  - >-
+    <pre><code class="lang-csharp">var p1 = new Coordinate(51.8853, 0.2545), brng1 = 108.547;
+
+    var p2 = new Coordinate(49.0034, 2.5735), brng2 =  32.435;
+
+    var intersection = LatLonSpherical.IntersectionPoint(p1, brng1, p2, brng2); // 50.9078°N, 4.5084°E</code></pre>
+  syntax:
+    content: public static Coordinate? IntersectionPoint(Coordinate firstPoint, double firstBearing, Coordinate secondPoint, double secondBearing)
     parameters:
     - id: firstPoint
       type: Deodesy.Library.Coordinate
@@ -449,76 +463,15 @@ items:
     return:
       type: Deodesy.Library.Coordinate
       description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the intersection point, or null if no intersection or paths are coincident.
-    content.vb: Public Function Intersection(firstPoint As Coordinate, firstBearing As Double, secondPoint As Coordinate, secondBearing As Double) As Coordinate
-  overload: Deodesy.Library.LatLonSpherical.Intersection*
+    content.vb: Public Shared Function IntersectionPoint(firstPoint As Coordinate, firstBearing As Double, secondPoint As Coordinate, secondBearing As Double) As Coordinate
+  overload: Deodesy.Library.LatLonSpherical.IntersectionPoint*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: Thrown if <code class="paramref">firstPoint</code> or <code class="paramref">secondPoint</code> is null.
-  nameWithType.vb: LatLonSpherical.Intersection(Coordinate, Double, Coordinate, Double)
-  fullName.vb: Deodesy.Library.LatLonSpherical.Intersection(Deodesy.Library.Coordinate, Double, Deodesy.Library.Coordinate, Double)
-  name.vb: Intersection(Coordinate, Double, Coordinate, Double)
-- uid: Deodesy.Library.LatLonSpherical.Destination(Deodesy.Library.Coordinate,System.Double,System.Double)
-  commentId: M:Deodesy.Library.LatLonSpherical.Destination(Deodesy.Library.Coordinate,System.Double,System.Double)
-  id: Destination(Deodesy.Library.Coordinate,System.Double,System.Double)
-  parent: Deodesy.Library.LatLonSpherical
-  langs:
-  - csharp
-  - vb
-  name: Destination(Coordinate, double, double)
-  nameWithType: LatLonSpherical.Destination(Coordinate, double, double)
-  fullName: Deodesy.Library.LatLonSpherical.Destination(Deodesy.Library.Coordinate, double, double)
-  type: Method
-  source:
-    remote:
-      path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
-      repo: git@github.com:vitiligo610/Deodesy.git
-    id: Destination
-    path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 317
-  assemblies:
-  - Deodesy.Library
-  namespace: Deodesy.Library
-  summary: >-
-    Calculates the destination point and final bearing when traveling along a great circle arc
-
-    for a given start point, initial bearing, and distance.
-  example:
-  - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
-
-    var geo = new LatLonSpherical();
-
-    var destPoint = geo.destination(p1, 7794.0, 300.0); // Travel 7794 km on bearing 300°
-
-    Console.WriteLine($"Destination: Lat {destPoint.Latitude:F2}, Lon {destPoint.Longitude:F2}");
-
-    // Output: Destination: Lat 34.01, Lon -100.83</code></pre>
-  syntax:
-    content: public Coordinate Destination(Coordinate startPoint, double distance, double bearing)
-    parameters:
-    - id: startPoint
-      type: Deodesy.Library.Coordinate
-      description: The starting coordinate.
-    - id: distance
-      type: System.Double
-      description: The distance to travel in kilometers.
-    - id: bearing
-      type: System.Double
-      description: The initial bearing in degrees.
-    return:
-      type: Deodesy.Library.Coordinate
-      description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the destination point.
-    content.vb: Public Function Destination(startPoint As Coordinate, distance As Double, bearing As Double) As Coordinate
-  overload: Deodesy.Library.LatLonSpherical.Destination*
-  exceptions:
-  - type: System.ArgumentNullException
-    commentId: T:System.ArgumentNullException
-    description: Thrown if <code class="paramref">startPoint</code> is null.
-  nameWithType.vb: LatLonSpherical.Destination(Coordinate, Double, Double)
-  fullName.vb: Deodesy.Library.LatLonSpherical.Destination(Deodesy.Library.Coordinate, Double, Double)
-  name.vb: Destination(Coordinate, Double, Double)
+  nameWithType.vb: LatLonSpherical.IntersectionPoint(Coordinate, Double, Coordinate, Double)
+  fullName.vb: Deodesy.Library.LatLonSpherical.IntersectionPoint(Deodesy.Library.Coordinate, Double, Deodesy.Library.Coordinate, Double)
+  name.vb: IntersectionPoint(Coordinate, Double, Coordinate, Double)
 - uid: Deodesy.Library.LatLonSpherical.CrossTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   commentId: M:Deodesy.Library.LatLonSpherical.CrossTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   id: CrossTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
@@ -533,11 +486,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: CrossTrackDistance
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 353
+    startLine: 352
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -545,19 +498,15 @@ items:
   remarks: The cross-track distance is the shortest distance from the current point to the great-circle path.
   example:
   - >-
-    <pre><code class="lang-csharp">var start = new Coordinate(53.2611, -0.7972); // N of Lincoln
+    <pre><code class="lang-csharp">var start = new Coordinate(53.3206, -1.7297);
 
-    var end = new Coordinate(48.5734, 7.7161); // Strasbourg
+    var end = new Coordinate(53.1887, 0.1334);
 
-    var current = new Coordinate(53.1887, 0.1334); // E of Lincoln
+    var current = new Coordinate(53.2611, -0.7972);
 
-    var geo = new LatLonSpherical();
-
-    double crossTrackDist = geo.CrossTrackDistance(current, start, end);
-
-    Console.WriteLine($"Cross-track distance: {crossTrackDist:F2} km"); // Output: Cross-track distance: -31.93 km</code></pre>
+    double crossTrackDist = LatLonSpherical.CrossTrackDistance(current, start, end); // -307.5 m</code></pre>
   syntax:
-    content: public double CrossTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
+    content: public static double CrossTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
     parameters:
     - id: currentPoint
       type: Deodesy.Library.Coordinate
@@ -570,32 +519,32 @@ items:
       description: The ending coordinate of the great-circle path.
     return:
       type: System.Double
-      description: The cross-track distance in kilometers.
-    content.vb: Public Function CrossTrackDistance(currentPoint As Coordinate, startPoint As Coordinate, endPoint As Coordinate) As Double
+      description: The cross-track distance in meters (-ve if to left, +ve if to right of path).
+    content.vb: Public Shared Function CrossTrackDistance(currentPoint As Coordinate, startPoint As Coordinate, endPoint As Coordinate) As Double
   overload: Deodesy.Library.LatLonSpherical.CrossTrackDistance*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
     description: Thrown if <code class="paramref">currentPoint</code>, <code class="paramref">startPoint</code>, or <code class="paramref">endPoint</code> is null.
-- uid: Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  commentId: M:Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
-  id: AlongTrackDistanceTo(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+- uid: Deodesy.Library.LatLonSpherical.AlongTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.LatLonSpherical.AlongTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: AlongTrackDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
   parent: Deodesy.Library.LatLonSpherical
   langs:
   - csharp
   - vb
-  name: AlongTrackDistanceTo(Coordinate, Coordinate, Coordinate)
-  nameWithType: LatLonSpherical.AlongTrackDistanceTo(Coordinate, Coordinate, Coordinate)
-  fullName: Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  name: AlongTrackDistance(Coordinate, Coordinate, Coordinate)
+  nameWithType: LatLonSpherical.AlongTrackDistance(Coordinate, Coordinate, Coordinate)
+  fullName: Deodesy.Library.LatLonSpherical.AlongTrackDistance(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
   type: Method
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
-    id: AlongTrackDistanceTo
+    id: AlongTrackDistance
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 393
+    startLine: 390
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -609,19 +558,15 @@ items:
     crosses the great-circle path.
   example:
   - >-
-    <pre><code class="lang-csharp">var start = new Coordinate(53.2611, -0.7972); // N of Lincoln
+    <pre><code class="lang-csharp">var start = new Coordinate(53.3206, -1.7297);
 
-    var end = new Coordinate(48.5734, 7.7161); // Strasbourg
+    var end = new Coordinate(53.1887, 0.1334);
 
-    var current = new Coordinate(53.1887, 0.1334); // E of Lincoln
+    var current = new Coordinate(53.2611, -0.7972);
 
-    var geo = new LatLonSpherical();
-
-    double alongTrackDist = geo.AlongTrackDistanceTo(current, start, end);
-
-    Console.WriteLine($"Along-track distance: {alongTrackDist:F2} km"); // Output: Along-track distance: 53.7 km</code></pre>
+    double alongTrackDist = LatLonSpherical.AlongTrackDistance(current, start, end); // 62,331.49 m</code></pre>
   syntax:
-    content: public double AlongTrackDistanceTo(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
+    content: public static double AlongTrackDistance(Coordinate currentPoint, Coordinate startPoint, Coordinate endPoint)
     parameters:
     - id: currentPoint
       type: Deodesy.Library.Coordinate
@@ -634,9 +579,9 @@ items:
       description: The ending coordinate of the great-circle path.
     return:
       type: System.Double
-      description: The along-track distance in kilometers.
-    content.vb: Public Function AlongTrackDistanceTo(currentPoint As Coordinate, startPoint As Coordinate, endPoint As Coordinate) As Double
-  overload: Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo*
+      description: The distance along great circle to point nearest to current point in meters.
+    content.vb: Public Shared Function AlongTrackDistance(currentPoint As Coordinate, startPoint As Coordinate, endPoint As Coordinate) As Double
+  overload: Deodesy.Library.LatLonSpherical.AlongTrackDistance*
   exceptions:
   - type: System.ArgumentNullException
     commentId: T:System.ArgumentNullException
@@ -655,11 +600,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: MaxLatitude
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 431
+    startLine: 426
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -673,15 +618,11 @@ items:
     Negate the result for the minimum latitude (in the Southern Hemisphere).
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0); // London
+    <pre><code class="lang-csharp">var p1 = new Coordinate(51.51, 0.0);
 
-    var geo = new LatLonSpherical();
-
-    double maxLat = geo.MaxLatitude(p1, 90.0); // Bearing East
-
-    Console.WriteLine($"Max Latitude: {maxLat:F2}°"); // Output: Max Latitude: 51.51°</code></pre>
+    double maxLat = LatLonSpherical.MaxLatitude(p1, 90.0); // 51.51°</code></pre>
   syntax:
-    content: public double MaxLatitude(Coordinate startPoint, double bearing)
+    content: public static double MaxLatitude(Coordinate startPoint, double bearing)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -692,7 +633,7 @@ items:
     return:
       type: System.Double
       description: The maximum latitude in degrees.
-    content.vb: Public Function MaxLatitude(startPoint As Coordinate, bearing As Double) As Double
+    content.vb: Public Shared Function MaxLatitude(startPoint As Coordinate, bearing As Double) As Double
   overload: Deodesy.Library.LatLonSpherical.MaxLatitude*
   exceptions:
   - type: System.ArgumentNullException
@@ -715,39 +656,24 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/LatLonSpherical.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: CrossingParallels
     path: src/Deodesy.Library/LatLonSpherical.cs
-    startLine: 468
+    startLine: 453
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Calculates the pair of meridians at which a great circle defined by two points crosses a given latitude.
   example:
   - >-
-    <pre><code class="lang-csharp">var p1 = new Coordinate(0, 0); // Equator, Prime Meridian
+    <pre><code class="lang-csharp">var p1 = new Coordinate(53.3206, -1.7297);
 
-    var p2 = new Coordinate(30, 90); // 30°N, 90°E
+    var p2 = new Coordinate(53.1887, 0.1334);
 
-    var geo = new LatLonSpherical();
-
-    double[]? crossingLons = geo.CrossingParallels(p1, p2, 15); // Find where it crosses 15°N
-
-    if (crossingLons != null)
-
-    {
-        Console.WriteLine($"Crossing Longitudes at 15°N: {crossingLons[0]:F2}°, {crossingLons[1]:F2}°");
-        // Output: Crossing Longitudes at 15°N: 27.65°, 152.35°
-    }
-
-    else
-
-    {
-        Console.WriteLine("Great circle does not cross 15°N.");
-    }</code></pre>
+    double[]? crossingLons = LatLonSpherical.CrossingParallels(p1, p2, 45.5); // 50.4775°S, 32.0812°N</code></pre>
   syntax:
-    content: public double[]? CrossingParallels(Coordinate startPoint, Coordinate endPoint, double latitude)
+    content: public static double[]? CrossingParallels(Coordinate startPoint, Coordinate endPoint, double latitude)
     parameters:
     - id: startPoint
       type: Deodesy.Library.Coordinate
@@ -764,7 +690,7 @@ items:
         An array of two doubles representing the longitudes (in degrees, wrapped to -180 to 180)
 
         of the crossing points, or null if the great circle does not reach the given latitude.
-    content.vb: Public Function CrossingParallels(startPoint As Coordinate, endPoint As Coordinate, latitude As Double) As Double()
+    content.vb: Public Shared Function CrossingParallels(startPoint As Coordinate, endPoint As Coordinate, latitude As Double) As Double()
   overload: Deodesy.Library.LatLonSpherical.CrossingParallels*
   exceptions:
   - type: System.ArgumentNullException
@@ -773,6 +699,255 @@ items:
   nameWithType.vb: LatLonSpherical.CrossingParallels(Coordinate, Coordinate, Double)
   fullName.vb: Deodesy.Library.LatLonSpherical.CrossingParallels(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate, Double)
   name.vb: CrossingParallels(Coordinate, Coordinate, Double)
+- uid: Deodesy.Library.LatLonSpherical.RhumbDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.LatLonSpherical.RhumbDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: RhumbDistance(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  parent: Deodesy.Library.LatLonSpherical
+  langs:
+  - csharp
+  - vb
+  name: RhumbDistance(Coordinate, Coordinate)
+  nameWithType: LatLonSpherical.RhumbDistance(Coordinate, Coordinate)
+  fullName: Deodesy.Library.LatLonSpherical.RhumbDistance(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/LatLonSpherical.cs
+      branch: extend-latlon-spherical
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: RhumbDistance
+    path: src/Deodesy.Library/LatLonSpherical.cs
+    startLine: 500
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Calculates the distance (in meters) between two points along a rhumb line.
+  remarks: See https://www.edwilliams.org/avform.htm#Rhumb
+  example:
+  - >-
+    <pre><code class="lang-csharp">var p1 = new Coordinate(51.127, 1.338);
+
+    var p2 = new Coordinate(50.964, 1.853);
+
+    double distance = LatLonSpherical.RhumbDistance(p1, p2); // 40,307.75 m</code></pre>
+  syntax:
+    content: public static double RhumbDistance(Coordinate startPoint, Coordinate endPoint)
+    parameters:
+    - id: startPoint
+      type: Deodesy.Library.Coordinate
+      description: The starting coordinate.
+    - id: endPoint
+      type: Deodesy.Library.Coordinate
+      description: The ending coordinate.
+    return:
+      type: System.Double
+      description: The distance in meters.
+    content.vb: Public Shared Function RhumbDistance(startPoint As Coordinate, endPoint As Coordinate) As Double
+  overload: Deodesy.Library.LatLonSpherical.RhumbDistance*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">startPoint</code> or <code class="paramref">endPoint</code> is null.
+- uid: Deodesy.Library.LatLonSpherical.RhumbBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.LatLonSpherical.RhumbBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: RhumbBearing(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  parent: Deodesy.Library.LatLonSpherical
+  langs:
+  - csharp
+  - vb
+  name: RhumbBearing(Coordinate, Coordinate)
+  nameWithType: LatLonSpherical.RhumbBearing(Coordinate, Coordinate)
+  fullName: Deodesy.Library.LatLonSpherical.RhumbBearing(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/LatLonSpherical.cs
+      branch: extend-latlon-spherical
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: RhumbBearing
+    path: src/Deodesy.Library/LatLonSpherical.cs
+    startLine: 541
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Calculates the bearing (direction) from a start point to an end point along a rhumb line.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var p1 = new Coordinate(51.127, 1.338);
+
+    var p2 = new Coordinate(50.964, 1.853);
+
+    double bearing = LatLonSpherical.RhumbBearing(p1, p2); // 116.7°</code></pre>
+  syntax:
+    content: public static double? RhumbBearing(Coordinate startPoint, Coordinate endPoint)
+    parameters:
+    - id: startPoint
+      type: Deodesy.Library.Coordinate
+      description: The starting coordinate.
+    - id: endPoint
+      type: Deodesy.Library.Coordinate
+      description: The ending coordinate.
+    return:
+      type: System.Nullable{System.Double}
+      description: The bearing in degrees, in the range 0 to 360. If two points are same, returns null
+    content.vb: Public Shared Function RhumbBearing(startPoint As Coordinate, endPoint As Coordinate) As Double?
+  overload: Deodesy.Library.LatLonSpherical.RhumbBearing*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">startPoint</code> or <code class="paramref">endPoint</code> is null.
+- uid: Deodesy.Library.LatLonSpherical.RhumbDestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
+  commentId: M:Deodesy.Library.LatLonSpherical.RhumbDestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
+  id: RhumbDestinationPoint(Deodesy.Library.Coordinate,System.Double,System.Double)
+  parent: Deodesy.Library.LatLonSpherical
+  langs:
+  - csharp
+  - vb
+  name: RhumbDestinationPoint(Coordinate, double, double)
+  nameWithType: LatLonSpherical.RhumbDestinationPoint(Coordinate, double, double)
+  fullName: Deodesy.Library.LatLonSpherical.RhumbDestinationPoint(Deodesy.Library.Coordinate, double, double)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/LatLonSpherical.cs
+      branch: extend-latlon-spherical
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: RhumbDestinationPoint
+    path: src/Deodesy.Library/LatLonSpherical.cs
+    startLine: 576
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: >-
+    Calculates the destination point and final bearing when traveling along a rhumb line
+
+    for a given start point, initial bearing, and distance.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var p1 = new Coordinate(51.127, 1.338);
+
+    var destPoint = LatLonSpherical.RhumbDestinationPoint(p1, 40300, 116.7); // 50.9642°N, 1.8530°E</code></pre>
+  syntax:
+    content: public static Coordinate RhumbDestinationPoint(Coordinate startPoint, double distance, double bearing)
+    parameters:
+    - id: startPoint
+      type: Deodesy.Library.Coordinate
+      description: The starting coordinate.
+    - id: distance
+      type: System.Double
+      description: The distance to travel in same units as earth radius (meters).
+    - id: bearing
+      type: System.Double
+      description: The initial bearing in degrees from north.
+    return:
+      type: Deodesy.Library.Coordinate
+      description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the destination point.
+    content.vb: Public Shared Function RhumbDestinationPoint(startPoint As Coordinate, distance As Double, bearing As Double) As Coordinate
+  overload: Deodesy.Library.LatLonSpherical.RhumbDestinationPoint*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">startPoint</code> is null.
+  nameWithType.vb: LatLonSpherical.RhumbDestinationPoint(Coordinate, Double, Double)
+  fullName.vb: Deodesy.Library.LatLonSpherical.RhumbDestinationPoint(Deodesy.Library.Coordinate, Double, Double)
+  name.vb: RhumbDestinationPoint(Coordinate, Double, Double)
+- uid: Deodesy.Library.LatLonSpherical.RhumbMidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  commentId: M:Deodesy.Library.LatLonSpherical.RhumbMidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  id: RhumbMidPoint(Deodesy.Library.Coordinate,Deodesy.Library.Coordinate)
+  parent: Deodesy.Library.LatLonSpherical
+  langs:
+  - csharp
+  - vb
+  name: RhumbMidPoint(Coordinate, Coordinate)
+  nameWithType: LatLonSpherical.RhumbMidPoint(Coordinate, Coordinate)
+  fullName: Deodesy.Library.LatLonSpherical.RhumbMidPoint(Deodesy.Library.Coordinate, Deodesy.Library.Coordinate)
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/LatLonSpherical.cs
+      branch: extend-latlon-spherical
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: RhumbMidPoint
+    path: src/Deodesy.Library/LatLonSpherical.cs
+    startLine: 613
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: Calculates the midpoint between two points on the Earth's surface.
+  example:
+  - >-
+    <pre><code class="lang-csharp">var p1 = new Coordinate(51.127, 1.338);
+
+    var p2 = new Coordinate(50.964, 1.853);
+
+    var midpoint = LatLonSpherical.MidPoint(p1, p2); // 51.0455°N, 1.5957°E</code></pre>
+  syntax:
+    content: public static Coordinate RhumbMidPoint(Coordinate startPoint, Coordinate endPoint)
+    parameters:
+    - id: startPoint
+      type: Deodesy.Library.Coordinate
+      description: The starting coordinate.
+    - id: endPoint
+      type: Deodesy.Library.Coordinate
+      description: The ending coordinate.
+    return:
+      type: Deodesy.Library.Coordinate
+      description: A <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object representing the midpoint.
+    content.vb: Public Shared Function RhumbMidPoint(startPoint As Coordinate, endPoint As Coordinate) As Coordinate
+  overload: Deodesy.Library.LatLonSpherical.RhumbMidPoint*
+  exceptions:
+  - type: System.ArgumentNullException
+    commentId: T:System.ArgumentNullException
+    description: Thrown if <code class="paramref">startPoint</code> or <code class="paramref">endPoint</code> is null.
+- uid: Deodesy.Library.LatLonSpherical.Area(Deodesy.Library.Coordinate[])
+  commentId: M:Deodesy.Library.LatLonSpherical.Area(Deodesy.Library.Coordinate[])
+  id: Area(Deodesy.Library.Coordinate[])
+  parent: Deodesy.Library.LatLonSpherical
+  langs:
+  - csharp
+  - vb
+  name: Area(Coordinate[])
+  nameWithType: LatLonSpherical.Area(Coordinate[])
+  fullName: Deodesy.Library.LatLonSpherical.Area(Deodesy.Library.Coordinate[])
+  type: Method
+  source:
+    remote:
+      path: src/Deodesy.Library/LatLonSpherical.cs
+      branch: extend-latlon-spherical
+      repo: git@github.com:vitiligo610/Deodesy.git
+    id: Area
+    path: src/Deodesy.Library/LatLonSpherical.cs
+    startLine: 651
+  assemblies:
+  - Deodesy.Library
+  namespace: Deodesy.Library
+  summary: >-
+    Calculates the area of a spherical polygon where the sides of the polygon are great circle
+
+    arcs joining the vertices.
+  remarks: >-
+    Uses method due to Karney: https://geographiclib.sourceforge.io/html/js/geographiclib-geodesic_src_PolygonArea.js.html
+
+    (Karney's method is probably more efficient than the more widely known L’Huilier’s Theorem)
+  example:
+  - >-
+    <pre><code class="lang-csharp">double area = LatLonSpherical.Area(
+        new Coordinate[] { new Coordinate(  0, 0), new Coordinate(1, 0), new Coordinate(0, 1) }
+    ); // 6.18e9 m²</code></pre>
+  syntax:
+    content: public static double Area(Coordinate[] polygon)
+    parameters:
+    - id: polygon
+      type: Deodesy.Library.Coordinate[]
+      description: Array of coordinates defining vertices of the polygon.
+    return:
+      type: System.Double
+      description: The area of the polygon in the same units as radius (meters).
+    content.vb: Public Shared Function Area(polygon As Coordinate()) As Double
+  overload: Deodesy.Library.LatLonSpherical.Area*
+  nameWithType.vb: LatLonSpherical.Area(Coordinate())
+  fullName.vb: Deodesy.Library.LatLonSpherical.Area(Deodesy.Library.Coordinate())
+  name.vb: Area(Coordinate())
 references:
 - uid: Deodesy.Library
   commentId: N:Deodesy.Library
@@ -1064,18 +1239,69 @@ references:
   nameWithType.vb: Double
   fullName.vb: Double
   name.vb: Double
-- uid: Deodesy.Library.LatLonSpherical.DistanceInNm*
-  commentId: Overload:Deodesy.Library.LatLonSpherical.DistanceInNm
-  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_DistanceInNm_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
-  name: DistanceInNm
-  nameWithType: LatLonSpherical.DistanceInNm
-  fullName: Deodesy.Library.LatLonSpherical.DistanceInNm
-- uid: Deodesy.Library.LatLonSpherical.Bearing*
-  commentId: Overload:Deodesy.Library.LatLonSpherical.Bearing
-  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_Bearing_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
-  name: Bearing
-  nameWithType: LatLonSpherical.Bearing
-  fullName: Deodesy.Library.LatLonSpherical.Bearing
+- uid: Deodesy.Library.LatLonSpherical.DistanceNm*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.DistanceNm
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_DistanceNm_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: DistanceNm
+  nameWithType: LatLonSpherical.DistanceNm
+  fullName: Deodesy.Library.LatLonSpherical.DistanceNm
+- uid: Deodesy.Library.LatLonSpherical.InitialBearing*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.InitialBearing
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_InitialBearing_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: InitialBearing
+  nameWithType: LatLonSpherical.InitialBearing
+  fullName: Deodesy.Library.LatLonSpherical.InitialBearing
+- uid: System.Nullable{System.Double}
+  commentId: T:System.Nullable{System.Double}
+  parent: System
+  definition: System.Nullable`1
+  href: https://learn.microsoft.com/dotnet/api/system.double
+  name: double?
+  nameWithType: double?
+  fullName: double?
+  nameWithType.vb: Double?
+  fullName.vb: Double?
+  name.vb: Double?
+  spec.csharp:
+  - uid: System.Double
+    name: double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
+  spec.vb:
+  - uid: System.Double
+    name: Double
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: '?'
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.nullable-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
 - uid: Deodesy.Library.LatLonSpherical.FinalBearing*
   commentId: Overload:Deodesy.Library.LatLonSpherical.FinalBearing
   href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_FinalBearing_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
@@ -1088,36 +1314,36 @@ references:
   name: MidPoint
   nameWithType: LatLonSpherical.MidPoint
   fullName: Deodesy.Library.LatLonSpherical.MidPoint
-- uid: Deodesy.Library.LatLonSpherical.Intermediate*
-  commentId: Overload:Deodesy.Library.LatLonSpherical.Intermediate
-  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_Intermediate_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_System_Double_
-  name: Intermediate
-  nameWithType: LatLonSpherical.Intermediate
-  fullName: Deodesy.Library.LatLonSpherical.Intermediate
-- uid: Deodesy.Library.LatLonSpherical.Intersection*
-  commentId: Overload:Deodesy.Library.LatLonSpherical.Intersection
-  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_Intersection_Deodesy_Library_Coordinate_System_Double_Deodesy_Library_Coordinate_System_Double_
-  name: Intersection
-  nameWithType: LatLonSpherical.Intersection
-  fullName: Deodesy.Library.LatLonSpherical.Intersection
-- uid: Deodesy.Library.LatLonSpherical.Destination*
-  commentId: Overload:Deodesy.Library.LatLonSpherical.Destination
-  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_Destination_Deodesy_Library_Coordinate_System_Double_System_Double_
-  name: Destination
-  nameWithType: LatLonSpherical.Destination
-  fullName: Deodesy.Library.LatLonSpherical.Destination
+- uid: Deodesy.Library.LatLonSpherical.IntermediatePoint*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.IntermediatePoint
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_IntermediatePoint_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_System_Double_
+  name: IntermediatePoint
+  nameWithType: LatLonSpherical.IntermediatePoint
+  fullName: Deodesy.Library.LatLonSpherical.IntermediatePoint
+- uid: Deodesy.Library.LatLonSpherical.DestinationPoint*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.DestinationPoint
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_DestinationPoint_Deodesy_Library_Coordinate_System_Double_System_Double_
+  name: DestinationPoint
+  nameWithType: LatLonSpherical.DestinationPoint
+  fullName: Deodesy.Library.LatLonSpherical.DestinationPoint
+- uid: Deodesy.Library.LatLonSpherical.IntersectionPoint*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.IntersectionPoint
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_IntersectionPoint_Deodesy_Library_Coordinate_System_Double_Deodesy_Library_Coordinate_System_Double_
+  name: IntersectionPoint
+  nameWithType: LatLonSpherical.IntersectionPoint
+  fullName: Deodesy.Library.LatLonSpherical.IntersectionPoint
 - uid: Deodesy.Library.LatLonSpherical.CrossTrackDistance*
   commentId: Overload:Deodesy.Library.LatLonSpherical.CrossTrackDistance
   href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_CrossTrackDistance_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
   name: CrossTrackDistance
   nameWithType: LatLonSpherical.CrossTrackDistance
   fullName: Deodesy.Library.LatLonSpherical.CrossTrackDistance
-- uid: Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo*
-  commentId: Overload:Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo
-  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_AlongTrackDistanceTo_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
-  name: AlongTrackDistanceTo
-  nameWithType: LatLonSpherical.AlongTrackDistanceTo
-  fullName: Deodesy.Library.LatLonSpherical.AlongTrackDistanceTo
+- uid: Deodesy.Library.LatLonSpherical.AlongTrackDistance*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.AlongTrackDistance
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_AlongTrackDistance_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: AlongTrackDistance
+  nameWithType: LatLonSpherical.AlongTrackDistance
+  fullName: Deodesy.Library.LatLonSpherical.AlongTrackDistance
 - uid: Deodesy.Library.LatLonSpherical.MaxLatitude*
   commentId: Overload:Deodesy.Library.LatLonSpherical.MaxLatitude
   href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_MaxLatitude_Deodesy_Library_Coordinate_System_Double_
@@ -1151,5 +1377,56 @@ references:
     name: Double
     isExternal: true
     href: https://learn.microsoft.com/dotnet/api/system.double
+  - name: (
+  - name: )
+- uid: Deodesy.Library.LatLonSpherical.RhumbDistance*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.RhumbDistance
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_RhumbDistance_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: RhumbDistance
+  nameWithType: LatLonSpherical.RhumbDistance
+  fullName: Deodesy.Library.LatLonSpherical.RhumbDistance
+- uid: Deodesy.Library.LatLonSpherical.RhumbBearing*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.RhumbBearing
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_RhumbBearing_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: RhumbBearing
+  nameWithType: LatLonSpherical.RhumbBearing
+  fullName: Deodesy.Library.LatLonSpherical.RhumbBearing
+- uid: Deodesy.Library.LatLonSpherical.RhumbDestinationPoint*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.RhumbDestinationPoint
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_RhumbDestinationPoint_Deodesy_Library_Coordinate_System_Double_System_Double_
+  name: RhumbDestinationPoint
+  nameWithType: LatLonSpherical.RhumbDestinationPoint
+  fullName: Deodesy.Library.LatLonSpherical.RhumbDestinationPoint
+- uid: Deodesy.Library.LatLonSpherical.RhumbMidPoint*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.RhumbMidPoint
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_RhumbMidPoint_Deodesy_Library_Coordinate_Deodesy_Library_Coordinate_
+  name: RhumbMidPoint
+  nameWithType: LatLonSpherical.RhumbMidPoint
+  fullName: Deodesy.Library.LatLonSpherical.RhumbMidPoint
+- uid: Deodesy.Library.LatLonSpherical.Area*
+  commentId: Overload:Deodesy.Library.LatLonSpherical.Area
+  href: Deodesy.Library.LatLonSpherical.html#Deodesy_Library_LatLonSpherical_Area_Deodesy_Library_Coordinate___
+  name: Area
+  nameWithType: LatLonSpherical.Area
+  fullName: Deodesy.Library.LatLonSpherical.Area
+- uid: Deodesy.Library.Coordinate[]
+  isExternal: true
+  href: Deodesy.Library.Coordinate.html
+  name: Coordinate[]
+  nameWithType: Coordinate[]
+  fullName: Deodesy.Library.Coordinate[]
+  nameWithType.vb: Coordinate()
+  fullName.vb: Deodesy.Library.Coordinate()
+  name.vb: Coordinate()
+  spec.csharp:
+  - uid: Deodesy.Library.Coordinate
+    name: Coordinate
+    href: Deodesy.Library.Coordinate.html
+  - name: '['
+  - name: ']'
+  spec.vb:
+  - uid: Deodesy.Library.Coordinate
+    name: Coordinate
+    href: Deodesy.Library.Coordinate.html
   - name: (
   - name: )

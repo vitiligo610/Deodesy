@@ -21,11 +21,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Extensions
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 7
+    startLine: 5
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -59,11 +59,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToFixed
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 21
+    startLine: 19
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -72,7 +72,7 @@ items:
   - >-
     <pre><code class="lang-csharp">double num = 123.45678;
 
-    Console.WriteLine(num.ToFixed(2)); // Output: 123.46</code></pre>
+    Console.WriteLine(num.ToFixed(2)); // 123.46</code></pre>
   syntax:
     content: public static double ToFixed(this double value, int dp = 2)
     parameters:
@@ -105,11 +105,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToRadians
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 34
+    startLine: 32
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -118,7 +118,7 @@ items:
   - >-
     <pre><code class="lang-csharp">double degrees = 90;
 
-    Console.WriteLine(degrees.ToRadians()); // Output: 1.5707963267948966 (PI/2)</code></pre>
+    Console.WriteLine(degrees.ToRadians()); // 1.5707963267948966 (PI/2)</code></pre>
   syntax:
     content: public static double ToRadians(this double value)
     parameters:
@@ -148,11 +148,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToDegrees
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 47
+    startLine: 45
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
@@ -161,7 +161,7 @@ items:
   - >-
     <pre><code class="lang-csharp">double radians = Math.PI / 2;
 
-    Console.WriteLine(radians.ToDegrees()); // Output: 90</code></pre>
+    Console.WriteLine(radians.ToDegrees()); // 90</code></pre>
   syntax:
     content: public static double ToDegrees(this double value)
     parameters:
@@ -191,20 +191,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap90
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 60
+    startLine: 58
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
   summary: Wraps a degree value to the range -90 to +90, typically used for latitude.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(91.0.Wrap90());  // Output: 89
+    <pre><code class="lang-csharp">Console.WriteLine(91.0.Wrap90());  // 89
 
-    Console.WriteLine((-91.0).Wrap90()); // Output: -89</code></pre>
+    Console.WriteLine((-91.0).Wrap90()); // -89</code></pre>
   syntax:
     content: public static double Wrap90(this double value)
     parameters:
@@ -234,20 +234,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap180
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 73
+    startLine: 71
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
   summary: Wraps a degree value to the range -180 to +180, typically used for longitude.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(181.0.Wrap180());  // Output: -179
+    <pre><code class="lang-csharp">Console.WriteLine(181.0.Wrap180());  // -179
 
-    Console.WriteLine((-181.0).Wrap180()); // Output: 179</code></pre>
+    Console.WriteLine((-181.0).Wrap180()); // 179</code></pre>
   syntax:
     content: public static double Wrap180(this double value)
     parameters:
@@ -277,20 +277,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Helpers/Extensions.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap360
     path: src/Deodesy.Library/Helpers/Extensions.cs
-    startLine: 86
+    startLine: 84
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library.Helpers
   summary: Wraps a degree value to the range 0 to 360, typically used for bearings.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(361.0.Wrap360()); // Output: 1
+    <pre><code class="lang-csharp">Console.WriteLine(361.0.Wrap360()); // 1
 
-    Console.WriteLine((-1.0).Wrap360());  // Output: 359</code></pre>
+    Console.WriteLine((-1.0).Wrap360());  // 359</code></pre>
   syntax:
     content: public static double Wrap360(this double value)
     parameters:

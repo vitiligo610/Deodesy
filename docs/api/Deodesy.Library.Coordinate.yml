@@ -24,11 +24,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Coordinate
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 8
+    startLine: 7
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -59,11 +59,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Latitude
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 24
+    startLine: 23
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -75,7 +75,7 @@ items:
   - >-
     <pre><code class="lang-csharp">var coord = new Coordinate(95, 0);
 
-    Console.WriteLine(coord.Latitude); // Output: 85</code></pre>
+    Console.WriteLine(coord.Latitude); // 85° N</code></pre>
   syntax:
     content: public double Latitude { get; set; }
     parameters: []
@@ -97,11 +97,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Longitude
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 40
+    startLine: 39
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -113,7 +113,7 @@ items:
   - >-
     <pre><code class="lang-csharp">var coord = new Coordinate(0, 185);
 
-    Console.WriteLine(coord.Longitude); // Output: 182.5</code></pre>
+    Console.WriteLine(coord.Longitude); // 182.5° E</code></pre>
   syntax:
     content: public double Longitude { get; set; }
     parameters: []
@@ -135,20 +135,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: .ctor
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 57
+    startLine: 56
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Initializes a new instance of the <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> class.
   example:
   - >-
-    <pre><code class="lang-csharp">var coord1 = new Coordinate(); // Latitude: 0, Longitude: 0
+    <pre><code class="lang-csharp">var coord1 = new Coordinate(); // 0° N, 0° E
 
-    var coord2 = new Coordinate(30, -120); // Latitude: 30, Longitude: -120</code></pre>
+    var coord2 = new Coordinate(30, -120); // 30° N, 120° W</code></pre>
   syntax:
     content: public Coordinate(double latitude = 0, double longitude = 0)
     parameters:
@@ -177,11 +177,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LatitudeR
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 72
+    startLine: 71
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -190,7 +190,7 @@ items:
   - >-
     <pre><code class="lang-csharp">var coord = new Coordinate(90, 0);
 
-    Console.WriteLine(coord.LatitudeR); // Output: 1.5707963267948966 (PI/2)</code></pre>
+    Console.WriteLine(coord.LatitudeR); // 1.5707963267948966 (PI/2)</code></pre>
   syntax:
     content: public double LatitudeR { get; }
     parameters: []
@@ -212,11 +212,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: LongitudeR
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 83
+    startLine: 82
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -225,7 +225,7 @@ items:
   - >-
     <pre><code class="lang-csharp">var coord = new Coordinate(0, 180);
 
-    Console.WriteLine(coord.LongitudeR); // Output: 3.141592653589793 (PI)</code></pre>
+    Console.WriteLine(coord.LongitudeR); // 3.141592653589793 (PI)</code></pre>
   syntax:
     content: public double LongitudeR { get; }
     parameters: []
@@ -247,11 +247,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: op_Equality
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 91
+    startLine: 90
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -288,11 +288,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: op_Inequality
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 100
+    startLine: 99
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -329,11 +329,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Equals
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 119
+    startLine: 118
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -368,11 +368,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Coordinate.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: GetHashCode
     path: src/Deodesy.Library/Coordinate.cs
-    startLine: 131
+    startLine: 130
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library

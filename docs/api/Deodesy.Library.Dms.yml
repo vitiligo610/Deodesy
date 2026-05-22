@@ -26,7 +26,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Dms
     path: src/Deodesy.Library/Dms.cs
@@ -63,7 +63,7 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: DmsSeparator
     path: src/Deodesy.Library/Dms.cs
@@ -97,22 +97,17 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToCoordinate
     path: src/Deodesy.Library/Dms.cs
-    startLine: 30
+    startLine: 28
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Returns a <xref href="Deodesy.Library.Coordinate" data-throw-if-not-resolved="false"></xref> object by parsing strings of latitude and longitude in DMS format.
   example:
-  - >-
-    <pre><code class="lang-csharp">var coord = Dms.ToCoordinate("53°08′45″N", "001°50′00″W");
-
-    Console.WriteLine($"Latitude: {coord.Latitude}, Longitude: {coord.Longitude}");
-
-    // Output: Latitude: 53.145833333333336, Longitude: -1.8333333333333333</code></pre>
+  - <pre><code class="lang-csharp">var coord = Dms.ToCoordinate("51°28′40.37″ N", "000°00′05.29″ W"); // 51.4779°N, 0.0015°W</code></pre>
   syntax:
     content: public static Coordinate ToCoordinate(string latDms, string lonDms)
     parameters:
@@ -148,11 +143,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Parse
     path: src/Deodesy.Library/Dms.cs
-    startLine: 60
+    startLine: 58
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -163,11 +158,11 @@ items:
     suffixed by compass direction (NSEW); a variety of separators are accepted.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.Parse("53°08′45″N")); // Output: 53.145833333333336
+    <pre><code class="lang-csharp">var lat = Dms.Parse("51° 28′ 40.37″ N");
 
-    Console.WriteLine(Dms.Parse("3 37 12W"));   // Output: -3.62
+    var lon = Dms.Parse("000° 00′ 05.29″ W");
 
-    Console.WriteLine(Dms.Parse("-120.5"));     // Output: -120.5</code></pre>
+    var p1 = new Coordinate(lat, lon); // 51.4779°N, 0.0015°W</code></pre>
   syntax:
     content: public static double Parse(string dms)
     parameters:
@@ -200,11 +195,11 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToDms
     path: src/Deodesy.Library/Dms.cs
-    startLine: 131
+    startLine: 129
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
@@ -215,11 +210,11 @@ items:
     direction is added. Degrees are zero-padded to 3 digits.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToDms(53.145833, "dms", 0)); // Output: 053° 008´ 045"
+    <pre><code class="lang-csharp">var s1 = Dms.ToDms(53.145833, "dms", 0); // 053° 008´ 045"
 
-    Console.WriteLine(Dms.ToDms(53.145833, "dm", 2));  // Output: 053° 008.75′
+    var s2 = Dms.ToDms(53.145833, "dm", 2);  // 053° 008.75′
 
-    Console.WriteLine(Dms.ToDms(53.145833, "d", 4));   // Output: 053.1458°</code></pre>
+    var s3 = Dms.ToDms(53.145833, "d", 4);   // 053.1458°</code></pre>
   syntax:
     content: public static string ToDms(double deg, string format = "d", int dp = 2)
     parameters:
@@ -254,20 +249,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToLat
     path: src/Deodesy.Library/Dms.cs
-    startLine: 185
+    startLine: 198
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Converts numeric degrees to deg/min/sec latitude format (2-digit degrees, suffixed with N/S).
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToLat(53.145833, "dms", 0));  // Output: 053° 008′ 045″ N
+    <pre><code class="lang-csharp">var lat1 = Dms.ToLat(53.145833, "dms", 0); // 053° 008′ 045″ N
 
-    Console.WriteLine(Dms.ToLat(-25.1234, "dm", 2));   // Output: 025° 007.40′ S</code></pre>
+    var lat2 = Dms.ToLat(-25.1234, "dm", 2);   // 025° 007.40′ S</code></pre>
   syntax:
     content: public static string ToLat(double deg, string format = "d", int dp = 2)
     parameters:
@@ -302,20 +297,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToLon
     path: src/Deodesy.Library/Dms.cs
-    startLine: 203
+    startLine: 216
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Converts numeric degrees to deg/min/sec longitude format (3-digit degrees, suffixed with E/W).
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToLon(-1.833333, "dms", 0)); // Output: 001° 050′ 000″ W
+    <pre><code class="lang-csharp">var lon1 = Dms.ToLon(-1.833333, "dms", 0); // 001° 050′ 000″ W
 
-    Console.WriteLine(Dms.ToLon(150.7654, "dm", 2));  // Output: 150° 045.92′ E</code></pre>
+    var lon2 = Dms.ToLon(150.7654, "dm", 2);   // 150° 045.92′ E</code></pre>
   syntax:
     content: public static string ToLon(double deg, string format = "d", int dp = 2)
     parameters:
@@ -350,20 +345,20 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: ToBearing
     path: src/Deodesy.Library/Dms.cs
-    startLine: 221
+    startLine: 234
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Converts numeric degrees to deg/min/sec as a bearing (0°..360°).
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.ToBearing(270.5, "dms", 0)); // Output: 270° 030´ 000"
+    <pre><code class="lang-csharp">var brng1 = Dms.ToBearing(270.5, "dms", 0); // 270° 030´ 000"
 
-    Console.WriteLine(Dms.ToBearing(-45, "d"));       // Output: 337.5°</code></pre>
+    var brng2 = Dms.ToBearing(-45, "d", 2);     // 315.00°</code></pre>
   syntax:
     content: public static string ToBearing(double deg, string format = "d", int dp = 2)
     parameters:
@@ -398,24 +393,24 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: CompassPoint
     path: src/Deodesy.Library/Dms.cs
-    startLine: 241
+    startLine: 254
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Returns the compass point (to a given precision) for a supplied bearing.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.CompassPoint(0));    // Output: N
+    <pre><code class="lang-csharp">var cp1 = Dms.CompassPoint(0);      // N
 
-    Console.WriteLine(Dms.CompassPoint(22.5)); // Output: NNE
+    var cp2 = Dms.CompassPoint(22.5);   // NNE
 
-    Console.WriteLine(Dms.CompassPoint(90));   // Output: E
+    var cp3 = Dms.CompassPoint(90);     // E
 
-    Console.WriteLine(Dms.CompassPoint(315, 1)); // Output: N</code></pre>
+    var cp4 = Dms.CompassPoint(315, 1); // N</code></pre>
   syntax:
     content: public static string CompassPoint(double bearing, int precision = 3)
     parameters:
@@ -451,22 +446,22 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap90
     path: src/Deodesy.Library/Dms.cs
-    startLine: 276
+    startLine: 289
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Constrains degrees to the range -90..+90 (for latitude) using a general sawtooth wave function.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap90(91));  // Output: 89
+    <pre><code class="lang-csharp">var d1 = Dms.Wrap90(91);  // 89
 
-    Console.WriteLine(Dms.Wrap90(-91)); // Output: -89
+    var d2 = Dms.Wrap90(-91); // -89
 
-    Console.WriteLine(Dms.Wrap90(180)); // Output: 0</code></pre>
+    var d3 = Dms.Wrap90(180); // 0</code></pre>
   syntax:
     content: public static double Wrap90(double degrees)
     parameters:
@@ -495,22 +490,22 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap180
     path: src/Deodesy.Library/Dms.cs
-    startLine: 302
+    startLine: 315
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Constrains degrees to the range -180..+180 (for longitude) using a general sawtooth wave function.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap180(181));  // Output: 180.5
+    <pre><code class="lang-csharp">var d1 = Dms.Wrap180(181);  // -179
 
-    Console.WriteLine(Dms.Wrap180(-181)); // Output: -0.5
+    var d2 = Dms.Wrap180(-181); // 179
 
-    Console.WriteLine(Dms.Wrap180(360));  // Output: -90</code></pre>
+    var d3 = Dms.Wrap180(360);  // 0</code></pre>
   syntax:
     content: public static double Wrap180(double degrees)
     parameters:
@@ -539,22 +534,22 @@ items:
   source:
     remote:
       path: src/Deodesy.Library/Dms.cs
-      branch: main
+      branch: extend-latlon-spherical
       repo: git@github.com:vitiligo610/Deodesy.git
     id: Wrap360
     path: src/Deodesy.Library/Dms.cs
-    startLine: 328
+    startLine: 341
   assemblies:
   - Deodesy.Library
   namespace: Deodesy.Library
   summary: Constrains degrees to the range 0..360 (for bearings) using a general sawtooth wave function.
   example:
   - >-
-    <pre><code class="lang-csharp">Console.WriteLine(Dms.Wrap360(361)); // Output: 180.5
+    <pre><code class="lang-csharp">var d1 = Dms.Wrap360(361); // 1
 
-    Console.WriteLine(Dms.Wrap360(-1));  // Output: 359.5
+    var d2 = Dms.Wrap360(-1);  // 359
 
-    Console.WriteLine(Dms.Wrap360(0));   // Output: 0</code></pre>
+    var d3 = Dms.Wrap360(0);   // 0</code></pre>
   syntax:
     content: public static double Wrap360(double degrees)
     parameters:
