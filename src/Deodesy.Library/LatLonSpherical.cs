@@ -631,4 +631,80 @@ public class LatLonSpherical
 
         return new Coordinate(lat.ToDegrees(), lon.ToDegrees());
     }
+
+    /// <summary>
+    /// Calculates the area of a spherical polygon where the sides of the polygon are great circle
+    /// arcs joining the vertices.
+    /// </summary>
+    /// <remarks>
+    /// Uses method due to Karney: https://osgeo-org.1560.x6.nabble.com/Area-of-a-spherical-polygon-td3841625.html
+    /// (Karney's method is probably more efficient than the more widely known L’Huilier’s Theorem) 
+    /// </remarks>
+    /// <param name="polygon">Array of coordinates defining vertices of the polygon.</param>
+    /// <returns>The area of the polygon in the same units as radius (meters).</returns>
+    /// <example>
+    /// <code>
+    /// double area = LatLonSpherical.Area(
+    ///     new Coordinate[] { new Coordinate(  0, 0), new Coordinate(1, 0), new Coordinate(0, 1) }
+    /// ); // 6.18e9 m²
+    /// </code>
+    /// </example>
+    public static double Area(Coordinate[] polygon)
+    {
+        // for each edge of the polygon, tan(E/2) = tan(Δλ/2)·(tan(φ₁/2)+tan(φ₂/2)) / (1+tan(φ₁/2)·tan(φ₂/2))
+        // where E is the spherical excess of the trapezium obtained by extending the edge to the equator
+
+        if (polygon.Length < 3) return 0;
+        
+        double total = 0;
+        int crossings = 0;
+
+        for (int i = 0; i < polygon.Length; i++)
+        {
+            var p1 = polygon[i];
+            var p2 = polygon[(i + 1) % polygon.Length];
+
+            double deltaLon = NormalizeLongitude(p2.LongitudeR - p1.LongitudeR);
+
+            // Karney-style trapezium excess accumulation
+            double tanPart = Math.Tan(deltaLon / 2.0) * (Math.Tan(p1.LatitudeR / 2.0) + Math.Tan(p2.LatitudeR / 2.0));
+
+            double denom = 1.0 + Math.Tan(p1.LatitudeR / 2.0) * Math.Tan(p2.LatitudeR / 2.0);
+
+            double E = 2.0 * Math.Atan2(tanPart, denom);
+
+            total += E;
+
+            crossings += PrimeMeridianCrossing(p1.Longitude, p2.Longitude);
+        }
+
+        // Normalize area depending on winding
+        if (crossings % 2 == 0) return Math.Abs(total) * EarthRadiusMeters * EarthRadiusMeters;
+        if (total < 0) total += 2 * Math.PI;
+        else total -= 2 * Math.PI;
+
+        return Math.Abs(total) * EarthRadiusMeters * EarthRadiusMeters;
+    }
+
+    private static int PrimeMeridianCrossing(double lon1, double lon2)
+    {
+        if ((lon1 < 0 && lon2 >= 0) || (lon2 < 0 && lon1 >= 0))
+        {
+            double d = lon2 - lon1;
+
+            if (d > 180) return -1;
+
+            if (d < -180) return 1;
+        }
+
+        return 0;
+    }
+
+    private static double NormalizeLongitude(double longitude)
+    {
+        while (longitude > Math.PI) longitude -= 2 * Math.PI;
+        while (longitude < -Math.PI) longitude += 2 * Math.PI;
+        
+        return longitude;
+    }
 }
